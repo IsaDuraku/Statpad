@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query
 from app.models.news import News
-from app.scrapers.telegrafi import scrape_sport_articles, save_to_db
+from app.scrapers.news.news import scrape_sport_articles, save_to_db
 from app.database import SessionLocal
 
 router = APIRouter(
@@ -9,13 +9,11 @@ router = APIRouter(
 )
 
 
-@router.get("/scrape/{num_pages}")
-async def scrape(num_pages: int):
-    if num_pages <= 0:
-        return {"error": "Invalid number of pages"}
+@router.get("/scrape")
+async def scrape():
     db = SessionLocal()
     try:
-        scraped_data = scrape_sport_articles(num_pages)
+        scraped_data = scrape_sport_articles()
         save_to_db(scraped_data.get("articles", []), db)
         return {"message": scraped_data}
     except Exception as e:
@@ -24,7 +22,7 @@ async def scrape(num_pages: int):
         db.close()
 
 
-@router.get("/news")
+@router.get("")
 def read_news(q:str=Query(None)):
     db = SessionLocal()
     if q:
