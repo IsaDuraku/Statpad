@@ -22,7 +22,7 @@ async def scrape():
         db.close()
 
 
-@router.get("")
+@router.get("/newsdata")
 def read_news(q:str=Query(None)):
     db = SessionLocal()
     if q:
