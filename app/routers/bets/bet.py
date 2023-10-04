@@ -20,7 +20,7 @@ def scrape_and_save_to_db():
     except Exception as e:
         return HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
 
-@router.get("")
+@router.get("/betsdata")
 def bets_data(q: str = Query(None)):
     db = SessionLocal()
     if q:
