@@ -9,7 +9,7 @@ from app.routers import standing
 from app.routers.scrapers_schedulers import scheduler
 from app.routers.bets import bet
 from app.routers.news import news
-from app.routers import livestream
+from app.routers.livestream_links import livestream
 from app.routers.highlights import highlights
 from app.routers import standing
 
