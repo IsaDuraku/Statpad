@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from app.routers import user_routes
 from app.routers.bets import bet
 from app.routers.news import news
-from app.routers import livestream
+from app.routers.livestream_links import livestream
 from app.routers.highlights import highlights
 
 app = FastAPI()
