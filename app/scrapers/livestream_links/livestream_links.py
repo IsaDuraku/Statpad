@@ -6,7 +6,8 @@ from app.models.livestream_links import Livestream_links
 from sqlalchemy import delete
 
 
-def scrape_webpage(url):
+def scrape_webpage():
+    url = 'https://sportsonline.gl/'
     # Send an HTTP GET request to the URL to retrieve the webpage content
     response = requests.get(url)
     # Check if the request was successful (status code 200)
@@ -15,7 +16,6 @@ def scrape_webpage(url):
         response.encoding = 'utf-8'
         soup = BeautifulSoup(response.text, 'lxml')
 
-        # Find the <body> tag
         body_tag = soup.text.split("\n")[:110]  # Split every line individually
 
         # Initialize a list to store the extracted lines
@@ -37,7 +37,6 @@ def scrape_webpage(url):
                     # Split the line at both | and - symbols
                     parts = re.split(r'\t(.*?)\s*\|\s*', line)
                     parts = [p.strip() for p in parts if p.strip()]  # Remove leading/trailing spaces
-                    # extracted_lines.append(parts)
                     # Check if there are at least three elements in parts
                     if len(parts) >= 3:
                         line_dict = {
@@ -52,13 +51,6 @@ def scrape_webpage(url):
                         print("Skipping line:", line)
 
             return extracted_matches
-
-        # Print the extracted mathces
-        # for line_dict in extracted_matches:
-        #     print("Line:", line_dict)
-        # else:
-        #     print("Failed to retrieve the webpage. Status code:", response.status_code)
-
 
 def delete_all_links(session):
     # Delete all records from the Livestream_links table
@@ -80,9 +72,3 @@ def insert_links_into_database(extracted_matches, session):
         session.add(new_match)
     session.commit()
 
-# if __name__ == '__main__':
-#     # Input the URL of the webpage you want to process
-#     webpage_url = 'https://sportsonline.gl/'
-#
-#     # Call the function to process the webpage
-#     process_webpage(webpage_url)

@@ -14,6 +14,7 @@ from app.routers.highlights import highlights
 from app.routers import standing
 
 
+
 app = FastAPI()
 
 app.include_router(user_routes.router, prefix="/api")
@@ -28,7 +29,7 @@ def hello():
 
 
 app.include_router(news.router)
-app.include_router(livestream.router, prefix="/livestream", tags=["livestream"])
+app.include_router(livestream.router)
 app.include_router(highlights.router)
 app.include_router(standing.router)
 
