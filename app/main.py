@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from app.routers import user_routes
-
+from app.routers.matches import matches
 from app.routers.scrapers_schedulers import scheduler
 from app.routers.bets import bet
 from app.routers.news import news
@@ -26,6 +26,7 @@ app.include_router(news.router)
 app.include_router(livestream.router)
 app.include_router(highlights.router)
 app.include_router(standing.router)
+app.include_router(matches.router)
 
 
 @app.on_event("startup")

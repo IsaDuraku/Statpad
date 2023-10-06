@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import datetime
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, func
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from app.models.matches import LiveSoccerScores,TomorrowSoccerScores
