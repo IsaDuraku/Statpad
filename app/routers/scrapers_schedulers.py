@@ -14,4 +14,3 @@ def bets_scrape():
     requests.get(
         url="http://localhost:8080/bets/scrapebets"
     )
-
