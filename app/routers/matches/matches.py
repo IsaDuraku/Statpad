@@ -11,41 +11,12 @@ router = APIRouter(
 )
 
 @router.get("/scrape-scores/")
-def scrape_and_save_live_scores(date: str):
+def scrape_and_save_live_scores(date:  Optional[str] = None):
     try:
         scrape_and_store_soccer_scores(date)
         return {"message": f"Live soccer scores for {date} scraped and saved successfully!"}
     except Exception as e:
         return HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
-# @router.get("/scores/{date}")
-# def get_scores_by_date(date: str = Query(None, title="Date of scores")):
-#     if date is None:
-#         date = datetime.now().strftime("%Y-%m-%d")
-#
-#     db = SessionLocal()
-#     live_scores = db.query(LiveSoccerScores).filter(LiveSoccerScores.match_date == date).all()
-#     tomorrow_matches = db.query(LiveSoccerScores).filter(LiveSoccerScores.match_date == tomorrow_date).all()
-#     tomorrow_scores = db.query(TomorrowSoccerScores).filter(TomorrowSoccerScores.match_date == tomorrow_date).all()
-#     db.close()
-#     return {"live_scores": live_scores,""}
-
-# @router.get("/scores/{date}")
-# def get_scores_by_date(date: Optional[str] = None):
-#     if date is None:
-#         date = datetime.now().strftime("%Y-%m-%d")
-#
-#     db = SessionLocal()
-#
-#     # Query both tables for scores on the specified date
-#     live_scores = db.query(LiveSoccerScores).filter(LiveSoccerScores.match_date == date).all()
-#     tomorrow_scores = db.query(TomorrowSoccerScores).filter(TomorrowSoccerScores.match_date == date).all()
-#
-#     db.close()
-#
-#     return {"live_scores": live_scores, "tomorrow_scores": tomorrow_scores}
-
-
-
 
 @router.get("/scores/")
 def get_scores_by_date(date: Optional[str] = None):
