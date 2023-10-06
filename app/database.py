@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from app.models.user import Base
+from app.models.matches import Base
 from fastapi import FastAPI
 from decouple import config
 
@@ -16,5 +16,3 @@ Base.metadata.create_all(bind=engine)
 
 # Create a session for database operations
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-

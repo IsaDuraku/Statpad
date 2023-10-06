@@ -9,6 +9,7 @@ from app.routers.livestream_links import livestream
 from app.routers.highlights import highlights
 from app.routers import standing
 
+
 app = FastAPI()
 
 app.include_router(user_routes.router, prefix="/api")
