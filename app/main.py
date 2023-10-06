@@ -8,8 +8,9 @@ from app.routers.news import news
 from app.routers.livestream_links import livestream
 from app.routers.highlights import highlights
 from app.routers import standing
-from routers.players import players
->>>>>>> Stashed changes
+from app.routers.players import players
+
+
 
 app = FastAPI()
 
@@ -28,14 +29,12 @@ app.include_router(livestream.router)
 app.include_router(highlights.router)
 app.include_router(standing.router)
 app.include_router(matches.router)
-
+app.include_router(players.router)
 
 @app.on_event("startup")
 async def startup():
     scheduler.start()
-=======
-app.include_router(players.router)
->>>>>>> Stashed changes
+
 
 
 if __name__ == "__main__":
