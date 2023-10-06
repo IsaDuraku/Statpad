@@ -14,9 +14,3 @@ def bets_scrape():
     requests.get(
         url="http://localhost:8080/bets/scrapebets"
     )
-
-@scheduler.scheduled_job()
-def links_scrape():
-    requests.get(
-        url="http://localhost:8080/Livestream_links/scrape-and-insert"
-    )
