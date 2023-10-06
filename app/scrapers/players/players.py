@@ -17,12 +17,12 @@ def scrape_players(league_name, num_pages=1, max_players=15):
     base_url = base_urls.get(league_name)
 
     if base_url is None:
-        return []  # Return an empty list if the league name is not found
+        return []  
 
     all_players = []
     rank = 0
 
-    print(f"Scraping data for {league_name} from URL: {base_url}")  # Add this line
+    print(f"Scraping data for {league_name} from URL: {base_url}")  
 
     response = requests.get(base_url, headers=headers)
 
@@ -76,7 +76,6 @@ def scrape_players(league_name, num_pages=1, max_players=15):
 
     return all_players
 
-# Rest of your code...
 
 
 def save_player_data_to_db(player_data_list, session, league_name):
@@ -93,11 +92,10 @@ def save_player_data_to_db(player_data_list, session, league_name):
             league_name=league_name,
         )
 
-        # Check if a player with the same name already exists in the database
         existing_player = session.query(Player).filter_by(player_name=new_player.player_name).first()
 
         if existing_player:
-            continue  # Skip adding duplicate players
+            continue  
 
         session.add(new_player)
 
