@@ -15,6 +15,7 @@ from app.routers import standing
 
 
 
+
 app = FastAPI()
 
 app.include_router(user_routes.router, prefix="/api")
