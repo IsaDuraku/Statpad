@@ -1,6 +1,5 @@
 import uvicorn
 from fastapi import FastAPI
-<<<<<<< Updated upstream
 from app.routers import user_routes
 from app.routers.matches import matches
 from app.routers.scrapers_schedulers import scheduler
@@ -9,13 +8,6 @@ from app.routers.news import news
 from app.routers.livestream_links import livestream
 from app.routers.highlights import highlights
 from app.routers import standing
-
-=======
-from routers import user_routes
-from routers.bets import bet
-from routers.news import news
-from routers import livestream
-from routers.highlights import highlights
 from routers.players import players
 >>>>>>> Stashed changes
 
@@ -34,7 +26,6 @@ def hello():
 app.include_router(news.router)
 app.include_router(livestream.router)
 app.include_router(highlights.router)
-<<<<<<< Updated upstream
 app.include_router(standing.router)
 app.include_router(matches.router)
 

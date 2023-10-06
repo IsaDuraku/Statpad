@@ -1,10 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-<<<<<<< Updated upstream
 from app.models.matches import Base
-=======
-from models.news import Base
->>>>>>> Stashed changes
 from fastapi import FastAPI
 from decouple import config
 
