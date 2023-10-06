@@ -1,5 +1,4 @@
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
+from fastapi import APIRouter
 from app.scrapers.livestream_links.livestream_links import scrape_webpage, insert_links_into_database
 from app.database import SessionLocal
 from app.models.livestream_links import Livestream_links
