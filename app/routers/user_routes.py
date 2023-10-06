@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.models.user import UserCreate, UserRead, DBUser
+from app.models.user import UserCreate, UserDB, UserInDB
+from app.models.auth import Token, TokenData
 from app.database import SessionLocal
+from app.routers.security import create_access_token, get_password_hash, verify_password
 
 router = APIRouter()
 
@@ -13,17 +15,33 @@ def get_db():
     finally:
         db.close()
 
-@router.post("/users/", response_model=UserCreate)
-def create_user(user: UserCreate, db: Session = Depends(get_db)):
-    db_user = DBUser(**user.dict())  # Create a DBUser object from the UserCreate data
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-    return db_user
+@router.post("/register/", response_model=UserInDB)
+def register_user(user: UserCreate, db: Session = Depends(get_db)):
+    db_user = db.query(UserDB).filter(UserDB.username == user.username).first()
+    if db_user:
+        raise HTTPException(status_code=400, detail="Username already registered")
+    
+    hashed_password = get_password_hash(user.password)
+    
 
-@router.get("/users/{user_id}", response_model=UserRead)  # Use UserRead model
-def read_user(user_id: int, db: Session = Depends(get_db)):
-    db_user = db.query(DBUser).filter(DBUser.id == user_id).first()
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
-    return db_user
+    user_dict = user.dict(exclude={"password"})
+    
+    user_db = UserDB(**user_dict, password=hashed_password)
+    
+    db.add(user_db)
+    db.commit()
+    db.refresh(user_db)
+    
+    return user_db
+
+@router.post("/login/", response_model=Token)
+def login_user(user_credentials: UserCreate, db: Session = Depends(get_db)):
+    username = user_credentials.username
+    password = user_credentials.password
+
+    db_user = db.query(UserDB).filter(UserDB.username == username).first()
+    if db_user is None or not verify_password(password, db_user.password):
+        raise HTTPException(status_code=401, detail="Incorrect username or password")
+    
+    access_token = create_access_token(data={"sub": db_user.username})
+    return {"access_token": access_token, "token_type": "bearer"}

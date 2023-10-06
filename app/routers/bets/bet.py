@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query
 from app.models.bet import Bets
-from app.scrapers.bet import scrape_bet,save_to_db
+from app.scrapers.bets.bet import scrape_bet,save_to_db
 from app.database import SessionLocal
 
 router=APIRouter(
@@ -20,7 +20,7 @@ def scrape_and_save_to_db():
     except Exception as e:
         return HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
 
-@router.get("/bets")
+@router.get("/betsdata")
 def bets_data(q: str = Query(None)):
     db = SessionLocal()
     if q:
