@@ -1,10 +1,11 @@
-import jwt
+from jose import jwt
 from datetime import datetime, timedelta
 from fastapi import HTTPException
 from passlib.context import CryptContext
+import secrets
 
 # Secret key for token signing (keep this secret)
-SECRET_KEY = "your-secret-key"
+SECRET_KEY = "ede2ac3b38a9bdc5d90eb58c9e379f34cd18c8ffafa3b254c3879f15b8039f05"
 
 # Algorithm to use for token signing
 ALGORITHM = "HS256"
@@ -33,3 +34,8 @@ def get_password_hash(password: str) -> str:
 # Function to verify a password
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
+
+
+
+def generate_verification_token():
+    return secrets.token_urlsafe(32)
