@@ -22,7 +22,7 @@ app.include_router(news.router)
 app.include_router(livestream.router)
 app.include_router(highlights.router)
 app.include_router(standing.router)
-# app.include_router(matches.router)
+app.include_router(matches.router)
 
 
 @app.on_event("startup")
