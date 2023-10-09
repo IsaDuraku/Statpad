@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.models.matches import Base
+from app.models.user import Base
 from fastapi import FastAPI
 from decouple import config
 

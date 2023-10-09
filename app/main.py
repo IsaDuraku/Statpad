@@ -8,8 +8,6 @@ from app.routers.news import news
 from app.routers.livestream_links import livestream
 from app.routers.highlights import highlights
 from app.routers import standing
-from app.routers.players import players
-
 
 
 app = FastAPI()
@@ -19,22 +17,17 @@ app.include_router(bet.router)
 app.include_router(standing.router)
 
 
-@app.get('/')
-def hello():
-    return {'message': 'hello'}
-
 
 app.include_router(news.router)
 app.include_router(livestream.router)
 app.include_router(highlights.router)
 app.include_router(standing.router)
 app.include_router(matches.router)
-app.include_router(players.router)
+
 
 @app.on_event("startup")
 async def startup():
     scheduler.start()
-
 
 
 if __name__ == "__main__":
