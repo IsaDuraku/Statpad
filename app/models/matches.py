@@ -33,4 +33,15 @@ class TomorrowSoccerScores(Base):
     match_date = Column(DateTime)
     date_scraped = Column(DateTime)
 
+class MatchesPydantic(BaseModel):
+    league:str
+    round:str
+    home_team :str
+    home_team_img :str
+    away_team :str
+    away_team_img :str
+    score : str
+    match_date : str
+    date_scraped : str
+
 
