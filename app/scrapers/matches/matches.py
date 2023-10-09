@@ -1,23 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 import datetime
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-from app.models.matches import LiveSoccerScores,TomorrowSoccerScores
-
-Base = declarative_base()
-
-
-
-database_url = 'postgresql://postgres:1234@localhost:5432/soccer'
-engine = create_engine(database_url)
-Base.metadata.create_all(engine)
-
-Session = sessionmaker(bind=engine)
-session = Session()
+from app.models.matches import LiveSoccerScores, TomorrowSoccerScores
+from app.database import SessionLocal  # Importing the database session
 
 def scrape_and_store_soccer_scores(date):
+    session = SessionLocal()  # Creating a database session
+
     url = f'https://www.besoccer.com/livescore/{date}'
     try:
         data_get = requests.get(url)
@@ -57,12 +46,14 @@ def scrape_and_store_soccer_scores(date):
                         "match_date": date,
                     }
                     if match_is_live(match_data):
-                        save_to_live_scores_table(match_data)
+                        save_to_live_scores_table(match_data, session)
                     elif match_is_tomorrow(match_data):
-                        save_to_tomorrow_scores_table(match_data)
+                        save_to_tomorrow_scores_table(match_data, session)
         print(f"Soccer scores for {date} scraped and stored successfully.")
     except requests.exceptions.RequestException as e:
         print("Error:", e)
+    finally:
+        session.close()  # Close the database session when done
 
 def match_is_live(match_data):
     current_date = datetime.date.today()
@@ -74,7 +65,7 @@ def match_is_tomorrow(match_data):
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
     return match_date == tomorrow
 
-def save_to_live_scores_table(match_data):
+def save_to_live_scores_table(match_data, session):
     existing_match = session.query(LiveSoccerScores).filter(
         LiveSoccerScores.match_date == match_data["match_date"],
         LiveSoccerScores.home_team == match_data["home_team"],
@@ -104,7 +95,7 @@ def save_to_live_scores_table(match_data):
         session.add(live_score)
     session.commit()
 
-def save_to_tomorrow_scores_table(match_data):
+def save_to_tomorrow_scores_table(match_data, session):
     existing_match = session.query(TomorrowSoccerScores).filter(
         TomorrowSoccerScores.match_date == match_data["match_date"],
         TomorrowSoccerScores.home_team == match_data["home_team"],
@@ -138,5 +129,7 @@ if __name__ == "__main__":
     today = datetime.date.today()
     tomorrow = today + datetime.timedelta(days=1)
 
+    # Scrape and store soccer scores for today and tomorrow
     scrape_and_store_soccer_scores(today.strftime("%Y-%m-%d"))
     scrape_and_store_soccer_scores(tomorrow.strftime("%Y-%m-%d"))
+
