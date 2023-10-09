@@ -20,7 +20,7 @@ def bets_scrape():
     )
 
 
-@scheduler.scheduled_job("interval", minutes=360)
+@scheduler.scheduled_job("interval", hours=360)
 def link_scrape():
     requests.get(
         url="http://localhost:8080//livestream_scraper/scrape-and-insert"
