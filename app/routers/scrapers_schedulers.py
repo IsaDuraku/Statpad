@@ -1,5 +1,9 @@
 import requests
 from apscheduler.schedulers.background import BackgroundScheduler
+from datetime import datetime, timedelta
+from app.database import SessionLocal
+from app.models.user import UserDB
+
 
 scheduler = BackgroundScheduler()
 
@@ -16,9 +20,26 @@ def bets_scrape():
     )
 
 
-
-@scheduler.scheduled_job("interval", hour=6)
+@scheduler.scheduled_job("interval", minutes=360)
 def link_scrape():
     requests.get(
         url="http://localhost:8080//livestream_scraper/scrape-and-insert"
     )
+
+
+def delete_unverified_users():
+    try:
+        db = SessionLocal()
+        cutoff_time = datetime.utcnow() - timedelta(days=3)
+        db.query(UserDB).filter(UserDB.is_verified == False, UserDB.created_at <= cutoff_time).delete()
+        db.commit()
+    finally:
+        db.close()
+
+scheduler.add_job(
+    delete_unverified_users,
+    trigger="interval",
+    days=1,
+    start_date=datetime.now() + timedelta(seconds=10),  
+)
+
