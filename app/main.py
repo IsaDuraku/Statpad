@@ -14,7 +14,7 @@ from app.routers import standing
 app = FastAPI()
 
 templates = Jinja2Templates(directory="templates")
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/app/static", StaticFiles(directory="app/static"), name="static")
 
 
 app.include_router(user_routes.router, prefix="/api")
