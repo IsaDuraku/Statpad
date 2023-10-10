@@ -1,5 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
+from starlette.staticfiles import StaticFiles
+from starlette.templating import Jinja2Templates
 from app.routers import user_routes
 from app.routers.matches import matches
 from app.routers.scrapers_schedulers import scheduler
@@ -11,14 +13,16 @@ from app.routers import standing
 
 app = FastAPI()
 
+templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
 app.include_router(user_routes.router, prefix="/api")
 app.include_router(bet.router)
-app.include_router(standing.router)
-
 app.include_router(news.router)
+app.include_router(standing.router)
 app.include_router(livestream.router)
 app.include_router(highlights.router)
-app.include_router(standing.router)
 app.include_router(matches.router)
 
 
