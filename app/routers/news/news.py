@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query,Request
+from fastapi.templating import Jinja2Templates
 from app.models.news import News
 from app.scrapers.news.news import scrape_sport_articles, save_to_db
 from app.database import SessionLocal
@@ -7,6 +8,7 @@ router = APIRouter(
     prefix='/sportnews',
     tags=['sportnews']
 )
+templates=Jinja2Templates(directory='templates')
 
 
 @router.get("/scrape")
@@ -17,8 +19,6 @@ async def scrape():
         save_to_db(scraped_data.get("articles", []), db)
         return {"message": scraped_data}
     except Exception as e:
-        return {"error": f"Error saving data to the database: {str(e)}"}
-    finally:
         db.close()
 
 
