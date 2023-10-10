@@ -60,7 +60,7 @@ def save_to_db(results, session):
             odds_2= result['odds_2'],
             date_scraped=datetime.now()
         )
-        if session.query(Bets).filter_by(date=Bets.date).first():
+        if session.query(Bets).filter_by(date=result['date']).first():
             continue
         session.add(new_bets)
     session.commit()
