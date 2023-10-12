@@ -1,0 +1,52 @@
+.navbar-main {
+  background: rgb(56, 189, 140);
+  background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
+  padding-right: 40px;
+  height: 80px;
+.logo {
+width:100%;
+height:inherit;
+height: 80px;
+margin-top: 44px;
+
+}
+
+.navbar-collapse {
+  display: none;
+ }
+
+.navbar-main.stiky .navbar-brand > img {
+    width: 100%;
+    height: inherit;
+    margin-top: 5px;
+ }
+.animationload {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999999;
+    background: rgb(56, 189, 140);
+    background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
+
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -100px;
+  width: 200px;
+  height: 200px;
+  background-image: url("../images/logoloader.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: spin 2s linear infinite;
+}
+
