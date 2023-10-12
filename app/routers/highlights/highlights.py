@@ -1,7 +1,12 @@
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Request
+from fastapi.templating import Jinja2Templates
 from app.models.highlights import HighlightsDB
 from app.scrapers.highlights.highlights import highlights_scraped, insert_data_into_database
 from app.database import SessionLocal
+
+
+
+templates = Jinja2Templates(directory="templates")
 
 router = APIRouter(
     prefix='/highlights',
@@ -29,3 +34,13 @@ def highlights_data(q: str = Query(None)):
         highlights = db.query(HighlightsDB).all()
     db.close()
     return highlights
+
+@router.get('/view')
+def highlights_view(request:Request):
+    db = SessionLocal()
+    hg = db.query(HighlightsDB).all()
+
+    return templates.TemplateResponse('highlights.html', {'request':request, 'hg': hg})
+
+
+
