@@ -18,11 +18,12 @@
         <nav class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="index.html">HOME</a></li>
-                    <li><a href="news.html">NEWS</a></li>
+                    <li><a href="{{url_for('view_news')}}">NEWS</a></li>
+                    <li><a href="{{url_for('view_bets')}}">BETS</a></li>
                     <li><a href="matches.html">RESULTS</a></li>
                     <li><a href="standings.html">STANDINGS</a></li>
 					<li><a href="players.html">STATS</a></li>
-					<li class="active"><a href="highlights.html">HIGHLIGHTS</a></li>
+					<li ><a href="{{url_for('highlights_view')}}">HIGHLIGHTS</a></li>
 					<li><a href="livestreams.html">LIVESTREAMS</a></li>
                     <li><a href="about.html">ABOUT</a></li>
 				</ul>

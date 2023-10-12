@@ -14,7 +14,7 @@ def scrape_bet():
 
     for row in table.find_all('tr'):
 
-        bets=[]
+        bets = []
         header = row.find('th', class_='lgtit')
         if header:
             liga_text = ' - '.join(a.text.strip() for a in header.find_all('a'))
@@ -30,6 +30,15 @@ def scrape_bet():
                 odds_x = columns[6].text.strip()
                 odds_2 = columns[7].text.strip()
 
+                # Check and clean odds values
+                try:
+                    odds_1 = float(odds_1)
+                    odds_x = float(odds_x)
+                    odds_2 = float(odds_2)
+                except ValueError:
+                    # Handle the case where odds values are not valid numbers
+                    continue
+
                 bets.append({
                     'liga': liga,
                     'date': date,
@@ -41,7 +50,7 @@ def scrape_bet():
                 })
             result.extend(bets)
 
-    return {'bets':result}
+    return {'bets': result}
 
 
 
