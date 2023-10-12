@@ -1,8 +1,9 @@
 .navbar-main {
-  background: rgb(56, 189, 140);
-  background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
-  padding-right: 40px;
-  height: 80px;
+    background: rgb(56, 189, 140);
+    background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
+    padding-right: 40px;
+
+}
 .logo {
 width:100%;
 height:inherit;
@@ -10,11 +11,6 @@ height: 80px;
 margin-top: 44px;
 
 }
-
-.navbar-collapse {
-  display: none;
- }
-
 .navbar-main.stiky .navbar-brand > img {
     width: 100%;
     height: inherit;
@@ -49,4 +45,3 @@ margin-top: 44px;
   background-repeat: no-repeat;
   animation: spin 2s linear infinite;
 }
-
