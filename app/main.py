@@ -7,6 +7,7 @@ from app.routers.matches import matches
 from app.routers.scrapers_schedulers import scheduler
 from app.routers.bets import bet
 from app.routers.news import news
+from app.routers.players import players
 from app.routers.livestream_links import livestream
 from app.routers.highlights import highlights
 from app.routers import standing
@@ -18,6 +19,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 app.include_router(user_routes.router, prefix="/api")
+app.include_router(players.router)
 app.include_router(bet.router)
 app.include_router(news.router)
 app.include_router(standing.router)

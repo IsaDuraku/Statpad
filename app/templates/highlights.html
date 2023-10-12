@@ -26,40 +26,51 @@
 
 
 
-		<!-- YOUR CODE -->
+<!-- YOUR CODE -->
 <div class="container">
-  <div class="row">
-    {% for i in hg[:15] %}
-      <div class="col-md-4">
-        <div class="highlight-box">
-          <iframe width="100%" height="315" src="{{ i.video_link }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <div class="card-body">
-            <h5 class="card-title">{{ i.match_name }}</h5>
-            <p class="card-text">{{ i.competition }}</p>
-            <p class="card-text">{{ i.date }}</p>
-          </div>
-        </div>
-      </div>
-      {% if loop.index0 in [2, 5, 8, 11] or loop.last %}
-      </div>
-      <div class="row">
-      {% endif %}
-    {% endfor %}
-  </div>
-</div>
+    <div class="row">
+        {% set items_per_page = 12 %}
+        {% set current_page = 1 %} {# Change this based on the current page number #}
 
+        {% for i in hg[(current_page - 1) * items_per_page : current_page * items_per_page] %}
+            <div class="col-md-4">
+                <div class="highlight-box">
+                    <iframe width="100%" height="315" src="{{ i.video_link }}" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.match_name }}</h5>
+                        <p class="card-text">{{ i.competition }}</p>
+                        <p class="card-text">{{ i.date }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 <!-- Pagination -->
 <div class="container">
-  <ul class="pagination">
-    <li class="page-item disabled"><span class="page-link">Previous</span></li>
-    <li class="page-item active"><span class="page-link">1</span></li>
-	  <li class="page-item active"><span class="page-link">2</span></li>
-	  <li class="page-item active"><span class="page-link">3</span></li>
-	  <li class="page-item active"><span class="page-link">4</span></li>
-    <!-- Add more page items as needed -->
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-  </ul>
+    <ul class="pagination">
+        {% set total_highlights = hg | length %}
+        {% set total_pages = (total_highlights / items_per_page) | int + (total_highlights % items_per_page > 0) %}
+
+        {# Previous Page Link #}
+        <li class="page-item {% if current_page == 1 %}disabled{% endif %}">
+            <a class="page-link" href="{% if current_page > 1 %}?page={{ current_page - 1 }}{% endif %}">Previous</a>
+        </li>
+
+        {# Page Links #}
+        {% for page in range(1, total_pages + 1) %}
+            <li class="page-item {% if current_page == page %}active{% endif %}">
+                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+
+        {# Next Page Link #}
+        <li class="page-item {% if current_page == total_pages %}disabled{% endif %}">
+            <a class="page-link" href="{% if current_page < total_pages %}?page={{ current_page + 1 }}{% endif %}">Next</a>
+        </li>
+    </ul>
 </div>
 
 {% include "footer.html" %}
