@@ -1,0 +1,67 @@
+.section.singlepage{
+    /*background: rgb(56, 189, 140);*/
+    background-color: #fff;
+}
+tbody {
+    display: table-row-group;
+    border-color: inherit;
+    background: #f0ad4e;
+}
+th{
+    padding: 10px;
+    border: 1px solid #252525;
+    color: #000000;
+    font-size: 28px;
+    font-family: "Georgia", serif;
+    background: rgb(56, 189, 140);
+    background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
+}
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-width: 1px 0 0 1px;
+    margin: 0 0 1.5em;
+    width: 100%;
+
+    padding-left: 300px;
+    padding-right: 300px;
+}
+td {
+    text-align: left;
+    vertical-align: middle;
+    padding: 10px;
+    font-family: "Georgia", serif;
+    color: #000000; /* Dark Blue */
+    font-size: 28px;
+    border: 1px solid #252525;
+
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+
+}
+.linkz{
+    font-family: "Georgia", serif; /* Dark Blue */
+    font-size: 25px;
+    horiz-align: center;
+    display: inline-block;
+    padding: 5px 10px;
+    background: rgb(56, 189, 140);
+    background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 20px; /* Adjust the value to control the roundness */
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+.subbanner {
+  background-image: url('https://www.prodirectsport.com/-/media/prodirect/project/en/soccer/list-page-banners---fredhopper/equipment/footballs/puma/fh-d-puma-efl-ball-020523.jpg'); /* Replace 'your-image-url.jpg' with the URL of your image */
+  background-size: cover;
+  background-position: center;
+  color: #fff; /* Text color */
+  text-align: right;
+  padding: 0px 0; /* Adjust the padding as needed */
+}
