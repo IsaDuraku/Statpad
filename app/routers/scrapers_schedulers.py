@@ -40,6 +40,6 @@ scheduler.add_job(
     delete_unverified_users,
     trigger="interval",
     days=1,
-    start_date=datetime.now() + timedelta(seconds=10),  
+    start_date=datetime.now() + timedelta(seconds=10),
 )
 

@@ -1,9 +1,11 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 from app.scrapers.livestream_links.primary_site import scrape_webpage, insert_links_into_database
 from app.scrapers.livestream_links.backup_site import insert_links_into_database_backup
 from app.scrapers.livestream_links.backup_site import scrape_and_store_links
 from app.database import SessionLocal
 from app.models.livestream_links import Livestream_links
+from fastapi.templating import Jinja2Templates
+from collections import defaultdict
 
 
 router = APIRouter(
@@ -11,7 +13,7 @@ router = APIRouter(
     tags=['Livestream_links']
 )
 
-
+templates = Jinja2Templates(directory="templates")
 @router.get("/scrape-and-insert")
 async def scrape_and_insert():
     db = SessionLocal()
@@ -34,9 +36,20 @@ async def scrape_and_insert():
 
     return {"message": "Scraping and inserting completed"}
 #ndreqe qeto posht
-@router.get("/get-links-fromDb")
-async def get_matches():
+@router.get("/livestream_links")
+async def show_livestream_links(request: Request):
     db = SessionLocal()
     matches = db.query(Livestream_links).all()
-    return matches
+
+    # Sort matches by time, with smaller times coming first
+    matches.sort(key=lambda match: match.time)
+
+    # Group matches with the same match name
+    match_groups = defaultdict(list)
+    for match in matches:
+        match_groups[match.match].append(match)
+
+    return templates.TemplateResponse("livestreams.html", {"request": request, "match_groups": match_groups})
+
+
 
