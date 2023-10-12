@@ -27,19 +27,19 @@ def link_scrape():
     )
 
 
-# def delete_unverified_users():
-#     try:
-#         db = SessionLocal()
-#         cutoff_time = datetime.utcnow() - timedelta(days=3)
-#         db.query(UserDB).filter(UserDB.is_verified == False, UserDB.created_at <= cutoff_time).delete()
-#         db.commit()
-#     finally:
-#         db.close()
-#
-# scheduler.add_job(
-#     delete_unverified_users,
-#     trigger="interval",
-#     days=1,
-#     start_date=datetime.now() + timedelta(seconds=10),
-# )
+def delete_unverified_users():
+    try:
+        db = SessionLocal()
+        cutoff_time = datetime.utcnow() - timedelta(days=3)
+        db.query(UserDB).filter(UserDB.is_verified == False, UserDB.created_at <= cutoff_time).delete()
+        db.commit()
+    finally:
+        db.close()
+
+scheduler.add_job(
+    delete_unverified_users,
+    trigger="interval",
+    days=1,
+    start_date=datetime.now() + timedelta(seconds=10),
+)
 
