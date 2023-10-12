@@ -23,12 +23,13 @@ def scrape_sport_articles():
             link = news_item.select_one('.news-list__headline-link')['href']
             timestamp = news_item.select_one('.label__timestamp').get_text(strip=True)
             image_url = news_item.find('img', class_='news-list__image')['data-src']
-
+            context=news_item.find('p',class_='news-list__snippet').get_text(strip=True)
             news_articles.append({
                 'title': title,
                 'link': link,
                 'image_url':image_url,
                 'timestamp': timestamp,
+                'context':context
             })
             result.extend(news_articles)
 
@@ -50,6 +51,7 @@ def save_to_db(results, session):
             url=result["link"],
             image_url=result['image_url'],
             dateposted=result['timestamp'],
+            context=result['context'],
             date_scraped=datetime.now()
         )
 
