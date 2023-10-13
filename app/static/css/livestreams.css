@@ -5,7 +5,7 @@
 tbody {
     display: table-row-group;
     border-color: inherit;
-    background: #f0ad4e;
+    background: #79ddb7;
 }
 th{
     padding: 10px;
@@ -13,8 +13,7 @@ th{
     color: #000000;
     font-size: 28px;
     font-family: "Georgia", serif;
-    background: rgb(56, 189, 140);
-    background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
+    background:	#ff7c74;
 }
 table {
     border-collapse: separate;
@@ -45,17 +44,16 @@ tr {
 }
 .linkz{
     font-family: "Georgia", serif; /* Dark Blue */
-    font-size: 25px;
+    font-size: 21px;
     horiz-align: center;
-    display: inline-block;
+    display: inline-flex;
     padding: 5px 10px;
-    background: rgb(56, 189, 140);
-    background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
-    color: #fff;
-    text-decoration: none;
+    background:#f4bd63;
+    color: #000000;
     border-radius: 20px; /* Adjust the value to control the roundness */
     transition: background-color 0.3s;
     cursor: pointer;
+    margin:2px 0;
 }
 .subbanner {
   background-image: url('https://www.prodirectsport.com/-/media/prodirect/project/en/soccer/list-page-banners---fredhopper/equipment/footballs/puma/fh-d-puma-efl-ball-020523.jpg'); /* Replace 'your-image-url.jpg' with the URL of your image */
