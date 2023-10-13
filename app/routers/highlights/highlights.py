@@ -40,11 +40,25 @@ def highlights_data(q: str = Query(None)):
     return highlights
 
 @router.get('/view')
-def highlights_view(request:Request):
+def highlights_view(request: Request, page: int = 1, items_per_page: int = 12):
     db = SessionLocal()
-    hg = db.query(HighlightsDB).all()
 
-    return templates.TemplateResponse('highlights.html', {'request':request, 'hg': hg})
+    offset = (page - 1) * items_per_page
 
+    hg = db.query(HighlightsDB).offset(offset).limit(items_per_page).all()
 
+    total_highlights = db.query(HighlightsDB).count()
+    total_pages = (total_highlights + items_per_page - 1) // items_per_page
+
+    # Calculate page numbers for pagination
+    page_numbers = range(1, total_pages + 1)
+
+    return templates.TemplateResponse('highlights.html',
+                                      {
+                                          'request': request,
+                                          'hg': hg,
+                                          'total_pages': total_pages,
+                                          'current_page': page,
+                                          'page_numbers': page_numbers
+                                      })
 
