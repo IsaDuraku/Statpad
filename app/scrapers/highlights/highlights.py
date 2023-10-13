@@ -3,7 +3,7 @@ import requests
 import re
 from datetime import datetime, timedelta
 from app.models.highlights import HighlightsDB
-
+from sqlalchemy import desc
 
 
 
@@ -128,15 +128,18 @@ def insert_data_into_database(session, highlights_data):
     try:
         if highlights_data:
             for entry in highlights_data:
-                # Check if the record already exists in the database
                 existing_record = session.query(HighlightsDB).filter_by(
                     match_name=entry["match_name"]
                 ).first()
-                
+
                 if not existing_record:
                     highlights_db = HighlightsDB(**entry)
                     session.add(highlights_db)
             session.commit()
+
+            sorted_data = session.query(HighlightsDB).order_by(desc(HighlightsDB.date)).all()
+
+            return sorted_data
 
     except Exception as e:
         session.rollback()

@@ -39,6 +39,7 @@ def highlights_data(q: str = Query(None)):
     db.close()
     return highlights
 
+
 @router.get('/view')
 def highlights_view(request: Request, page: int = 1, items_per_page: int = 12):
     db = SessionLocal()
@@ -61,4 +62,8 @@ def highlights_view(request: Request, page: int = 1, items_per_page: int = 12):
                                           'current_page': page,
                                           'page_numbers': page_numbers
                                       })
+
+
+
+
 
