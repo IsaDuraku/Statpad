@@ -5,7 +5,8 @@
 tbody {
     display: table-row-group;
     border-color: inherit;
-    background: #79ddb7;
+    background: rgb(56, 189, 140);
+
 }
 th{
     padding: 10px;
@@ -14,8 +15,11 @@ th{
     font-size: 28px;
     font-family: "Georgia", serif;
     background:	#ff7c74;
+
+
 }
 table {
+    padding-top: 10px;
     border-collapse: separate;
     border-spacing: 0;
     border-width: 1px 0 0 1px;
@@ -62,4 +66,8 @@ tr {
   color: #fff; /* Text color */
   text-align: right;
   padding: 0px 0; /* Adjust the padding as needed */
+}
+.container{
+
+
 }

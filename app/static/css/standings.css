@@ -1,56 +1,89 @@
 /*********************** Element Selector **********************/
+/*.leagues{*/
+/*        align-items: center;*/
+/*        justify-content: center; !* Center horizontally *!*/
+/*        display: flex;*/
+/*}*/
+/*.ligtable{*/
+/*        background-color: #3498db; !* Set your desired background color *!*/
+/*        color: #fff; !* Set text color *!*/
+/*        border: 2px solid #3498db; !* Set border color and width *!*/
+/*        padding: 5px 10px; !* Adjust padding as needed *!*/
+/*        text-decoration: none; !* Remove underline style for links *!*/
+/*        border-radius: 5px;*/
+/*        margin: 5px;*/
+/*        cursor: pointer;*/
+/*        text-align: left;*/
+/*        vertical-align: middle;*/
+/*        display: inline-block;*/
+/*        justify-content: center; !* Center horizontally *!*/
+/*        align-items: center;*/
 
-body {
-    background-color: #1d1d1d;
-    color: white;
-    padding: 0;
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+/*    }*/
+/*body {*/
+/*    background-color: white;*/
+/*    color: white;*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*    font-family: Arial, Helvetica, sans-serif;*/
+
+/*}*/
+h1{
+    color: black;
+    font-size: 25px;
+    padding-bottom: 10px;
 }
 
-main {
-    box-sizing: border-box;
-    max-width: 750px;
-    max-height: 600px;
-  overflow : auto;
-    border: solid 1px;
-    border-radius: 1%;
-    border-color: #27292f;
-    margin: 0;
-    padding: 0;
-}
+/*main {*/
+/*    box-sizing: border-box;*/
+/*    max-width: 750px;*/
+/*    max-height: 600px;*/
+/*    overflow : auto;*/
+/*    border-radius: 1%;*/
+/*    border-color: black;*/
+/*}*/
+/*th{*/
+/*    padding-right: 10px;*/
+/*}*/
+/*td{*/
+/*    padding-right: 15px;*/
+/*    border-right: 2px solid #000000;*/
 
-hr {
-    border-style: none;
-    margin: 0;
-    padding: 0;
-}
+/*}*/
+/*hr {*/
+/*    border-style: none;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
 
-table, tr {
-    font-weight: normal;
-    width: 730px;
-    border: none;
-    border-collapse: collapse;
-}
+/*table {*/
+/*    font-weight: normal;*/
+/*    width: 730px;*/
+/*    border: 2px;*/
 
-table {
-    margin-top: 0;
-    padding-top: 0;
-  border-left: none;
-  overflow: auto
-}
+/*    text-align: left;*/
+/*    vertical-align: middle;*/
+/*    color: #000000;*/
+/*    background: #79ddb7;*/
+/*}*/
 
-/* create a table with no vertical borders
-https://stackoverflow.com/questions/11237204/table-with-no-vertical-cell-borders */
 
-tr {
-    border-bottom: 1px solid #27292f;
-    border-collapse: collapse;
-    font-size: 14px;
-    height: 40px;
-    position: relative;
-    left: 14px;
-}
+/*!* create a table with no vertical borders*/
+/*https://stackoverflow.com/questions/11237204/table-with-no-vertical-cell-borders *!*/
+
+/*tr {*/
+/*    border: 2px solid #000000;*/
+/*    border-collapse: collapse;*/
+/*    font-size: 17px;*/
+/*    height: 30px;*/
+/*    position: relative;*/
+/*    left: 14px;*/
+/*    display: table-row;*/
+/*    vertical-align: inherit;*/
+
+/*}*/
+
+
 
 
 
@@ -60,6 +93,7 @@ tr {
 .table-container {
     position: relative;
     left: 100px;
+    font-weight: bold;
 }
 
 .table-head-container {
@@ -277,3 +311,83 @@ tr {
   padding: 0px 0; /* Adjust the padding as needed */
 }
 
+
+/* Reset some default styles */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Style the header and navbar (assuming they exist in the included files) */
+header {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+
+/* Style the subbanner */
+
+.caption {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+/* Style the league links */
+.leagues {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.ligtable {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #333;
+  padding: 10px 20px;
+  border: 2px solid #333;
+  border-radius: 5px;
+}
+
+/* Style the league tables */
+.table-container {
+  display: none;
+    padding-bottom: 20px;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 8px;
+  text-align: center;
+
+}
+
+th {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Add some hover effect for the league links */
+.ligtable:hover {
+  background-color: #333;
+  color: #fff;
+  transition: 0.3s;
+}
+
+/* Footer styles (modify as needed) */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+}
