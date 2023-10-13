@@ -1,13 +1,18 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from app.models.user import User, UserDB, UserInDB
-from app.models.auth import Token, TokenData
+from app.models.auth import Token
 from app.database import SessionLocal
-from app.routers.security import create_access_token, get_password_hash, verify_password, generate_verification_token
+from app.routers.security import create_access_token, get_password_hash, verify_password, \
+    generate_verification_token
 import smtplib
 from email.mime.text import MIMEText
+from fastapi.templating import Jinja2Templates
 
 router = APIRouter()
+
+templates = Jinja2Templates(directory="templates")
+
 
 # Dependency to get a database session
 def get_db():
@@ -16,6 +21,7 @@ def get_db():
         yield db
     finally:
         db.close()
+
 
 @router.post("/register/", response_model=UserInDB)
 def register_user(user: User, db: Session = Depends(get_db)):
@@ -74,7 +80,7 @@ def login_user(user_credentials: User, db: Session = Depends(get_db)):
     db_user = db.query(UserDB).filter(UserDB.username == username).first()
     if db_user is None or not verify_password(password, db_user.password):
         raise HTTPException(status_code=401, detail="Incorrect username or password")
-    
+
     access_token = create_access_token(data={"sub": db_user.username})
     return {"access_token": access_token, "token_type": "bearer"}
 
@@ -90,4 +96,11 @@ def verify_email(token: str, db: Session = Depends(get_db)):
     else:
         raise HTTPException(status_code=400, detail="Invalid token")
 
-    
+
+@router.get('/view')
+async def highlights_view(request: Request):
+    db: Session = SessionLocal()
+    hg = db.query(UserDB).all()
+    return templates.TemplateResponse('auth.html', {'request': request, 'hg': hg})
+
+
