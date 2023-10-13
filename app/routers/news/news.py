@@ -16,9 +16,11 @@ async def scrape():
     db = SessionLocal()
     try:
         scraped_data = scrape_sport_articles()
-        save_to_db(scraped_data.get("articles", []), db)
-        return {"message": scraped_data}
+        save_to_db(scraped_data, db)
+        return {"message": "Data scraped and saved successfully"}
     except Exception as e:
+        print(f"Exception during scraping or database operation: {str(e)}")
+    finally:
         db.close()
 
 
