@@ -10,7 +10,7 @@ from app.routers.news import news
 from app.routers.players import players
 from app.routers.livestream_links import livestream
 from app.routers.highlights import highlights
-from app.routers import standing
+from app.routers.standings import standing
 
 app = FastAPI()
 

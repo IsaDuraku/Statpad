@@ -19,8 +19,18 @@ def bets_scrape():
         url="http://localhost:8080/bets/scrapebets"
     )
 
+@scheduler.scheduled_job("interval", minutes=5)
+def leaguetable_scrape():
+    requests.get(
+        url="http://localhost:8080/league_table/scrape"
+    )
 
-@scheduler.scheduled_job("interval", hours=360)
+@scheduler.scheduled_job("interval", minutes=5)
+def highlights_scrape():
+    requests.get(
+        url="http://localhost:8080/highlights/scrapehighlights"
+    )
+@scheduler.scheduled_job("interval", hours=6)
 def link_scrape():
     requests.get(
         url="http://localhost:8080//livestream_scraper/scrape-and-insert"

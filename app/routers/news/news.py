@@ -33,21 +33,14 @@ def read_news(q:str=Query(None)):
     return news
 
 @router.get('/view')
-def view_news(request: Request,q:str='', page: int = 1, items_per_page: int = 10):
+def view_news(request: Request, page: int = 1, items_per_page: int = 10):
     db = SessionLocal()
 
 
     offset = (page - 1) * items_per_page
     limit = items_per_page
-
-    if q:
-        # Filter news based on the search query
-        news = db.query(News).filter(News.title.ilike(f"%{q}%")).slice(offset, offset + limit).all()
-        total_news_count = db.query(News).filter(News.title.ilike(f"%{q}%")).count()
-    else:
-        # Show all news
-        news = db.query(News).slice(offset, offset + limit).all()
-        total_news_count = db.query(News).count()
+    news = db.query(News).slice(offset, offset + limit).all()
+    total_news_count = db.query(News).count()
 
     total_pages = (total_news_count + items_per_page - 1) // items_per_page
 

@@ -18,49 +18,46 @@
 			</div>
 		</div>
 	</div>
-	<form action="/bets/view" method="get" style="text-align: center;">
-  		<input type="text" name="q" placeholder="Enter name league" style="width: 700px; padding: 5px; font-size: 16px;">
-		<input type="submit"></input>
-	</form>
 
-	<table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>League</th>
-                <th>Date</th>
-                <th>Home</th>
-                <th>Away</th>
-                <th> 1</th>
-                <th> X</th>
-                <th> 2</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for bet in bets %}
-                <tr>
-                    <td>{{ bet.id }}</td>
-                    <td>{{ bet.liga }}</td>
-                    <td>{{ bet.date }}</td>
-                    <td>{{ bet.team1 }}</td>
-                    <td>{{ bet.team2 }}</td>
-                    <td>{{ bet.odds_1 }}</td>
-                    <td>{{ bet.odds_x }}</td>
-                    <td>{{ bet.odds_2 }}</td>
 
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-	<ul class="pagination">
-						{% for page_number in page_numbers %}
-							{% if page_number == current_page %}
-								<li class="active"><a href="#">{{ page_number }}</a></li>
-							{% else %}
-								<li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
-							{% endif %}
-						{% endfor %}
-					</ul>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>League</th>
+            <th>Date</th>
+            <th>Home</th>
+            <th>Away</th>
+            <th>1</th>
+            <th>X</th>
+            <th>2</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for bet in bets %}
+        <tr>
+            <td>{{ bet.id }}</td>
+            <td>{{ bet.liga }}</td>
+            <td>{{ bet.date }}</td>
+            <td>{{ bet.team1 }}</td>
+            <td>{{ bet.team2 }}</td>
+            <td>{{ bet.odds_1 }}</td>
+            <td>{{ bet.odds_x }}</td>
+            <td>{{ bet.odds_2 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-	
+<ul class="pagination" style="margin-left: 20%">
+    {% for page_number in page_numbers %}
+        {% if page_number == current_page %}
+            <li class="active"><a href="#">{{ page_number }}</a></li>
+        {% else %}
+            <li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+
 {% include "footer.html" %}

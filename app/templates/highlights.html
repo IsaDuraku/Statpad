@@ -48,29 +48,15 @@
     </div>
 </div>
 
-<!-- Pagination -->
-<div class="container">
-    <ul class="pagination">
-        {% set total_highlights = hg | length %}
-        {% set total_pages = (total_highlights / items_per_page) | int + (total_highlights % items_per_page > 0) %}
 
-        {# Previous Page Link #}
-        <li class="page-item {% if current_page == 1 %}disabled{% endif %}">
-            <a class="page-link" href="{% if current_page > 1 %}?page={{ current_page - 1 }}{% endif %}">Previous</a>
-        </li>
-
-        {# Page Links #}
-        {% for page in range(1, total_pages + 1) %}
-            <li class="page-item {% if current_page == page %}active{% endif %}">
-                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
-            </li>
-        {% endfor %}
-
-        {# Next Page Link #}
-        <li class="page-item {% if current_page == total_pages %}disabled{% endif %}">
-            <a class="page-link" href="{% if current_page < total_pages %}?page={{ current_page + 1 }}{% endif %}">Next</a>
-        </li>
-    </ul>
-</div>
+<ul class="pagination" style="margin-left: 50px">
+						{% for page_number in page_numbers %}
+							{% if page_number == current_page %}
+								<li class="active"><a href="#">{{ page_number }}</a></li>
+							{% else %}
+								<li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+							{% endif %}
+						{% endfor %}
+					</ul>
 
 {% include "footer.html" %}
