@@ -10,10 +10,24 @@ class LeagueTable(Base):
     id = Column(Integer, primary_key=True, index=True)
     position = Column(String)
     club = Column(String(500))
+    plays=Column(Integer)
+    wins=Column(Integer)
+    draws=Column(Integer)
+    losses=Column(Integer)
+    goalsscored=Column(Integer)
+    goalsconceded=Column(Integer)
+    goaldifference=Column(Integer)
     points = Column(Integer)
 
 # Pydantic model for input data
 class LeagueTableCreate(BaseModel):
     position: str
     club: str
+    plays: int
+    wins: int
+    draws: int
+    losses: int
+    goalsscored: int
+    goalsconceded: int
+    goaldifference: int
     points: int

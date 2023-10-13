@@ -33,21 +33,15 @@ def bets_data(q: str = Query(None)):
     return bets
 
 @router.get('/view')
-def view_bets(request: Request,q:str='', page: int = 1, items_per_page: int = 15):
+def view_bets(request: Request, page: int = 1, items_per_page: int = 15):
     db = SessionLocal()
 
 
     offset = (page - 1) * items_per_page
     limit = items_per_page
-
-    if q:
-        # Filter news based on the search query
-        bets = db.query(Bets).filter(Bets.title.ilike(f"%{q}%")).slice(offset, offset + limit).all()
-        total_bets_count = db.query(Bets).filter(Bets.title.ilike(f"%{q}%")).count()
-    else:
         # Show all news
-        bets = db.query(Bets).slice(offset, offset + limit).all()
-        total_bets_count = db.query(Bets).count()
+    bets = db.query(Bets).slice(offset, offset + limit).all()
+    total_bets_count = db.query(Bets).count()
 
     total_pages = (total_bets_count + items_per_page - 1) // items_per_page
 

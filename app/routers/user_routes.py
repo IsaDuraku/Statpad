@@ -98,7 +98,7 @@ def verify_email(token: str, db: Session = Depends(get_db)):
 
 
 @router.get('/view')
-async def highlights_view(request: Request):
+async def login_view(request: Request):
     db: Session = SessionLocal()
     hg = db.query(UserDB).all()
     return templates.TemplateResponse('auth.html', {'request': request, 'hg': hg})
