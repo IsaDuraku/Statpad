@@ -40,7 +40,11 @@
                     <div class="center-wrap">
                       <div class="section text-center">
                         <h4 class="mb-4 pb-3">Sign Up</h4>
-                        <div class="form-group">
+                          <div class="form-group">
+                          <input type="text" name="signupfullname" class="form-style" placeholder="Your Full Name" id="signupfullname" autocomplete="off">
+                          <i class="input-icon uil uil-user"></i>
+                        </div>
+                        <div class="form-group mt-2">
                           <input type="text" name="signupusername" class="form-style" placeholder="Your Username" id="signupusername" autocomplete="off">
                           <i class="input-icon uil uil-user"></i>
                         </div>
@@ -51,6 +55,12 @@
                         <div class="form-group mt-2">
                           <input type="password" name="signuppass" class="form-style" placeholder="Your Password" id="signuppass" autocomplete="off">
                           <i class="input-icon uil uil-lock-alt"></i>
+                        </div>
+                          <div class="form-group mt-2">
+                          <select name="favoriteTeam" placeholder="I am a fan of:" class="form-style" id="favoriteTeam">
+                            <option value="" disabled selected>Select your favorite team</option>
+                          </select>
+                              <i class="input-icon uil uil-lock-futbol"></i>
                         </div>
                         <button type="button" class="btn mt-4" id="signupBtn">Sign Up</button>
                       </div>
@@ -114,13 +124,34 @@
         });
     });
 
+    const favoriteTeamDropdown = document.getElementById("favoriteTeam");
+    fetch("http://localhost:8080/api/club-names/")
+      .then((response) => response.json())
+      .then((data) => {
+        const clubNames = data.club_names;
+        clubNames.sort(); // Sort club names alphabetically
+        const selectElement = document.getElementById("favoriteTeam");
+        selectElement.innerHTML = ""; // Clear existing options
+        clubNames.forEach((clubName) => {
+          const option = document.createElement("option");
+          option.value = clubName;
+          option.text = clubName;
+          selectElement.appendChild(option);
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching club names: ", error);
+      });
+
     signupBtn.addEventListener("click", () => {
       // Fetch or make an API call to your backend for signup logic here.
       const formData = new FormData(authForm);
       const signupData = {
+          fullname: formData.get("signupfullname"),
         username: formData.get("signupusername"),
         email: formData.get("signupemail"),
         password: formData.get("signuppass"),
+          favoriteTeam: formData.get("favoriteTeam")
 
       };
 
@@ -244,9 +275,9 @@ h6 span{
 
 .card-3d-wrap {
   position: relative;
-  width: 440px;
+  width: 470px;
   max-width: 100%;
-  height: 430px;
+  height: 500px;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   perspective: 800px;

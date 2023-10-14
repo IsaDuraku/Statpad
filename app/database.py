@@ -10,6 +10,8 @@ from app.models.standing import Base as StandingsBase
 from app.models.bet import Base as BetBase
 
 from fastapi import FastAPI
+
+
 from decouple import config
 
 # Initialize FastAPI app

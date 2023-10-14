@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
-from app.routers import user_routes
+from app.routers.user import user_routes
 from app.routers.matches import matches
 from app.routers.scrapers_schedulers import scheduler
 from app.routers.bets import bet
