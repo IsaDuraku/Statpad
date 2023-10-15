@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from app.models.players import Player
+from sqlalchemy import delete
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
@@ -9,20 +10,22 @@ headers = {
 
 def scrape_players(league_name, num_pages=1, max_players=15):
     base_urls = {
-        "Premier League": "https://www.transfermarkt.com/premier-league/scorerliste/wettbewerb/GB1/saison_id/2023/altersklasse/alle",
-        "La Liga": "https://www.transfermarkt.com/laliga/torschuetzenliste/wettbewerb/ES1/saison_id/2023",
-        "Bundesliga": "https://www.transfermarkt.com/bundesliga/torschuetzenliste/wettbewerb/L1/saison_id/2023",
+        "Premier League": "https://www.transfermarkt.com/premier-league/scorerliste/wettbewerb/GB1/saison_id/2023",
+        "La Liga": "https://www.transfermarkt.com/laliga/scorerliste/wettbewerb/ES1/saison_id/2023",
+        "Bundesliga": "https://www.transfermarkt.com/bundesliga/scorerliste/wettbewerb/L1/saison_id/2023",
+        "Serie A": "https://www.transfermarkt.com/serie-a/scorerliste/wettbewerb/IT1/saison_id/2023",
+        "Ligue 1": "https://www.transfermarkt.com/ligue-1/scorerliste/wettbewerb/FR1/saison_id/2023",
     }
 
     base_url = base_urls.get(league_name)
 
     if base_url is None:
-        return []  
+        return []
 
     all_players = []
     rank = 0
 
-    print(f"Scraping data for {league_name} from URL: {base_url}")  
+    print(f"Scraping data for {league_name} from URL: {base_url}")
 
     response = requests.get(base_url, headers=headers)
 
@@ -59,24 +62,36 @@ def scrape_players(league_name, num_pages=1, max_players=15):
             else:
                 goals = "0"
 
+            nationality_element = tr_element.find('img', class_='flaggenrahmen')
+            nationality = nationality_element.get('title') if nationality_element else "Nationality not found"
+
+            age = tr_element.find_all('td', class_='zentriert')[3].text.strip()
+
+            assists = tr_element.find_all('td', class_='zentriert')[6].text.strip()
+
             player_data = {
                 "Rank": rank,
                 "Player Image URL": player_img_url,
                 "Player Name": player_name,
                 "Club Name": club_name,
                 "Goals": goals,
+                "Nationality": nationality,
+                "Age": age,
+                "Assists": assists
             }
 
             all_players.append(player_data)
 
             if rank >= max_players:
-                break  
+                break
     else:
         print(f"Failed to retrieve the {league_name} web page")
 
     return all_players
 
-
+def delete_all_players(session):
+    session.execute(delete(Player))
+    session.commit()
 
 def save_player_data_to_db(player_data_list, session, league_name):
     if not player_data_list:
@@ -89,15 +104,20 @@ def save_player_data_to_db(player_data_list, session, league_name):
             player_name=player_data["Player Name"],
             club_name=player_data["Club Name"],
             goals=player_data["Goals"],
+            nationality=player_data["Nationality"],
+            age=player_data["Age"],
+            assists=player_data["Assists"],
             league_name=league_name,
         )
 
         existing_player = session.query(Player).filter_by(player_name=new_player.player_name).first()
 
         if existing_player:
-            continue  
+            continue
 
         session.add(new_player)
 
     session.commit()
     print(f"Saved {len(player_data_list)} players to the database for {league_name}")
+
+
