@@ -5,7 +5,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
   <link rel="stylesheet" href="./style.css">
-</head>
 <body>
   <div class="section">
     <div class="container">
@@ -25,7 +24,7 @@
                         <h4 class="mb-4 pb-3">Log In</h4>
                         <div class="form-group">
                           <input type="text" name="logusername" class="form-style" placeholder="Your Username" id="logusername" autocomplete="off">
-                          <i class="input-icon uil uil-user"></i>
+                          <i class="input-icon uil uil-user-circle"></i>
                         </div>
                         <div class="form-group mt-2">
                           <input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off">
@@ -46,7 +45,7 @@
                         </div>
                         <div class="form-group mt-2">
                           <input type="text" name="signupusername" class="form-style" placeholder="Your Username" id="signupusername" autocomplete="off">
-                          <i class="input-icon uil uil-user"></i>
+                          <i class="input-icon uil uil-user-circle"></i>
                         </div>
                         <div class="form-group mt-2">
                           <input type="email" name="signupemail" class="form-style" placeholder="Your Email" id="signupemail" autocomplete="off">
@@ -57,10 +56,10 @@
                           <i class="input-icon uil uil-lock-alt"></i>
                         </div>
                           <div class="form-group mt-2">
-                          <select name="favoriteTeam" placeholder="I am a fan of:" class="form-style" id="favoriteTeam">
+                          <select name="favoriteTeam" class="form-style" id="favoriteTeam">
                             <option value="" disabled selected>Select your favorite team</option>
                           </select>
-                              <i class="input-icon uil uil-lock-futbol"></i>
+                              <i class="input-icon uil uil-football"></i>
                         </div>
                         <button type="button" class="btn mt-4" id="signupBtn">Sign Up</button>
                       </div>
@@ -125,23 +124,34 @@
     });
 
     const favoriteTeamDropdown = document.getElementById("favoriteTeam");
+
     fetch("http://localhost:8080/api/club-names/")
       .then((response) => response.json())
       .then((data) => {
         const clubNames = data.club_names;
+
         clubNames.sort(); // Sort club names alphabetically
-        const selectElement = document.getElementById("favoriteTeam");
-        selectElement.innerHTML = ""; // Clear existing options
+
         clubNames.forEach((clubName) => {
           const option = document.createElement("option");
           option.value = clubName;
           option.text = clubName;
-          selectElement.appendChild(option);
+          favoriteTeamDropdown.appendChild(option);
         });
       })
       .catch((error) => {
         console.error("Error fetching club names: ", error);
       });
+
+    favoriteTeamDropdown.addEventListener("change", function() {
+      if (this.value) {
+        this.placeholder = this.value;
+      } else {
+        this.placeholder = "Select your favorite team";
+      }
+    });
+
+
 
     signupBtn.addEventListener("click", () => {
       // Fetch or make an API call to your backend for signup logic here.
@@ -197,6 +207,7 @@ body{
     background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
 	overflow-x: hidden;
 }
+
 a {
 	cursor: pointer;
   transition: all 200ms linear;

@@ -95,7 +95,7 @@ def verify_email(token: str,request: Request, db: Session = Depends(get_db)):
         db.commit()
         return templates.TemplateResponse("verification.html", {"request": request})  # You can customize this response
     else:
-        return templates.TemplateResponse("erorr.html", {"request": request})
+        return templates.TemplateResponse("error.html", {"request": request})
 
 
 @router.get('/view')
