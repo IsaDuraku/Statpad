@@ -13,8 +13,10 @@ class Player(Base):
     player_name = Column(String(500))
     club_name = Column(String(500))
     goals = Column(Integer)
+    nationality = Column(String(200))
+    age = Column(Integer)
+    assists = Column(Integer)
     league_name = Column(String(200))
-
 
 class PlayerPydantic(BaseModel):
     id: int
@@ -23,4 +25,7 @@ class PlayerPydantic(BaseModel):
     player_name: str
     club_name: str
     goals: int
+    nationality: str
+    age: int
+    assists: int
     league_name: str

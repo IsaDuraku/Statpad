@@ -1,17 +1,21 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from app.models.players import Player
 from app.scrapers.players.players import scrape_players, save_player_data_to_db
 from app.database import SessionLocal
+from fastapi.templating import Jinja2Templates
 
 router = APIRouter(
     prefix='/players',
     tags=['players']
 )
+templates = Jinja2Templates(directory="templates")
 
 league_urls = {
-    "Premier League": "https://www.transfermarkt.com/premier-league/scorerliste/wettbewerb/GB1/saison_id/2023/altersklasse/alle",
-    "La Liga": "https://www.transfermarkt.com/laliga/torschuetzenliste/wettbewerb/ES1/saison_id/2023",
-    "Bundesliga": "https://www.transfermarkt.com/bundesliga/torschuetzenliste/wettbewerb/L1/saison_id/2023",
+    "Premier League": "https://www.transfermarkt.com/premier-league/scorerliste/wettbewerb/GB1/saison_id/2023",
+    "La Liga": "https://www.transfermarkt.com/laliga/scorerliste/wettbewerb/ES1/saison_id/2023",
+    "Bundesliga": "https://www.transfermarkt.com/bundesliga/scorerliste/wettbewerb/L1/saison_id/2023",
+    "Serie A": "https://www.transfermarkt.com/serie-a/scorerliste/wettbewerb/IT1/saison_id/2023",
+    "Ligue 1": "https://www.transfermarkt.com/ligue-1/scorerliste/wettbewerb/FR1/saison_id/2023",
 }
 
 @router.get("/scrapeplayers")
@@ -21,7 +25,7 @@ def scrape_and_save_players():
         db = SessionLocal()
 
         for league_name, base_url in league_urls.items():
-            player_data_list = scrape_players(league_name)  
+            player_data_list = scrape_players(league_name)
             save_player_data_to_db(player_data_list, db, league_name)
             scraped_data[league_name] = f"Scraped and saved {len(player_data_list)} players for {league_name}"
 
@@ -40,3 +44,11 @@ def players_data(q: str = None):
         players = db.query(Player).all()
     db.close()
     return players
+
+@router.get("/view")
+def players_view(request: Request):
+    db = SessionLocal()
+    players = db.query(Player).all()
+    db.close()
+    return templates.TemplateResponse("players.html", {"request": request, "players": players})
+
