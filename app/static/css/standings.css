@@ -312,11 +312,7 @@ h1{
 }
 
 
-/* Reset some default styles */
-body {
-  margin: 0;
-  padding: 0;
-}
+
 
 /* Style the header and navbar (assuming they exist in the included files) */
 header {
@@ -381,7 +377,7 @@ th {
 /* Add some hover effect for the league links */
 .ligtable:hover {
   background-color: #333;
-  color: #fff;
+  color: #3fc323;
   transition: 0.3s;
 }
 
@@ -391,3 +387,11 @@ footer {
   color: #fff;
   text-align: center;
 }
+
+.league-image {
+    width: 100px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+    margin: 10px; /* Adjust margins as needed */
+    /* Other styles */
+}
+
