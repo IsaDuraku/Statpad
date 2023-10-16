@@ -6,6 +6,7 @@
 
 
 <link rel="stylesheet" type="text/css" href="../static/css/bets.css">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
 	<!-- NAVBAR SECTION -->
 
 	<!-- BANNER -->
@@ -23,7 +24,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
             <th>League</th>
             <th>Date</th>
             <th>Home</th>
@@ -36,7 +36,6 @@
     <tbody>
         {% for bet in bets %}
         <tr>
-            <td>{{ bet.id }}</td>
             <td>{{ bet.liga }}</td>
             <td>{{ bet.date }}</td>
             <td>{{ bet.team1 }}</td>
