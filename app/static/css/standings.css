@@ -1,100 +1,3 @@
-/*********************** Element Selector **********************/
-/*.leagues{*/
-/*        align-items: center;*/
-/*        justify-content: center; !* Center horizontally *!*/
-/*        display: flex;*/
-/*}*/
-/*.ligtable{*/
-/*        background-color: #3498db; !* Set your desired background color *!*/
-/*        color: #fff; !* Set text color *!*/
-/*        border: 2px solid #3498db; !* Set border color and width *!*/
-/*        padding: 5px 10px; !* Adjust padding as needed *!*/
-/*        text-decoration: none; !* Remove underline style for links *!*/
-/*        border-radius: 5px;*/
-/*        margin: 5px;*/
-/*        cursor: pointer;*/
-/*        text-align: left;*/
-/*        vertical-align: middle;*/
-/*        display: inline-block;*/
-/*        justify-content: center; !* Center horizontally *!*/
-/*        align-items: center;*/
-
-/*    }*/
-/*body {*/
-/*    background-color: white;*/
-/*    color: white;*/
-/*    padding: 0;*/
-/*    margin: 0;*/
-/*    font-family: Arial, Helvetica, sans-serif;*/
-
-/*}*/
-h1{
-    color: black;
-    font-size: 25px;
-    padding-bottom: 10px;
-}
-
-/*main {*/
-/*    box-sizing: border-box;*/
-/*    max-width: 750px;*/
-/*    max-height: 600px;*/
-/*    overflow : auto;*/
-/*    border-radius: 1%;*/
-/*    border-color: black;*/
-/*}*/
-/*th{*/
-/*    padding-right: 10px;*/
-/*}*/
-/*td{*/
-/*    padding-right: 15px;*/
-/*    border-right: 2px solid #000000;*/
-
-/*}*/
-/*hr {*/
-/*    border-style: none;*/
-/*    margin: 0;*/
-/*    padding: 0;*/
-/*}*/
-
-/*table {*/
-/*    font-weight: normal;*/
-/*    width: 730px;*/
-/*    border: 2px;*/
-
-/*    text-align: left;*/
-/*    vertical-align: middle;*/
-/*    color: #000000;*/
-/*    background: #79ddb7;*/
-/*}*/
-
-
-/*!* create a table with no vertical borders*/
-/*https://stackoverflow.com/questions/11237204/table-with-no-vertical-cell-borders *!*/
-
-/*tr {*/
-/*    border: 2px solid #000000;*/
-/*    border-collapse: collapse;*/
-/*    font-size: 17px;*/
-/*    height: 30px;*/
-/*    position: relative;*/
-/*    left: 14px;*/
-/*    display: table-row;*/
-/*    vertical-align: inherit;*/
-
-/*}*/
-
-
-
-
-
-
-/*********************** Class Selector ***********************/
-
-.table-container {
-    position: relative;
-    left: 100px;
-    font-weight: bold;
-}
 
 .table-head-container {
     border-top:none ;
@@ -105,203 +8,6 @@ h1{
 
 }
 
-.epl-logo {
-    position: relative;
-    left: 30px;
-    top: 10px;
-    width: 30px;
-    height: auto;
-}
-
-.season-container {
-    padding-top: 2px;
-    background-color: #212327;
-    position: relative;
-    bottom: 15px;
-}
-
-.club-stats-heading {
-   color: #9aa0a6;
-}
-
-.team-logo {
-    width: 25px;
-    height: auto;
-}
-
-/* align club logo positions */
-
-.man-utd {
-    position: relative;
-    top: 77px;
-    left: 36px;
-}
-
-.man-city {
-    position: relative;
-    top: 115px;
-    left: 11px;
-}
-
-.chelsea {
-    position: relative;
-    top: 156px;
-    right: 14px;
-}
-
-
-.arsenal {
-    position: relative;
-    top: 196px;
-    right: 38px;
-}
-
-
-.tottenham {
-    position: relative;
-    top: 236px;
-    right: 64px;
-}
-
-
-.everton {
-    position: relative;
-    top: 276px;
-    right: 89px;
-}
-
-
-.liverpool {
-    position: relative;
-    top: 316px;
-    right: 113px;
-}
-
-
-.west-brom {
-    position: relative;
-    top: 356px;
-    right: 137px;
-}
-
-
-.swansea {
-    position: relative;
-    top: 396px;
-    right: 161px;
-}
-
-
-.west-ham {
-    position: relative;
-    top: 436px;
-    right: 185px;
-}
-
-
-.norwich {
-    position: relative;
-    top: 476px;
-    right: 211px;
-}
-
-.fulham {
-    position: relative;
-    top: 516px;
-    right: 236px;
-}
-
-
-.stoke {
-    position: relative;
-    top: 556px;
-    right: 260px;
-}
-
-
-.southampton {
-    position: relative;
-    top: 596px;
-    right: 285px;
-}
-
-
-.aston-villa {
-    position: relative;
-    top: 636px;
-    right: 308px;
-}
-
-
-.newcastle {
-    position: relative;
-    top: 676px;
-    right: 335px;
-}
-
-
-.sunderland {
-    position: relative;
-    top: 716px;
-    right: 360px;
-}
-
-
-.wigan {
-    position: relative;
-    top: 756px;
-    right: 385px;
-}
-
-
-.reading {
-    position: relative;
-    top: 796px;
-    right: 409px;
-}
-
-
-.qpr {
-    border-bottom: none;
-    position: relative;
-    top: 836px;
-    right: 435px;
-}
-
-.club-name {
-    position: relative;
-    left: 13px;
-}
-
-
-
-
-/*********************** ID selector ***********************/
-
-
-#subject {
-    position: relative;
-    left: 90px;
-    bottom: 45px;
-    font-weight: normal;
-}
-
-#topic {
-    color: #9aa0a6;
-    font-size: 15px;
-    position: relative;
-    left: 10px;
-    bottom: 5px;
-}
-
-#year {
-    color: rgba(255,255,255,.87);
-    font-weight: bold;
-    font-family: monospace;
-    position: relative;
-    bottom: 10px;
-    left: 10px;
-}
 .subbanner {
   background-image: url('https://www.prodirectsport.com/-/media/prodirect/project/en/soccer/list-page-banners---fredhopper/equipment/footballs/puma/fh-d-puma-efl-ball-020523.jpg'); /* Replace 'your-image-url.jpg' with the URL of your image */
   background-size: cover;
@@ -312,7 +18,11 @@ h1{
 }
 
 
-
+h1{
+    color: black;
+    font-size: 25px;
+    padding-bottom: 10px;
+}
 
 /* Style the header and navbar (assuming they exist in the included files) */
 header {
@@ -333,7 +43,8 @@ header {
 /* Style the league links */
 .leagues {
   text-align: center;
-  margin: 20px 0;
+  margin: 12px 0;
+  margin-bottom: -55px;
 }
 
 .ligtable {
@@ -351,6 +62,7 @@ header {
 .table-container {
   display: none;
     padding-bottom: 20px;
+    padding-left:250px;
 }
 
 table {
@@ -395,3 +107,26 @@ footer {
     /* Other styles */
 }
 
+.common-cell.position-header,
+.common-cell.club-header,
+.common-cell,
+.common-cell.gs-header,
+.common-cell.gc-header,
+.common-cell.gd-header,{
+width: 6%;
+
+{
+width: 5px;
+}
+.common-cell.club-header{
+width: 100px;
+}
+
+
+
+.td.common-cell{
+background: #fff;
+}
+.a:hover, a:focus{
+text-decoration: none;
+}
