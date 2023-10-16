@@ -53,6 +53,31 @@ def get_league_table():
 
     return data_dict_list
 
+
+def get_club_names_from_leagues():
+    league_names = ["la-liga", "bundesliga", "ligue-1", "serie-a", "premier-league"]
+    base_url = 'https://www.skysports.com/'
+    club_names_list = []
+
+    for league_name in league_names:
+        league_url = f'{base_url}{league_name}-table'
+
+        html_text = requests.get(league_url).text
+        soup = BeautifulSoup(html_text, 'html.parser')
+
+        table = soup.find('table', class_='standing-table__table')
+
+        if not table:
+            continue
+
+        rows = table.find_all('tr')
+        for row in rows[1:]:  # Skip the header row
+            columns = row.find_all('td')
+            club_name = columns[1].text.strip()
+            club_names_list.append(club_name)
+
+    return club_names_list
+
 def delete_all_data():
         try:
             session = SessionLocal()
