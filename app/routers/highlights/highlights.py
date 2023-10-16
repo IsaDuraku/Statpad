@@ -4,6 +4,7 @@ from app.models.highlights import HighlightsDB
 from app.scrapers.highlights.highlights import highlights_scraped, insert_data_into_database
 from app.scrapers.highlights.highlights_backup import backup_highlights_scraped
 from app.database import SessionLocal
+from sqlalchemy import desc
 
 
 
@@ -46,7 +47,7 @@ def highlights_view(request: Request, page: int = 1, items_per_page: int = 12):
 
     offset = (page - 1) * items_per_page
 
-    hg = db.query(HighlightsDB).offset(offset).limit(items_per_page).all()
+    hg = db.query(HighlightsDB).order_by(desc(HighlightsDB.date)).offset(offset).limit(items_per_page).all()
 
     total_highlights = db.query(HighlightsDB).count()
     total_pages = (total_highlights + items_per_page - 1) // items_per_page

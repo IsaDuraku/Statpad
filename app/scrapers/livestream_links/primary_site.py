@@ -45,7 +45,7 @@ def scrape_webpage():
                             "URL": parts[2].strip()
                         }
 
-                        line_dict["DATE"] = current_date.strftime('%d-%m-%Y')
+                        line_dict["DATE"] = current_date.strftime('%Y-%m-%d')
                         extracted_matches.append(line_dict)
                     else:
                         print("Skipping line:", line)

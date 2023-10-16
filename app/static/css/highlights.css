@@ -1,6 +1,6 @@
 .highlight-box {
   border: 1px solid #ccc;
-  background-color: #fff;
+  background-color: #a4a4a4;
   padding: 10px;
   margin: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -15,26 +15,27 @@
 .card-body {
   padding: 10px;
   text-align: center;
+  background-image: url('https://img.freepik.com/free-vector/gradient-abstract-football-background_23-2148995844.jpg'); /* Replace 'path/to/your-image.jpg' with the actual path to your image */
+  background-size: cover;
+  background-position: center center;
 }
 
 .card-title {
-  font-size: 1.2rem;
+  font-size: large;
+  margin-top: -6px;
+  color: #dff;
 }
 
 .card-text {
   font-size: 1rem;
-  margin-top: 5px;
+  margin-top: 2px;
+  color: #fff;
+
 }
 
 .container {
   margin-top: 20px;
 }
-
-body {
-  background-color: #fff; /* Set the desired background color (black in this case) */
-  color: #000; /* Set the text color to white for better visibility */
-}
-
 
 .caption {
     font-size: 36px; /* Adjust the font size as needed */
