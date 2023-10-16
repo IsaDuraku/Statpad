@@ -4,10 +4,9 @@
 
     <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
 
-
 <link rel="stylesheet" type="text/css" href="../static/css/news.css">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
 	<!-- NAVBAR SECTION -->
-
 	<!-- BANNER -->
 	<div class="section subbanner">
 		<div class="container">
@@ -20,15 +19,15 @@
 	</div>
 
 
-	
+
 	<!-- NEWS SECTION -->
 	<div class="section singlepage" >
 		<div class="container">
-			
+
 			<div class="row pbot-main">
-			
+
 				<div class="col-xs-12 col-md-8">
-					{%for a in news[-1:]%}
+					{%for a in news[1:1]%}
 					<div class="post-item">
 						<div class="image-wrap">
 							<img src="{{a.image_url}}" alt="..." class="img-responsive">
@@ -80,9 +79,9 @@
 							{% endif %}
 						{% endfor %}
 					</ul>
-					
+
 				</div>
-				
+
 				<div class="col-xs-12 col-md-4">
 					<div class="widget recent-post">
 						<h4 class="widget-heading">RECENT POST</h4>
@@ -106,15 +105,15 @@
 					</div>
 
 
-					
+
 					</div>
-					
+
 				</div>
-			
+
 			</div>
-			
-			
-			
+
+
+
 		</div>
 	</form>
 

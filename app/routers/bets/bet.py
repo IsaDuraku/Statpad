@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query,Request
 from fastapi.templating import Jinja2Templates
 from app.models.bet import Bets
-from app.scrapers.bets.bet import scrape_bet,save_to_db
+from app.scrapers.bets.bet import scrape_bet, save_to_db, delete_all_bets
 from app.database import SessionLocal
 
 router=APIRouter(
@@ -15,6 +15,7 @@ def scrape_and_save_to_db():
     try:
         scraped_data = scrape_bet()
         db = SessionLocal()
+        delete_all_bets()
         save_to_db(scraped_data['bets'], db)
 
         return {"message": scraped_data}

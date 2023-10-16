@@ -1,6 +1,8 @@
 from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
+from sqlalchemy import delete
+from app.database import SessionLocal
 from app.models.bet import Bets
 
 def scrape_bet():
@@ -52,6 +54,16 @@ def scrape_bet():
 
     return {'bets': result}
 
+def delete_all_bets():
+    try:
+        session = SessionLocal()
+        session.execute(delete(Bets))
+        session.commit()
+    except Exception as e:  # Handle exceptions or errors that may occur during database operations
+        session.rollback()
+        raise e
+    finally:
+        session.close()
 
 
 
@@ -69,7 +81,7 @@ def save_to_db(results, session):
             odds_2= result['odds_2'],
             date_scraped=datetime.now()
         )
-        if session.query(Bets).filter_by(date=result['date']).first():
-            continue
+        # if session.query(Bets).filter_by(date=result['date']).first():
+        #     continue
         session.add(new_bets)
     session.commit()

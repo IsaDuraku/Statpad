@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Query,Request
 from fastapi.templating import Jinja2Templates
+from sqlalchemy import desc
+
 from app.models.news import News
 from app.scrapers.news.news import scrape_sport_articles, save_to_db
 from app.database import SessionLocal
@@ -41,7 +43,9 @@ def view_news(request: Request, page: int = 1, items_per_page: int = 10):
 
     offset = (page - 1) * items_per_page
     limit = items_per_page
-    news = db.query(News).slice(offset, offset + limit).all()
+
+    news=db.query(News).order_by(desc(News.dateposted)).offset(offset).limit(limit).all()
+
     total_news_count = db.query(News).count()
 
     total_pages = (total_news_count + items_per_page - 1) // items_per_page
