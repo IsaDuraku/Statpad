@@ -13,6 +13,10 @@ class User(BaseModel):
     password: str
     favorite_team: Optional[str] = None
 
+class ChangePasswordRequest(BaseModel):
+    old_password: str
+    new_password: str
+
 class UserDB(Base):  
     __tablename__ = "users"
 
