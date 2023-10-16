@@ -1,14 +1,15 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
-from app.models.user import User, UserDB, UserInDB
+from app.models.user import User, UserDB, UserInDB, ChangePasswordRequest
 from app.models.auth import Token
 from app.database import SessionLocal
 from app.routers.user.security import create_access_token, get_password_hash, verify_password, \
-    generate_verification_token
+    generate_verification_token, get_current_user
 import smtplib
 from email.mime.text import MIMEText
 from fastapi.templating import Jinja2Templates
 from app.scrapers.standings.standing import get_club_names_from_leagues
+from app.database import get_db
 
 router = APIRouter()
 
@@ -16,12 +17,6 @@ templates = Jinja2Templates(directory="templates")
 
 
 # Dependency to get a database session
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @router.post("/register/", response_model=UserInDB)
@@ -108,6 +103,22 @@ async def login_view(request: Request):
 def get_club_names():
     club_names = get_club_names_from_leagues()
     return {"club_names": club_names}
+
+
+@router.post("/change-password/")
+def change_password(request: Request, change_password_data: ChangePasswordRequest, db: Session = Depends(get_db), current_user: UserDB = Depends(get_current_user)):
+    # Verify the old password
+    if not verify_password(change_password_data.old_password, current_user.password):
+        raise HTTPException(status_code=400, detail="Incorrect old password")
+
+    # Hash the new password
+    new_password_hash = get_password_hash(change_password_data.new_password)
+
+    # Update the user's password
+    current_user.password = new_password_hash
+    db.commit()
+
+    return {"message": "Password changed successfully"}
 
 
 
