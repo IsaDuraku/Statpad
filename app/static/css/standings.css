@@ -107,25 +107,16 @@ footer {
     /* Other styles */
 }
 
-.common-cell.position-header,
-.common-cell.club-header,
 .common-cell,
 .common-cell.gs-header,
 .common-cell.gc-header,
-.common-cell.gd-header,{
-width: 6%;
-
-{
-width: 5px;
-}
-.common-cell.club-header{
-width: 100px;
+.common-cell.gd-header,
+.common-cell.points-header{
+    width: -15%;
 }
 
-
-
-.td.common-cell{
-background: #fff;
+.common-cell.position-header{
+width: 20px;
 }
 .a:hover, a:focus{
 text-decoration: none;
