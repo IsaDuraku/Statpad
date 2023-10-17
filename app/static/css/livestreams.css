@@ -70,3 +70,6 @@ a:hover {
   text-align: right;
   padding: 0px 0; /* Adjust the padding as needed */
 }
+li{
+    text-align: center;
+}
