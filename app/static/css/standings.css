@@ -104,9 +104,9 @@ footer {
 }
 
 .league-image {
-    width: 8vw; /* Adjust the width for very small screens */
-    height: 8vw;
-    margin: 2vw; /* Adjust margins as needed */
+    width: 100px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+    margin: 10px; /* Adjust margins as needed */ /* Adjust margins as needed */
 
 
     /* Other styles */
