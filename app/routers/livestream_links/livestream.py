@@ -36,7 +36,7 @@ async def scrape_and_insert():
 
     return {"message": "Scraping and inserting completed"}
 #ndreqe qeto posht
-@router.get("/livestream_links")
+@router.get("/links")
 async def show_livestream_links(request: Request):
     db = SessionLocal()
     matches = db.query(Livestream_links).all()
