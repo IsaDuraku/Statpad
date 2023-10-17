@@ -10,6 +10,8 @@ from email.mime.text import MIMEText
 from fastapi.templating import Jinja2Templates
 from app.scrapers.standings.standing import get_club_names_from_leagues
 from app.database import get_db
+from fastapi.security import OAuth2PasswordBearer
+from fastapi.responses import JSONResponse
 
 router = APIRouter()
 
@@ -119,6 +121,18 @@ def change_password(request: Request, change_password_data: ChangePasswordReques
     db.commit()
 
     return {"message": "Password changed successfully"}
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+@router.post("/logout")
+def logout_user(token: str = Depends(oauth2_scheme)):
+    response = JSONResponse(content={"message": "Logout successful"})
+    response.delete_cookie("access_token")
+
+    return response
+
+
+
+
 
 
 

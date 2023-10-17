@@ -30,3 +30,82 @@
 			</nav>
 
     </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const navbar = document.querySelector(".navbar");
+
+    const cookies = document.cookie.split(";").map(cookie => cookie.trim());
+    let accessToken = null;
+    let username = null;
+
+    for (const cookie of cookies) {
+        const [name, value] = cookie.split("=");
+        if (name === "access_token") {
+            accessToken = value;
+        }
+        if (name === "username") {
+            username = value;
+        }
+    }
+
+    if (accessToken && username) {
+        navbar.innerHTML = `
+            <div class="navbar navbar-main navbar-fixed-top">
+		<div class="nav navbar-nav navbar-left">
+			<a class="navbar-brand" href="index.html">
+			<img src="{{ url_for('static', path='images/test.png') }}" class="logo" alt="Logo">
+            </a>
+		</div>
+
+        <nav class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="index.html">HOME</a></li>
+                    <li><a href="{{url_for('view_news')}}">NEWS</a></li>
+                    <li><a href="{{url_for('view_bets')}}">BETS</a></li>
+                    <li><a href="matches.html">RESULTS</a></li>
+                    <li><a href="{{url_for('view_league_tables')}}">STANDINGS</a></li>
+					<li><a href="{{url_for('players_view')}}">STATS</a></li>
+					<li ><a href="{{url_for('highlights_view')}}">HIGHLIGHTS</a></li>
+					<li><a href="{{url_for('show_livestream_links')}}">LIVESTREAMS</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="#" id="logoutBtn">Log Out</a></li>
+                    <li><a href="#">Welcome, ${username}</a>
+
+          `;
+        // Add an event listener to handle the logout button click
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            // Clear the access token and username cookies on the client side
+            document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            // Redirect to the login page or perform other actions
+            location.href = "{{url_for('highlights_view')}}";
+        });
+    } else {
+        // User is not authenticated, show the default navbar
+        navbar.innerHTML = `
+        <div class="navbar navbar-main navbar-fixed-top">
+		<div class="nav navbar-nav navbar-left">
+			<a class="navbar-brand" href="index.html">
+			<img src="{{ url_for('static', path='images/test.png') }}" class="logo" alt="Logo">
+            </a>
+		</div>
+
+        <nav class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="index.html">HOME</a></li>
+                    <li><a href="{{url_for('view_news')}}">NEWS</a></li>
+                    <li><a href="{{url_for('view_bets')}}">BETS</a></li>
+                    <li><a href="matches.html">RESULTS</a></li>
+                    <li><a href="{{url_for('view_league_tables')}}">STANDINGS</a></li>
+					<li><a href="{{url_for('players_view')}}">STATS</a></li>
+					<li ><a href="{{url_for('highlights_view')}}">HIGHLIGHTS</a></li>
+					<li><a href="{{url_for('show_livestream_links')}}">LIVESTREAMS</a></li>
+                    <li><a href="about.html">ABOUT</a></li>
+                    <li><a href="{{url_for('login_view')}}">Log In</a></li>
+
+      `;
+    }
+  });
+</script>
+

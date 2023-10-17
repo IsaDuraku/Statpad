@@ -102,25 +102,35 @@
       // Make an API call to your backend with loginData
       // Replace the below with your actual API endpoint and logic
       fetch("http://localhost:8080/api/login/", {
-        method: "POST",
-        body: JSON.stringify(loginData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) {
-            // Successful login
-            alert("Login successful!");
-            // Redirect to a new page or perform other actions
-          } else {
-            // Handle login failure
-            alert("Login failed. Please check your credentials.");
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+  method: "POST",
+  body: JSON.stringify(loginData),
+  headers: {
+    "Content-Type": "application/json",
+  },
+})
+  .then((response) => {
+    if (response.status === 200) {
+      // Successful login
+      return response.json(); // Parse the JSON response
+    } else {
+      // Handle login failure
+      alert("Login failed. Please check your credentials.");
+      throw new Error("Login failed"); // Handle the error
+    }
+  })
+  .then((data) => {
+    // Store the access token in a cookie
+    document.cookie = `access_token=${data.access_token}; path=/`;
+    const username = loginData.username;
+    document.cookie = `username=${username}; path=/`;
+
+    // Redirect to the homepage or reload the page
+    window.location.href = "http://localhost:8080/highlights/view";
+
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
     });
 
     const favoriteTeamDropdown = document.getElementById("favoriteTeam");
