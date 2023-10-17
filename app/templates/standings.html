@@ -9,13 +9,13 @@
         <div class="row">
             <div class="col-sm-12 col-md-12">
                 <div class="caption">League tables</div>
-            </div>
+            </div>g
         </div>
     </div>
 </div>
 <div class="leagues">
     <a href="#" class="ligtable" onclick="showTable('premierleagueTable'); return false;">Premier league</a>
-    <a href="#" class="ligtable" onclick="showTable('laligaTable'); return false;">La liga</a>
+    <a href="#" class="ligtable" onclick="showTable('laligaTable'); return false;">La Liga</a>
     <a href="#" class="ligtable" onclick="showTable('serieaTable'); return false;">Serie A</a>
     <a href="#" class="ligtable" onclick="showTable('bundesligaTable'); return false;">Bundesliga</a>
     <a href="#" class="ligtable" onclick="showTable('ligue1Table'); return false;">Ligue 1</a>
@@ -34,11 +34,11 @@
             <th class="common-cell gs-header">GS</th>
             <th class="common-cell gc-header">GC</th>
             <th class="common-cell gd-header">GD</th>
-            <th class="common-cell points-header">Pts</th>
+            <th class="common-cell points-header">Points</th>
         </tr>
         {% for a in league_table[:20] %}
         <tr>
-            <td class="common-cell">{{ a.position }}</td>
+            <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
             <td class="common-cell">{{ a.club }}</td>
             <td class="common-cell">{{ a.plays }}</td>
             <td class="common-cell">{{ a.wins }}</td>
@@ -66,11 +66,11 @@
             <th class="common-cell gs-header">GS</th>
             <th class="common-cell gc-header">GC</th>
             <th class="common-cell gd-header">GD</th>
-            <th class="common-cell points-header">Pts</th>
+            <th class="common-cell points-header">Points</th>
         </tr>
         {% for a in league_table[20:38] %}
         <tr>
-            <td class="common-cell">{{ a.position }}</td>
+            <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
             <td class="common-cell">{{ a.club }}</td>
             <td class="common-cell">{{ a.plays }}</td>
             <td class="common-cell">{{ a.wins }}</td>
@@ -98,11 +98,11 @@
             <th class="common-cell gs-header">GS</th>
             <th class="common-cell gc-header">GC</th>
             <th class="common-cell gd-header">GD</th>
-            <th class="common-cell points-header">Pts</th>
+            <th class="common-cell points-header">Points</th>
         </tr>
         {% for a in league_table[38:56] %}
         <tr>
-            <td class="common-cell">{{ a.position }}</td>
+            <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
             <td class="common-cell">{{ a.club }}</td>
             <td class="common-cell">{{ a.plays }}</td>
             <td class="common-cell">{{ a.wins }}</td>
@@ -130,11 +130,11 @@
             <th class="common-cell gs-header">GS</th>
             <th class="common-cell gc-header">GC</th>
             <th class="common-cell gd-header">GD</th>
-            <th class="common-cell points-header">Pts</th>
+            <th class="common-cell points-header">Points</th>
         </tr>
         {% for a in league_table[56:76] %}
         <tr>
-            <td class="common-cell">{{ a.position }}</td>
+            <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
             <td class="common-cell">{{ a.club }}</td>
             <td class="common-cell">{{ a.plays }}</td>
             <td class="common-cell">{{ a.wins }}</td>
@@ -147,6 +147,7 @@
         </tr>
         {% endfor %}
     </table>
+
 </div>
 <div class="table-container" id="premierleagueTable">
     <img src="https://1.bp.blogspot.com/-GsXX3p7KkbI/YLUwmAwbxoI/AAAAAAAAUbE/d0PVC3Jj09A9VGhXeYtA7Wd2IFJqwZMMgCLcBGAsYHQ/s664/Premier%2BLeague.png"
@@ -163,11 +164,11 @@
             <th class="common-cell gs-header">GS</th>
             <th class="common-cell gc-header">GC</th>
             <th class="common-cell gd-header">GD</th>
-            <th class="common-cell points-header">Pts</th>
+            <th class="common-cell points-header">Points</th>
         </tr>
         {% for a in league_table[76:] %}
         <tr>
-            <td class="common-cell">{{ a.position }}</td>
+            <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
             <td class="common-cell">{{ a.club }}</td>
             <td class="common-cell">{{ a.plays }}</td>
             <td class="common-cell">{{ a.wins }}</td>
@@ -180,7 +181,6 @@
         </tr>
         {% endfor %}
     </table>
-</div>
 <script>
     showTable('premierleagueTable');
 
@@ -198,4 +198,5 @@
         }
     }
 </script>
+</div>
 {% include "footer.html" %}
