@@ -5,9 +5,10 @@
 	<link rel="stylesheet" type="text/css" href="../static/css/style.css" />
 	<link rel="stylesheet" type="text/css" href="../static/css/navbar.css" />
 
-  </head>
+   </head>
 
 	<!-- NAVBAR SECTION -->
+	<div class="navbar navbar-main navbar-fixed-top">
 
 
         <nav class="navbar-collapse collapse">
@@ -17,6 +18,8 @@
 			<img src="{{ url_for('static', path='images/test.png') }}" class="logo" alt="Logo">
             </a>
 		</div>
+
+        <nav class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="index.html">HOME</a></li>
                     <li><a href="{{url_for('view_news')}}">NEWS</a></li>
