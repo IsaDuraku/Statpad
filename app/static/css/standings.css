@@ -130,8 +130,6 @@ width: 32px;
 .a:hover, a:focus{
 text-decoration: none;
 }
-<<<<<<< Updated upstream
-=======
 .common-cell.points-header{
 width: 20px;
 }
@@ -317,4 +315,3 @@ background-color: #dc2525;
 #ligue1Table th {
     background-color: #201041;
 }
->>>>>>> Stashed changes
