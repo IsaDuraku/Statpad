@@ -42,12 +42,8 @@ header {
 /* Style the league links */
 .leagues {
   text-align: center;
-    margin: 12px 0 -55px;
-    padding-left: 150px;
-    overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
+  margin: 12px 0;
+  margin-bottom: -55px;
 }
 
 .ligtable {
@@ -106,9 +102,7 @@ footer {
 .league-image {
     width: 100px; /* Adjust the width as needed */
     height: 100px; /* Adjust the height as needed */
-    margin: 10px; /* Adjust margins as needed */ /* Adjust margins as needed */
-
-
+    margin: 10px; /* Adjust margins as needed */
     /* Other styles */
 }
 
