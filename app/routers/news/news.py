@@ -37,7 +37,7 @@ def read_news(q:str=Query(None)):
     return news
 
 @router.get('/view')
-def view_news(request: Request, page: int = 1, items_per_page: int = 10):
+def view_news(request: Request, page: int = 1, items_per_page: int = 9):
     db = SessionLocal()
 
 
