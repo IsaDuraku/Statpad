@@ -1,105 +1,78 @@
-
-form {
-  text-align: center;
-  margin: 20px 0; /* Add margin for spacing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
-.highlight-box {
-  border: 1px solid #ccc;
-  background-color: #fff;
-  padding: 10px;
-  margin: 10px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+.card-wrapper {
+    padding: 2%;
 }
 
-.highlight-box iframe {
-  width: 100%;
-  height: 315px;
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px; /* Add padding between cards */
 }
 
-.card-body {
-  padding: 10px;
-  text-align: center;
-}
-
-.card-title {
-  font-size: 1.2rem;
-}
-
-.card-text {
-  font-size: 1rem;
-  margin-top: 5px;
-}
-.image-wrap .meta .blog-date{
-   background: rgb(56, 189, 140);
-    background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
-}
-
-.post-item .post-read-more{
-  background: rgb(56, 189, 140);
-    background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
-}
-.widget .widget-heading{
-  background: rgb(56, 189, 140);
-    background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
-  color: white;
-  padding: 15px 60px;
-  padding-left: 110px;
-
-}
-.container {
-  margin-top: 20px;
-}
-
-body {
-  background-color: #fff; /* Set the desired background color (black in this case) */
-  color: #000; /* Set the text color to white for better visibility */
+.card {
+    width: calc(33.33% - 1em); /* Adjust the width for three cards */
+    background-color:  #a4a4a4;
+    border: 1px solid #ccc; /* Add a border around the card */
+    border-radius: 8px;
+    overflow: hidden;
+    padding-bottom: 10px;
+    box-shadow: 1px 2px 8px rgba(100, 100, 100, 0.1);
 }
 
 
-.subbanner {
-  background-image: url('https://www.prodirectsport.com/-/media/prodirect/project/en/soccer/list-page-banners---fredhopper/equipment/footballs/puma/fh-d-puma-efl-ball-020523.jpg'); /* Replace 'your-image-url.jpg' with the URL of your image */
-  background-size: cover;
-  background-position: center;
-  color: #fff; /* Text color */
-  text-align: right;
-  padding: 0px 0; /* Adjust the padding as needed */
+
+img {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
-.caption {
-    font-size: 36px; /* Adjust the font size as needed */
-    /* background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background for better readability */
-    padding: 10px; /* Add padding to the text */
+.text-box-wrapper {
+    padding: 20px;
 }
 
-/* Style the label */
-form label {
-  display: block;
-  font-size: 18px;
-  margin-bottom: 10px; /* Add space between label and input */
+.heading {
+    font-family: 'Playfair-Display';
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1;
 }
 
-/* Style the input field */
-form input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  outline: none;
+.heading::after {
+    content: '';
+    display: block;
+    margin-top: 0.5em;
+    width: 30px;
+    height: 5px;
+    background-color: black;
 }
 
-form input[type="submit"] {
-  color: #fff;
-  padding: 8px 8px;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  background: rgb(56, 189, 140);
-    background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
-
-
+.text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 100;
+    font-size: 12px;
+    padding-top: 10px;
+    line-height: 2;
 }
 
+.button {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-family: 'Poppins';
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.button:hover {
+    color: black;
+    transition: linear 0.2s;
+}

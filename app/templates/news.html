@@ -1,120 +1,61 @@
 {% include "header.html" %}
-
 {% include "navbar.html" %}
 
-    <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
-
+<script type="text/javascript" src="../static/js/modernizr.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../static/css/news.css">
 <link rel="stylesheet" type="text/css" href="../static/css/custom.css">
-	<!-- NAVBAR SECTION -->
-	<!-- BANNER -->
-	<div class="section subbanner">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12 col-md-12">
-					<div class="caption">Football News</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
+<!-- NAVBAR SECTION -->
+<!-- BANNER -->
+<div class="section subbanner">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="caption">Football News</div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="card-wrapper">
+    <div class="card-container">
+        {% for i in news %}
+        <div class="card">
+            <div class="image-wrapper">
+                <a class="image-link" href="">
+                    <img src='{{ i.image_url }}' alt='Beautiful woman face by Oleg Gekman on 500px.com'>
+                </a>
+                <p>{{i.dateposted}}</p>
+            </div>
+            <div class="text-box-wrapper">
+                <div class="text-box">
+                    <h1 class="heading">
+                        {{ i.title }}
+                    </h1>
+                    <p class="text">
+                        {{ i.context }}
+                    </p>
+                </div>
+            </div>
+            <div class="button-wrapper">
+                <a class="button" href="{{ i.url }}">
+                    Read more
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
-	<!-- NEWS SECTION -->
-	<div class="section singlepage" >
-		<div class="container">
+<ul class="pagination" style="margin-left: 5%">
+    {% for page_number in page_numbers %}
+        {% if page_number == current_page %}
+            <li class="active"><a href="#">{{ page_number }}</a></li>
+        {% else %}
+            <li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
 
-			<div class="row pbot-main">
-
-				<div class="col-xs-12 col-md-8">
-					{%for a in news[1:1]%}
-					<div class="post-item">
-						<div class="image-wrap">
-							<img src="{{a.image_url}}" alt="..." class="img-responsive">
-							<div class="meta">
-								<div class="blog-author">
-									<div class="blog-thumb">
-
-									</div>
-								</div>
-								<div class="blog-comments"><i class="fa fa-comments"></i>22Comments</div>
-								<div class="blog-date"><span>{{a.dateposted}}</span></div>
-							</div>
-						</div>
-						<h3 class="post-title"><a href="{{a.title}}" title="">{{a.title}}</a></h3>
-						<p>{{a.context}}</p>
-						<a href="{{a.url}}" class="post-read-more" title="">Read More <i class="fa fa-chevron-circle-right"></i></a>
-					</div>
-					{%endfor%}
-
-					{% for article in news %}
-					<div class="post-item">
-						<div class="image-wrap">
-							<img src="{{ article.image_url }}" alt="..." class="img-responsive">
-							<div class="meta">
-								<div class="blog-author">
-									<div class="blog-thumb">
-
-									</div>
-								</div>
-
-								<div class="blog-comments"><i class="fa fa-comments"></i>{{ article.comments }} Comments</div>
-								<div class="blog-date"><span>{{ article.dateposted }}</span>{{ article.month }}</div>
-							</div>
-						</div>
-						<h3 class="post-title"><a href="{{ article.url }}" title="">{{ article.title }}</a></h3>
-						<p>{{ article.context }}</p>
-						<a href="{{ article.url }}" class="post-read-more" title="">Read More <i class="fa fa-chevron-circle-right"></i></a>
-					</div>
-					{% endfor %}
-
-
-
-					<ul class="pagination" style="margin-left: 50px">
-						{% for page_number in page_numbers %}
-							{% if page_number == current_page %}
-								<li class="active"><a href="#">{{ page_number }}</a></li>
-							{% else %}
-								<li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
-							{% endif %}
-						{% endfor %}
-					</ul>
-
-				</div>
-
-				<div class="col-xs-12 col-md-4">
-					<div class="widget recent-post">
-						<h4 class="widget-heading">RECENT POST</h4>
-						<div class="widget-wrap">
-							 {% for article in news[-5:] %} {# Use slicing to get the last three articles #}
-								<div class="media">
-									<div class="media-left">
-										<a href="{{ article.link }}" title="detail news">
-											<img class="media-object" src="{{ article.image_url }}" alt="...">
-										</a>
-									</div>
-									<div class="media-body">
-										<p><a href="{{ article.link }}" title="detail news">{{ article.title }}</a></p>
-										<div class="meta-date">
-											{{ article.date }}
-										</div>
-									</div>
-								</div>
-								{% endfor %}
-						</div>
-					</div>
-
-
-
-					</div>
-
-				</div>
-
-			</div>
-
-
-
-		</div>
-	</form>
 
 {% include "footer.html" %}
