@@ -13,17 +13,13 @@ class Stadiums(Base):
     name = Column(String)
     year = Column(String)
     capacity = Column(String)
-    size = Column(String)
     team = Column(String)
-
-
 
 
 # Pydantic Model
 class Stadiums_model(BaseModel):
-    img : str
-    name : str
-    year : str
-    capacity : str
-    size : str
-    team : str
+    img: str
+    name: str
+    year: str
+    capacity: str
+    team: str

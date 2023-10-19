@@ -30,8 +30,6 @@ app.include_router(highlights.router)
 app.include_router(matches.router)
 app.include_router(coaches.router)
 app.include_router(media.router)
-
-
 app.include_router(stadiums.router)
 
 @app.on_event("startup")
