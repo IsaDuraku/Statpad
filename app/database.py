@@ -10,6 +10,8 @@ from app.models.standing import Base as StandingsBase
 from app.models.bet import Base as BetBase
 from app.models.coaches import Base as CoachesBase
 from app.models.media import Base as MediaBase
+from app.models.stadiums import Base as StadiumBase
+
 from fastapi import FastAPI
 
 
@@ -33,6 +35,7 @@ HLBase.metadata.create_all(bind=engine)
 BetBase.metadata.create_all(bind=engine)
 CoachesBase.metadata.create_all(bind=engine)
 MediaBase.metadata.create_all(bind=engine)
+StadiumBase.metadata.create_all(bind=engine)
 
 
 
