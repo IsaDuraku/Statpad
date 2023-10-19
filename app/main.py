@@ -11,7 +11,8 @@ from app.routers.players import players
 from app.routers.livestream_links import livestream
 from app.routers.highlights import highlights
 from app.routers.standings import standing
-
+from app.routers.coaches import coaches
+from app.routers.media import media
 app = FastAPI()
 
 templates = Jinja2Templates(directory="templates")
@@ -26,6 +27,9 @@ app.include_router(standing.router)
 app.include_router(livestream.router)
 app.include_router(highlights.router)
 app.include_router(matches.router)
+app.include_router(coaches.router)
+app.include_router(media.router)
+
 
 
 @app.on_event("startup")
