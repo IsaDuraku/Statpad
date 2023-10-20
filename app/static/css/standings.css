@@ -315,3 +315,16 @@ background-color: #dc2525;
 #ligue1Table th {
     background-color: #201041;
 }
+.league-header {
+    display: flex;
+    align-items: center;
+}
+.coaches-link{
+    margin: 0 10px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #333;
+    padding: 10px 20px;
+    border: 2px solid #333;
+    border-radius: 5px;
+}
