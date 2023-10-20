@@ -11,7 +11,7 @@ from app.models.bet import Base as BetBase
 from app.models.coaches import Base as CoachesBase
 from app.models.media import Base as MediaBase
 from app.models.stadiums import Base as StadiumBase
-
+from app.models.matchday import Base as MatchdayBase
 from fastapi import FastAPI
 
 
@@ -36,6 +36,7 @@ BetBase.metadata.create_all(bind=engine)
 CoachesBase.metadata.create_all(bind=engine)
 MediaBase.metadata.create_all(bind=engine)
 StadiumBase.metadata.create_all(bind=engine)
+MatchdayBase.metadata.create_all(bind=engine)
 
 
 
