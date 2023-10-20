@@ -1,13 +1,14 @@
 {% include "header.html" %}
 {% include "navbar.html" %}
 <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../static/css/standings.css">
-<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../static/css/standings.css">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
 
 <!-- BANNER -->
 <div class="section subbanner">
@@ -42,7 +43,6 @@
 
         <div class="tab-content">
             <div id="laliga-home" class="tab-pane fade in active">
-                <h3>Laliga </h3>
                    <table>
                     <tr>
                         <th class="common-cell position-header">#</th>
@@ -73,7 +73,6 @@
                 </table>
             </div>
             <div id="laliga-menu1" class="tab-pane fade">
-                <h3>Coaches</h3>
                 <table class="coach-table">
                 <thead>
                     <tr>
@@ -87,9 +86,9 @@
                 <tbody>
                     {% for i in coaches[:20] %}
                     <tr>
+                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td>{{ i.coach_name }}</td>
                         <td>{{ i.club_name }}</td>
-                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
                         <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                     </tr>
@@ -98,7 +97,6 @@
             </table>
             </div>
             <div id="laliga-menu2" class="tab-pane fade">
-                <h3>Media</h3>
                 <div class="row">
                     {% for i in media[:12] %}
                     <div class="col-md-6 ">
@@ -142,7 +140,6 @@
 
         <div class="tab-content">
             <div id="bundesliga-home" class="tab-pane fade in active">
-                <h3>BundesLiga</h3>
                 <table>
                     <tr>
                         <th class="common-cell position-header">#</th>
@@ -173,7 +170,6 @@
                 </table>
             </div>
             <div id="bundesliga-menu1" class="tab-pane fade">
-                <h3>Coaches</h3>
                 <table class="coach-table">
                 <thead>
                     <tr>
@@ -187,9 +183,9 @@
                 <tbody>
                     {% for i in coaches[20:38] %}
                     <tr>
+                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td>{{ i.coach_name }}</td>
                         <td>{{ i.club_name }}</td>
-                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
                         <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                     </tr>
@@ -198,7 +194,6 @@
             </table>
             </div>
             <div id="bundesliga-menu2" class="tab-pane fade">
-                <h3>Media</h3>
                 <div class="row">
                     {% for i in media[12:24] %}
                     <div class="col-md-6 ">
@@ -242,7 +237,6 @@
 
         <div class="tab-content">
             <div id="ligue1-home" class="tab-pane fade in active">
-                <h3>Ligue1</h3>
                 <table>
                     <tr>
                         <th class="common-cell position-header">#</th>
@@ -273,7 +267,7 @@
                 </table>
             </div>
             <div id="ligue1-menu1" class="tab-pane fade">
-                <h3>Coaches</h3>
+
                <table class="coach-table">
                 <thead>
                     <tr>
@@ -287,9 +281,9 @@
                 <tbody>
                     {% for i in coaches[38:56] %}
                     <tr>
+                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td>{{ i.coach_name }}</td>
                         <td>{{ i.club_name }}</td>
-                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
                         <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                     </tr>
@@ -298,7 +292,7 @@
             </table>
             </div>
             <div id="ligue1-menu2" class="tab-pane fade">
-                <h3>Media</h3>
+
                 <div class="row">
                     {% for i in media[24:36] %}
                     <div class="col-md-6 ">
@@ -342,7 +336,7 @@
 
         <div class="tab-content">
             <div id="seriea-home" class="tab-pane fade in active">
-                <h3>Serie A</h3>
+
                 <table>
                 <tr>
                     <th class="common-cell position-header">#</th>
@@ -373,7 +367,7 @@
             </table>
             </div>
             <div id="seriea-menu1" class="tab-pane fade">
-                <h3>Coaches</h3>
+
                 <table class="coach-table">
                 <thead>
                     <tr>
@@ -387,9 +381,9 @@
                 <tbody>
                     {% for i in coaches[56:76] %}
                     <tr>
+                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td>{{ i.coach_name }}</td>
                         <td>{{ i.club_name }}</td>
-                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
                         <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                     </tr>
@@ -398,7 +392,7 @@
             </table>
             </div>
             <div id="seriea-menu2" class="tab-pane fade">
-                <h3>Media</h3>
+
                 <div class="row">
                     {% for i in media[36:48] %}
                     <div class="col-md-6 ">
@@ -443,7 +437,7 @@
 
         <div class="tab-content">
             <div id="premierleague-home" class="tab-pane fade in active">
-                <h3>Premier League </h3>
+
                    <table>
                     <tr>
                         <th class="common-cell position-header">#</th>
@@ -474,7 +468,7 @@
                 </table>
             </div>
             <div id="premierleague-menu1" class="tab-pane fade">
-                <h3>Coaches</h3>
+
                 <table class="coach-table">
                 <thead>
                     <tr>
@@ -488,9 +482,9 @@
                 <tbody>
                     {% for i in coaches[76:96] %}
                     <tr>
+                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td>{{ i.coach_name }}</td>
                         <td>{{ i.club_name }}</td>
-                        <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
                         <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                     </tr>
@@ -499,7 +493,7 @@
             </table>
             </div>
             <div id="premierleague-menu2" class="tab-pane fade">
-                <h3>Media</h3>
+
                 <div class="row">
                     {% for i in media[48:60] %}
                     <div class="col-md-6 ">
