@@ -36,6 +36,11 @@ def link_scrape():
         url="http://localhost:8080//livestream_scraper/scrape-and-insert"
     )
 
+@scheduler.scheduled_job("interval", minutes=1)
+def scores_scrape():
+    requests.get(
+        url="http://localhost:8080/matches/scores/"
+    )
 
 def delete_unverified_users():
     try:
