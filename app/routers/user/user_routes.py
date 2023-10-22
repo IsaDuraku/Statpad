@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
-from app.models.user import User, UserDB, UserInDB, ChangePasswordRequest
+from app.models.user import SignupUser, LoginUser, UserDB, UserInDB, ChangePasswordRequest
 from app.models.auth import Token
 from app.database import SessionLocal
 from app.routers.user.security import create_access_token, get_password_hash, verify_password, \
@@ -22,7 +22,7 @@ templates = Jinja2Templates(directory="templates")
 
 
 @router.post("/register/", response_model=UserInDB)
-def register_user(user: User, db: Session = Depends(get_db)):
+def register_user(user: SignupUser, db: Session = Depends(get_db)):
     if user.email is None:
         raise HTTPException(status_code=400, detail="Email is required for registration")
 
@@ -33,6 +33,11 @@ def register_user(user: User, db: Session = Depends(get_db)):
     hashed_password = get_password_hash(user.password)
 
     user_dict = user.dict(exclude={"password"})
+    if user.full_name:
+        user_dict["full_name"] = user.full_name
+    if user.favorite_team:
+        user_dict["favorite_team"] = user.favorite_team
+
     verification_token = generate_verification_token()
     user_db = UserDB(**user_dict, password=hashed_password, verification_token=verification_token, is_verified=False)
 
@@ -71,7 +76,7 @@ def send_email(email: str, verification_token: str):
 
 
 @router.post("/login/", response_model=Token)
-def login_user(user_credentials: User, db: Session = Depends(get_db)):
+def login_user(user_credentials: LoginUser, db: Session = Depends(get_db)):
     username = user_credentials.username
     password = user_credentials.password
 
@@ -129,6 +134,33 @@ def logout_user(token: str = Depends(oauth2_scheme)):
     response.delete_cookie("access_token")
 
     return response
+
+@router.get("/forgot-password/")
+async def forgot_password_view(request: Request):
+    return templates.TemplateResponse("forgot_password.html", {"request": request})
+
+
+@router.get("/profile/")
+async def profile_view(request: Request):
+    return templates.TemplateResponse("profile.html", {"request": request})
+
+
+@router.get("/user-profile")
+def get_user_profile(user: UserDB = Depends(get_current_user)):
+    user_profile = {
+        "full_name": user.full_name,
+        "username": user.username,
+        "email": user.email,
+        "favorite_team": user.favorite_team,
+        "created_at": user.created_at,
+        "is_verified": user.is_verified
+        # Add more fields as needed
+    }
+
+    return user_profile
+
+
+
 
 
 
