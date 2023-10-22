@@ -17,6 +17,13 @@ class SignupUser(BaseModel):
     password: str
     favorite_team: str
 
+class FullNameUpdate(BaseModel):
+    full_name: str
+
+class UsernameUpdate(BaseModel):
+    username: str
+
+
 class ChangePasswordRequest(BaseModel):
     old_password: str
     new_password: str

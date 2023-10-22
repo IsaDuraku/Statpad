@@ -107,18 +107,36 @@
 
     // Fetch club names from a backend API and populate the dropdown
     fetch("http://localhost:8080/api/club-names/")
-      .then(response => response.json())
-      .then(data => {
-        data.club_names.forEach(name => {
-          const option = document.createElement("option");
-          option.value = name;
-          option.text = name;
-          favoriteTeamDropdown.appendChild(option);
-        });
-      })
-      .catch(error => {
-        console.error("Error fetching club names:", error);
-      });
+  .then((response) => response.json())
+  .then((data) => {
+    const clubNames = data.club_names;
+
+    // Remove "1." from the beginning of team names
+    const modifiedClubNames = clubNames.map((clubName) => clubName.replace(/^1\. /, ''));
+
+    // Sort modified team names alphabetically
+    modifiedClubNames.sort((a, b) => a.localeCompare(b));
+
+    modifiedClubNames.forEach((clubName) => {
+      const option = document.createElement("option");
+      option.value = clubName;
+      option.text = clubName;
+      favoriteTeamDropdown.appendChild(option);
+    });
+  })
+  .catch((error) => {
+    console.error("Error fetching club names: ", error);
+  });
+
+favoriteTeamDropdown.addEventListener("change", function() {
+  if (this.value) {
+    this.placeholder = this.value;
+  } else {
+    this.placeholder = "Select your favorite team";
+  }
+});
+
+
 
     // Handle form submission for login
     loginBtn.addEventListener("click", () => {

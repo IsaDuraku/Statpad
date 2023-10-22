@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
-from app.models.user import SignupUser, LoginUser, UserDB, UserInDB, ChangePasswordRequest
+from app.models.user import SignupUser, LoginUser, UserDB, UserInDB, ChangePasswordRequest, FullNameUpdate, UsernameUpdate
 from app.models.auth import Token
 from app.database import SessionLocal
 from app.routers.user.security import create_access_token, get_password_hash, verify_password, \
@@ -159,12 +159,22 @@ def get_user_profile(user: UserDB = Depends(get_current_user)):
 
     return user_profile
 
+@router.put("/change-fullname/")
+def change_full_name(user_update: FullNameUpdate, db: Session = Depends(get_db), current_user: UserDB = Depends(get_current_user)):
+    current_user.full_name = user_update.full_name
+    db.commit()
+    return {"message": "Full name updated successfully"}
 
 
+@router.put("/change-username/")
+def change_username(username_update: UsernameUpdate, db: Session = Depends(get_db), current_user: UserDB = Depends(get_current_user)):
+    new_username = username_update.username
 
+    # Check if the new username is already taken
+    existing_user = db.query(UserDB).filter(UserDB.username == new_username).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Username already in use")
 
-
-
-
-
-
+    current_user.username = new_username
+    db.commit()
+    return {"message": "Username updated successfully"}
