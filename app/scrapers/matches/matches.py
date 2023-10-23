@@ -5,7 +5,6 @@ from app.models.matches import LiveSoccerScores, TomorrowSoccerScores
 from app.database import SessionLocal
 from sqlalchemy import asc
 
-
 def scrape_and_store_soccer_scores(date):
     session = SessionLocal()
     match_data_list = []  # Create an empty list to store match_data
@@ -34,14 +33,16 @@ def scrape_and_store_soccer_scores(date):
                 team_logos = body.find_all('img')
                 home_team_logos = team_logos[::2]
                 away_team_logos = team_logos[1::2]
-                for home, away, score, home_logo, away_logo in zip(
-                        team_elements[::2], team_elements[1::2], score_elements, home_team_logos, away_team_logos
+                matches_status = body.find_all(class_='match-status-label')  # Extract the match status directly
+                for home, away, score, home_logo, away_logo,match in zip(
+                        team_elements[::2], team_elements[1::2], score_elements, home_team_logos, away_team_logos,matches_status
                 ):
                     home_team = home.get_text().strip()
                     home_team_img = home_logo.get('src')
                     away_team = away.get_text()
                     away_team_img = away_logo.get('src')
                     score_text = score.get_text().strip()
+                    match_status=match.get_text().strip()
 
                     match_data = {
                         "league": league,
@@ -51,6 +52,7 @@ def scrape_and_store_soccer_scores(date):
                         "score": score_text,
                         "away_team": away_team,
                         "away_team_img": away_team_img,
+                        "match_status": match_status,  # Add match status to match_data
                         "match_date": date,
                     }
 
@@ -70,6 +72,7 @@ def scrape_and_store_soccer_scores(date):
                         existing_match.home_team_img = match_data["home_team_img"]
                         existing_match.away_team_img = match_data["away_team_img"]
                         existing_match.score = match_data["score"]
+                        existing_match.match_status = match_data["match_status"]
                         existing_match.date_scraped = datetime.datetime.now()
                     else:
                         # Insert a new match record
@@ -81,6 +84,7 @@ def scrape_and_store_soccer_scores(date):
                             away_team=match_data["away_team"],
                             away_team_img=match_data["away_team_img"],
                             score=match_data["score"],
+                            match_status=match_data["match_status"],
                             match_date=date,
                             date_scraped=datetime.datetime.now()
                         )
@@ -96,15 +100,18 @@ def scrape_and_store_soccer_scores(date):
     return match_data_list
 
 
+
 def match_is_live(match_data):
     current_date = datetime.date.today()
     match_date = datetime.datetime.strptime(match_data["match_date"], "%Y-%m-%d").date()
     return match_date == current_date
 
+
 def match_is_tomorrow(match_data):
     match_date = datetime.datetime.strptime(match_data["match_date"], "%Y-%m-%d").date()
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
     return match_date == tomorrow
+
 
 def save_to_live_scores_table(match_data, session):
     try:
@@ -121,6 +128,7 @@ def save_to_live_scores_table(match_data, session):
             existing_match.home_team_img = match_data["home_team_img"]
             existing_match.away_team_img = match_data["away_team_img"]
             existing_match.score = match_data["score"]
+            existing_match.match_status = match_data["match_status"]
             existing_match.date_scraped = datetime.datetime.now()
         else:
             # Insert a new match record
@@ -132,6 +140,7 @@ def save_to_live_scores_table(match_data, session):
                 away_team=match_data["away_team"],
                 away_team_img=match_data["away_team_img"],
                 score=match_data["score"],
+                match_status=match_data["match_status"],
                 match_date=match_data["match_date"],
                 date_scraped=datetime.datetime.now()
             )
@@ -139,6 +148,7 @@ def save_to_live_scores_table(match_data, session):
         session.commit()
     except Exception as e:
         print("Error in save_to_live_scores_table:", e)
+
 
 def save_to_tomorrow_scores_table(match_data, session):
     try:
@@ -155,6 +165,7 @@ def save_to_tomorrow_scores_table(match_data, session):
             existing_match.home_team_img = match_data["home_team_img"]
             existing_match.away_team_img = match_data["away_team_img"]
             existing_match.score = match_data["score"]
+            existing_match.match_status = match_data["match_status"]
             existing_match.date_scraped = datetime.datetime.now()
         else:
             # Insert a new match record
@@ -166,6 +177,7 @@ def save_to_tomorrow_scores_table(match_data, session):
                 away_team=match_data["away_team"],
                 away_team_img=match_data["away_team_img"],
                 score=match_data["score"],
+                match_status=match_data["match_status"],
                 match_date=match_data["match_date"],
                 date_scraped=datetime.datetime.now()
             )
@@ -173,4 +185,3 @@ def save_to_tomorrow_scores_table(match_data, session):
         session.commit()
     except Exception as e:
         print("Error in save_to_tomorrow_scores_table:", e)
-
