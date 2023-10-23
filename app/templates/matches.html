@@ -62,13 +62,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for score in scores if score.league == league %}
+                    {% for score in scores if score.league == league and score.league_img != 'https://cdn.resfu.com/media/img/flags/st3/small/ru.png?size=30x&lossy=1' %}
                         <tr class="league-title-row">
                             <td class="team-cell home-team">
                                 <img src="{{ score.home_team_img }}" alt="{{ score.home_team }}" class="team-logo">
                                 {{ score.home_team }}
                             </td>
-                            <td class="team-cell score">{{ score.score }}</td>
+                            <td class="team-cell score">{{ score.score }}
+                            <div class="status">{{ score.match_status }}</div></td>
                             <td class="team-cell away-team">
                                 <img src="{{ score.away_team_img }}" alt="{{ score.away_team }}" class="team-logo">
                                 {{ score.away_team }}
@@ -89,10 +90,9 @@
                 </tr>
             </thead>
             <tbody>
-                {% for score in scores if score.league == league %}
+                {% for score in scores if score.league == league and score.league_img != 'https://cdn.resfu.com/media/img/flags/st3/small/ru.png?size=30x&lossy=1' %}
                     <tr class="league-title-row">
                         <td class="team-cell home-team">
-
                             <img src="{{ score.home_team_img }}" alt="{{ score.home_team }}" class="team-logo">
                             {{ score.home_team }}
                         </td>
@@ -103,7 +103,6 @@
                             {{ score.away_team }}
                         </td>
                     </tr>
-
                 {% endfor %}
             </tbody>
         </table>
