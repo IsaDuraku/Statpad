@@ -70,7 +70,7 @@
 					<li><a href="{{url_for('show_livestream_links')}}">LIVESTREAMS</a></li>
                     <li><a href="about.html">ABOUT</a></li>
                     <li><a href="#" id="logoutBtn">Log Out</a></li>
-                    <li><a href="#">Welcome, ${username}</a>
+                    <li><a href="{{url_for('profile_view')}}">Welcome, ${username}</a>
 
           `;
         // Add an event listener to handle the logout button click
