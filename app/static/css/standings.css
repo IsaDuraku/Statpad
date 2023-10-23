@@ -100,9 +100,9 @@ th {
 
 /* Add some hover effect for the league links */
 .ligtable:hover {
-  background-color: #333;
-  color: #3fc323;
-  transition: 0.3s;
+    background-color: #a4a4a4;
+    color: black;
+    transition: 0.3s;
 }
 
 /* Footer styles (modify as needed) */
@@ -136,6 +136,10 @@ width: 32px;
 }
 .a:hover, a:focus{
 text-decoration: none;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
 }
 .common-cell.points-header{
 width: 20px;

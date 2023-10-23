@@ -21,9 +21,17 @@
 }
 
 .card-title {
-  font-size: large;
-  margin-top: -6px;
-  color: #dff;
+  white-space: nowrap; /* Prevent text from breaking into a new line */
+  overflow: hidden;    /* Hide any overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis (...) for long text */
+  font-size: large; /* Initial font size */
+}
+
+/* You can also use media queries to reduce the font size for smaller screens */
+@media (max-width: 768px) {
+  .card-title {
+    font-size: medium; /* Adjust the font size for smaller screens */
+  }
 }
 
 .card-text {
