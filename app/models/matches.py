@@ -16,6 +16,7 @@ class LiveSoccerScores(Base):
     away_team = Column(String)
     away_team_img = Column(String)
     score = Column(String)
+    match_status = Column(String)
     match_date = Column(DateTime)
     date_scraped = Column(DateTime)
 
@@ -30,6 +31,7 @@ class TomorrowSoccerScores(Base):
     away_team = Column(String)
     away_team_img = Column(String)
     score = Column(String)
+    match_status=Column(String)
     match_date = Column(DateTime)
     date_scraped = Column(DateTime)
 
@@ -41,6 +43,7 @@ class MatchesPydantic(BaseModel):
     away_team :str
     away_team_img :str
     score : str
+    match_status : str
     match_date : str
     date_scraped : str
 
@@ -53,6 +56,7 @@ class MatchesPydantic(BaseModel):
     away_team :str
     away_team_img :str
     score : str
+    match_status: str
     match_date : str
     date_scraped : str
 
