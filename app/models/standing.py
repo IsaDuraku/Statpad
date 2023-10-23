@@ -9,6 +9,7 @@ class LeagueTable(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     position = Column(String)
+    imageurl=Column(String)
     club = Column(String(500))
     plays=Column(Integer)
     wins=Column(Integer)
@@ -22,6 +23,7 @@ class LeagueTable(Base):
 # Pydantic model for input data
 class LeagueTableCreate(BaseModel):
     position: str
+    imageurl: str
     club: str
     plays: int
     wins: int

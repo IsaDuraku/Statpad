@@ -6,50 +6,53 @@ from app.models.standing import LeagueTable  # Assuming this import is correctly
 from app.models.standing import LeagueTableCreate
 from app.database import SessionLocal
 
+import re
 
 def get_league_table():
-    league_names = [ "la-liga", "bundesliga", "ligue-1","serie-a","premier-league"]
-    base_url = 'https://www.skysports.com/'
+    league_names = ["primera_division", "bundesliga", "ligue_1", "serie_a", "premier_league"]
+    base_url = 'https://www.besoccer.com/competition/table'
     data_dict_list = []
 
     for league_name in league_names:
-        league_url = f'{base_url}{league_name}-table'
+        league_url = f'{base_url}/{league_name}'
 
         html_text = requests.get(league_url).text
-        soup = BeautifulSoup(html_text, 'html.parser')  # Corrected 'htmltext' to 'html_text'
+        soup = BeautifulSoup(html_text, 'html.parser')
 
-        table = soup.find('table', class_='standing-table__table')  # Corrected class attribute
+        table = soup.find('table', class_='table')
+        rows = table.find_all('tr', class_='row-body')
 
-        if not table:
-            continue
-
-        rows = table.find_all('tr')
-        for row in rows[1:]:  # Skip the header row
+        for row in rows:
             columns = row.find_all('td')
-            position = columns[0].text.strip()
-            club = columns[1].text.strip()
-            pl = columns[2].text.strip()
-            w = columns[3].text.strip()
-            d = columns[4].text.strip()
-            l = columns[5].text.strip()
-            f = columns[6].text.strip()
-            a = columns[7].text.strip()
-            gd = columns[8].text.strip()
-            points = columns[9].text.strip()
+            position = columns[0].div.text.strip()
+            image_url = columns[1].find('img')['src']
+            team_name = columns[2].find('span', class_='team-name').text.strip()
+            points = columns[3].text.strip()
+            matches_played = columns[4].text.strip()
+            matches_played = matches_played.split('\n')[0]
+            wins = columns[5].text.strip()
+            draws = columns[6].text.strip()
+            losses = columns[7].text.strip()
+            goals_for = columns[8].text.strip()
+            goals_against = columns[9].text.strip()
+            goal_difference = columns[10].text.strip()
 
-            data_dict = {
-                "Position": position,
-                "Club": club,
-                "pl": pl,
-                "w": w,
-                "d": d,
-                "l": l,
-                "f": f,
-                "a": a,
-                "gd": gd,
-                "Points": points
-            }
-            data_dict_list.append(data_dict)
+            # Clean the 'matches_played' value to contain only digits
+            cleaned_matches_played = re.sub(r'\D', '', matches_played)
+
+            data_dict_list.append({
+                'Position': position,
+                'ImageURL': image_url,
+                'TeamName': team_name,
+                'Points': points,
+                'MatchesPlayed': int(cleaned_matches_played),  # Convert cleaned value to an integer
+                'Wins': wins,
+                'Draws': draws,
+                'Losses': losses,
+                'GoalsFor': goals_for,
+                'GoalsAgainst': goals_against,
+                'GoalDifference': goal_difference,
+            })
 
     return data_dict_list
 
@@ -91,36 +94,23 @@ def delete_all_data():
             # Always close the session when done
             session.close()
 
-def save_to_db(results, session):
-    if not results:
-        return
 
+def save_to_db(data_dict_list, session):
     try:
-        for result in results:
-            club = result["Club"]
-            position = result["Position"]
-            pl = result['pl']
-            w = result['w']
-            d = result['d']
-            l = result['l']
-            f = result['f']
-            a = result['a']
-            gd = result['gd']
-            points = result["Points"]
-
-
+        for league_data in data_dict_list:
             new_league = LeagueTable(
-                    club=club,
-                    position=position,
-                    points=points,
-                    plays=pl,
-                    wins=w,
-                    draws=d,
-                    losses=l,
-                    goalsscored=f,
-                    goalsconceded=a,
-                    goaldifference=gd
-                )
+                position=league_data['Position'],
+                imageurl=league_data['ImageURL'],
+                club=league_data['TeamName'],
+                plays=league_data['MatchesPlayed'],
+                wins=league_data['Wins'],
+                draws=league_data['Draws'],
+                losses=league_data['Losses'],
+                goalsscored=league_data['GoalsFor'],
+                goalsconceded=league_data['GoalsAgainst'],
+                goaldifference=league_data['GoalDifference'],
+                points=league_data['Points']
+            )
             session.add(new_league)
 
         session.commit()
