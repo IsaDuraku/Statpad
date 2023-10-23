@@ -9,6 +9,7 @@ class LiveSoccerScores(Base):
     __tablename__ = 'live_soccer_scores'
 
     id = Column(Integer, primary_key=True)
+    league_img = Column(String)
     league = Column(String)
     round = Column(String)
     home_team = Column(String)
@@ -24,6 +25,7 @@ class TomorrowSoccerScores(Base):
     __tablename__ = 'tomorrow_soccer_scores'
 
     id = Column(Integer, primary_key=True)
+    league_img = Column(String)
     league = Column(String)
     round = Column(String)
     home_team = Column(String)
@@ -36,6 +38,7 @@ class TomorrowSoccerScores(Base):
     date_scraped = Column(DateTime)
 
 class MatchesPydantic(BaseModel):
+    league_img : str
     league:str
     round:str
     home_team :str
@@ -49,6 +52,7 @@ class MatchesPydantic(BaseModel):
 
 
 class MatchesPydantic(BaseModel):
+    league_img: str
     league:str
     round:str
     home_team :str

@@ -1,4 +1,3 @@
-import re
 from datetime import date
 import requests
 from bs4 import BeautifulSoup
@@ -22,7 +21,7 @@ def scrape_webpage():
         extracted_matches = []
 
         current_date = date.today()
-        # me dictionary
+
         if body_tag:
             # Split the text into lines
             lines = body_tag
@@ -34,19 +33,22 @@ def scrape_webpage():
                         "10:", "11:", "12:", "13:", "14:", "15:", "16:", "17:", "18:", "19:",
                         "20:", "21:", "22:",
                         "23:"]) and '|' in line and 'x' in line and "Handball" not in line and "Rugby" not in line:
-                    # Split the line at both | and - symbols
-                    parts = re.split(r'\t(.*?)\s*\|\s*', line)
-                    parts = [p.strip() for p in parts if p.strip()]  # Remove leading/trailing spaces
-                    # Check if there are at least three elements in parts
-                    if len(parts) >= 3:
-                        line_dict = {
-                            "Time": parts[0].strip(),
-                            "Match": parts[1].strip(),
-                            "URL": parts[2].strip()
-                        }
-
-                        line_dict["DATE"] = current_date.strftime('%Y-%m-%d')
-                        extracted_matches.append(line_dict)
+                    # Extract the relevant information from the line
+                    match_parts = line.split('|')
+                    time_and_teams = match_parts[0].strip().split('   ')
+                    if len(time_and_teams) == 2:
+                        time = time_and_teams[0]
+                        teams = time_and_teams[1].split(' x ')
+                        if len(teams) == 2:
+                            home_team, away_team = teams
+                            url = match_parts[1].strip()
+                            line_dict = {
+                                "Time": time.strip(),
+                                "Match": f"{home_team} x {away_team}",
+                                "URL": url,
+                                "DATE": current_date.strftime('%Y-%m-%d')
+                            }
+                            extracted_matches.append(line_dict)
                     else:
                         print("Skipping line:", line)
 

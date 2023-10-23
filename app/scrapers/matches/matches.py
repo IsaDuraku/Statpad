@@ -5,6 +5,7 @@ from app.models.matches import LiveSoccerScores, TomorrowSoccerScores
 from app.database import SessionLocal
 from sqlalchemy import asc
 
+
 def scrape_and_store_soccer_scores(date):
     session = SessionLocal()
     match_data_list = []  # Create an empty list to store match_data
@@ -18,12 +19,17 @@ def scrape_and_store_soccer_scores(date):
         for panel in panels:
             panel_titles = panel.find_all('div', class_='panel-title')
             panel_body = panel.find_all('div', class_='panel-body p0 match-list-new panel view-more')
+            league_img = ' '
             league = ' '
             round = ' '
             for panel_title in panel_titles:
                 spans = panel_title.find_all('span', class_='va-m')
+                league_img = panel_title.find_all(class_='comp-img va-m')
                 for span in spans:
                     league = span.get_text()
+
+                for l in league_img:
+                    league_img = l.get('src')
             for body in panel_body:
                 info = body.find_all(class_='middle-info ta-c')
                 for i in info:
@@ -34,17 +40,19 @@ def scrape_and_store_soccer_scores(date):
                 home_team_logos = team_logos[::2]
                 away_team_logos = team_logos[1::2]
                 matches_status = body.find_all(class_='match-status-label')  # Extract the match status directly
-                for home, away, score, home_logo, away_logo,match in zip(
-                        team_elements[::2], team_elements[1::2], score_elements, home_team_logos, away_team_logos,matches_status
+                for home, away, score, home_logo, away_logo, match in zip(
+                        team_elements[::2], team_elements[1::2], score_elements, home_team_logos, away_team_logos,
+                        matches_status
                 ):
                     home_team = home.get_text().strip()
                     home_team_img = home_logo.get('src')
                     away_team = away.get_text()
                     away_team_img = away_logo.get('src')
                     score_text = score.get_text().strip()
-                    match_status=match.get_text().strip()
+                    match_status = match.get_text().strip()
 
                     match_data = {
+                        "league_img": league_img,
                         "league": league,
                         "round": round,
                         "home_team": home_team,
@@ -67,6 +75,7 @@ def scrape_and_store_soccer_scores(date):
 
                     if existing_match:
                         # Update the existing match data
+                        existing_match.league = match_data["league_img"]
                         existing_match.league = match_data["league"]
                         existing_match.round = match_data["round"]
                         existing_match.home_team_img = match_data["home_team_img"]
@@ -77,6 +86,7 @@ def scrape_and_store_soccer_scores(date):
                     else:
                         # Insert a new match record
                         live_score = LiveSoccerScores(
+                            league_img=match_data["league_img"],
                             league=match_data["league"],
                             round=match_data["round"],
                             home_team=match_data["home_team"],
@@ -98,7 +108,6 @@ def scrape_and_store_soccer_scores(date):
         session.close()
 
     return match_data_list
-
 
 
 def match_is_live(match_data):
@@ -123,6 +132,7 @@ def save_to_live_scores_table(match_data, session):
 
         if existing_match:
             # Update the existing match data
+            existing_match.league_img= match_data["league_img"]
             existing_match.league = match_data["league"]
             existing_match.round = match_data["round"]
             existing_match.home_team_img = match_data["home_team_img"]
@@ -133,6 +143,7 @@ def save_to_live_scores_table(match_data, session):
         else:
             # Insert a new match record
             live_score = LiveSoccerScores(
+                league_img = match_data["league_img"],
                 league=match_data["league"],
                 round=match_data["round"],
                 home_team=match_data["home_team"],
@@ -160,6 +171,7 @@ def save_to_tomorrow_scores_table(match_data, session):
 
         if existing_match:
             # Update the existing match data
+            existing_match.league_img = match_data["league_img"]
             existing_match.league = match_data["league"]
             existing_match.round = match_data["round"]
             existing_match.home_team_img = match_data["home_team_img"]
@@ -170,6 +182,7 @@ def save_to_tomorrow_scores_table(match_data, session):
         else:
             # Insert a new match record
             tomorrow_score = TomorrowSoccerScores(
+                league_img=match_data["league_img"],
                 league=match_data["league"],
                 round=match_data["round"],
                 home_team=match_data["home_team"],
