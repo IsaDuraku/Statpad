@@ -17,7 +17,7 @@
 
 .card {
     width: calc(33.33% - 1em); /* Adjust the width for three cards */
-    background-color:  #a4a4a4;
+    background-color:  #dfdddd;
     border: 1px solid #ccc; /* Add a border around the card */
     border-radius: 8px;
     overflow: hidden;

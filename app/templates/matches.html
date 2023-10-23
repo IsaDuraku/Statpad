@@ -3,7 +3,7 @@
 <!-- NAVBAR SECTION -->
 {% include "navbar.html" %}
 
-<link rel="stylesheet" type="text/css" href="/static/css/matches.css"> <!-- Include your CSS file path here -->
+<link rel="stylesheet" type="text/css" href="/static/css/matches.css">
 <link rel="stylesheet" type="text/css" href="../static/css/custom.css">
 
 <!-- BANNER -->
@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-12">
-                <div class="caption">Soccer Scores</div>
+                <div class="caption">Football Scores</div>
             </div>
         </div>
     </div>
@@ -49,9 +49,8 @@
     });
 </script>
 
-
 <div class="container">
-    {% set displayed_leagues = ["Premier League", "La Liga", "Bundesliga", "Serie A", "Ligue 1","Champions League", "Europa League"] %}
+    {% set displayed_leagues = ["Premier League", "La Liga", "Bundesliga", "Serie A", "Ligue 1", "Champions League", "Europa League"] %}
 
     {# Display specified leagues first #}
     {% for league in displayed_leagues %}
@@ -63,13 +62,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for score in scores if score.league == league %}
+                    {% for score in scores if score.league == league and score.league_img != 'https://cdn.resfu.com/media/img/flags/st3/small/ru.png?size=30x&lossy=1' %}
                         <tr class="league-title-row">
                             <td class="team-cell home-team">
                                 <img src="{{ score.home_team_img }}" alt="{{ score.home_team }}" class="team-logo">
                                 {{ score.home_team }}
                             </td>
-                            <td class="team-cell score">{{ score.score }}</td>
+                            <td class="team-cell score">{{ score.score }}
+                            <div class="status">{{ score.match_status }}</div></td>
                             <td class="team-cell away-team">
                                 <img src="{{ score.away_team_img }}" alt="{{ score.away_team }}" class="team-logo">
                                 {{ score.away_team }}
@@ -90,13 +90,14 @@
                 </tr>
             </thead>
             <tbody>
-                {% for score in scores if score.league == league %}
+                {% for score in scores if score.league == league and score.league_img != 'https://cdn.resfu.com/media/img/flags/st3/small/ru.png?size=30x&lossy=1' %}
                     <tr class="league-title-row">
                         <td class="team-cell home-team">
                             <img src="{{ score.home_team_img }}" alt="{{ score.home_team }}" class="team-logo">
                             {{ score.home_team }}
                         </td>
-                        <td class="team-cell score">{{ score.score }}</td>
+                        <td class="team-cell score">{{ score.score }}
+                        <div class="status">{{ score.match_status }}</div></td>
                         <td class="team-cell away-team">
                             <img src="{{ score.away_team_img }}" alt="{{ score.away_team }}" class="team-logo">
                             {{ score.away_team }}
@@ -107,7 +108,5 @@
         </table>
     {% endfor %}
 </div>
-
-
 
 {% include "footer.html" %}

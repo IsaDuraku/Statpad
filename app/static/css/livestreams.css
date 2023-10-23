@@ -5,7 +5,7 @@
 tbody {
     display: table-row-group;
     border-color: inherit;
-    background: #FFFFF0;
+    background: transparent;
 
 }
 th{
