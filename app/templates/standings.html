@@ -20,13 +20,13 @@
         </div>
     </div>
 </div>
-<div class="leagues">
-    <a href="#" class="ligtable" onclick="showTable('premierleagueTable'); return false;">Premier league</a>
-    <a href="#" class="ligtable" onclick="showTable('laligaTable'); return false;">La Liga</a>
-    <a href="#" class="ligtable" onclick="showTable('serieaTable'); return false;">Serie A</a>
-    <a href="#" class="ligtable" onclick="showTable('bundesligaTable'); return false;">Bundesliga</a>
-    <a href="#" class="ligtable" onclick="showTable('ligue1Table'); return false;">Ligue 1</a>
-</div>
+  <div class="leagues">
+    <a href="#" class="ligtable custom-button" onclick="showTable('premierleagueTable'); return false;">Premier league</a>
+    <a href="#" class="ligtable custom-button" onclick="showTable('laligaTable'); return false;">La Liga</a>
+    <a href="#" class="ligtable custom-button" onclick="showTable('serieaTable'); return false;">Serie A</a>
+    <a href="#" class="ligtable custom-button" onclick="showTable('bundesligaTable'); return false;">Bundesliga</a>
+    <a href="#" class="ligtable custom-button" onclick="showTable('ligue1Table'); return false;">Ligue 1</a>
+  </div>
 
 
 <div class="table-container" id="laligaTable" style="display: block;">
@@ -78,21 +78,22 @@
                 <table class="coach-table">
                 <thead>
                     <tr>
-                        <th>Coach Name</th>
-                        <th>Club Name</th>
-                        <th>Coach Logo</th>
-                        <th>Team Logo</th>
-                        <th>Nationality Flag</th>
+                        <th></th>
+                        <th></th>
+                        <th>Manager</th>
+                        <th>Club</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for i in coaches[:20] %}
                     <tr>
+                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                         <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td>{{ i.coach_name }}</td>
+
                         <td>{{ i.club_name }}</td>
                         <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
-                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -177,21 +178,22 @@
                 <table class="coach-table">
                 <thead>
                     <tr>
-                        <th>Coach Name</th>
-                        <th>Club Name</th>
-                        <th>Coach Logo</th>
-                        <th>Team Logo</th>
-                        <th>Nationality Flag</th>
+                        <th></th>
+                        <th></th>
+                        <th>Manager</th>
+                        <th>Club</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for i in coaches[20:38] %}
                     <tr>
+                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                         <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td>{{ i.coach_name }}</td>
+
                         <td>{{ i.club_name }}</td>
                         <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
-                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -276,22 +278,23 @@
 
                <table class="coach-table">
                 <thead>
-                    <tr>
-                        <th>Coach Name</th>
-                        <th>Club Name</th>
-                        <th>Coach Logo</th>
-                        <th>Team Logo</th>
-                        <th>Nationality Flag</th>
+                 <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Manager</th>
+                        <th>Club</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for i in coaches[38:56] %}
                     <tr>
+                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                         <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td>{{ i.coach_name }}</td>
+
                         <td>{{ i.club_name }}</td>
                         <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
-                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -378,22 +381,23 @@
 
                 <table class="coach-table">
                 <thead>
-                    <tr>
-                        <th>Coach Name</th>
-                        <th>Club Name</th>
-                        <th>Coach Logo</th>
-                        <th>Team Logo</th>
-                        <th>Nationality Flag</th>
+                 <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Manager</th>
+                        <th>Club</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for i in coaches[56:76] %}
                     <tr>
+                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                         <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td>{{ i.coach_name }}</td>
+
                         <td>{{ i.club_name }}</td>
                         <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
-                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -481,22 +485,22 @@
 
                 <table class="coach-table">
                 <thead>
-                    <tr>
-                        <th>Coach Name</th>
-                        <th>Club Name</th>
-                        <th>Coach Logo</th>
-                        <th>Team Logo</th>
-                        <th>Nationality Flag</th>
-                    </tr>
+                 <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Manager</th>
+                        <th>Club</th>
+                        <th></th>
+                 </tr>
                 </thead>
                 <tbody>
                     {% for i in coaches[76:96] %}
                     <tr>
+                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                         <td><img src="{{ i.coach_logo }}" alt="{{ i.coach_name }} Logo" class="coach-logo"></td>
                         <td>{{ i.coach_name }}</td>
                         <td>{{ i.club_name }}</td>
                         <td><img src="{{ i.team_logo }}" alt="{{ i.club_name }} Logo" class="team-logo"></td>
-                        <td><img src="{{ i.nationality_flag }}" alt="{{ i.coach_name }} Nationality" class="nationality-flag"></td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -50,14 +50,23 @@
 
 <!-- Pagination -->
 <ul class="pagination" style="margin-left: 50px">
-						{% for page_number in page_numbers %}
-							{% if page_number == current_page %}
-								<li class="active"><a href="#">{{ page_number }}</a></li>
-							{% else %}
-								<li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
-							{% endif %}
-						{% endfor %}
-					</ul>
+    {% if current_page > 1 %}
+        <li><a href="?page={{ current_page - 1 }}">Previous</a></li>
+    {% endif %}
 
+    {% for page_number in page_numbers %}
+        {% if current_page - 2 <= page_number <= current_page + 2 %}
+            {% if page_number == current_page %}
+                <li class="active"><a href="#">{{ page_number }}</a></li>
+            {% else %}
+                <li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% if current_page < total_pages %}
+        <li><a href="?page={{ current_page + 1 }}">Next</a></li>
+    {% endif %}
+</ul>
 
 {% include "footer.html" %}
