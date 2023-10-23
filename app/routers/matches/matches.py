@@ -17,7 +17,7 @@ router = APIRouter(
 )
 
 @router.get("/scrape-scores/")
-def scrape_and_save_live_scores(date: Optional[str] = None):
+def scrape_and_save_live_scores(date: Optional[str] = datetime.now().strftime("%Y-%m-%d")):
     try:
         print("Start of scrape_and_save_live_scores")
         if date is None:
