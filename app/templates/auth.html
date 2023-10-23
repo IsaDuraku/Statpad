@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
-  <link rel="stylesheet" href="./style.css">
 <body>
   <div class="section">
     <div class="container">
@@ -31,7 +30,7 @@
                           <i class="input-icon uil uil-lock-alt"></i>
                         </div>
                         <button type="button" class="btn mt-4" id="loginBtn">Log In</button>
-                        <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Forgot your password?</a></p>
+                        <p class="mb-0 mt-4 text-center"><a href="{{ url_for("forgot_password_view") }}" class="link">Forgot your password?</a></p>
                       </div>
                     </div>
                   </div>
@@ -40,7 +39,7 @@
                       <div class="section text-center">
                         <h4 class="mb-4 pb-3">Sign Up</h4>
                           <div class="form-group">
-                          <input type="text" name="signupfullname" class="form-style" placeholder="Your Full Name" id="signupfullname" autocomplete="off">
+                          <input type="text" name="full_name" class="form-style" placeholder="Your Full Name" id="signupfullname" autocomplete="off">
                           <i class="input-icon uil uil-user"></i>
                         </div>
                         <div class="form-group mt-2">
@@ -56,7 +55,7 @@
                           <i class="input-icon uil uil-lock-alt"></i>
                         </div>
                           <div class="form-group mt-2">
-                          <select name="favoriteTeam" class="form-style" id="favoriteTeam">
+                          <select name="favorite_team" class="form-style" id="favoriteTeam">
                             <option value="" disabled selected>Select your favorite team</option>
                           </select>
                               <i class="input-icon uil uil-football"></i>
@@ -75,22 +74,71 @@
   </div>
 
   <script>
-    const authForm = document.getElementById("authForm");
+  document.addEventListener("DOMContentLoaded", function () {
+    // Initialize variables to reference various elements
+    const form = document.getElementById("authForm");
     const loginTab = document.getElementById("loginTab");
     const signupTab = document.getElementById("signupTab");
+    const regLogCheckbox = document.getElementById("reg-log");
     const loginBtn = document.getElementById("loginBtn");
     const signupBtn = document.getElementById("signupBtn");
+    const favoriteTeamDropdown = document.getElementById("favoriteTeam");
 
-    loginTab.addEventListener("click", () => {
-      authForm.reset();
-      document.getElementById("reg-log").checked = false;
+    // Set event listeners for the tabs
+    loginTab.addEventListener("click", function () {
+      // Switch to the login form
+      document.querySelector(".card-3d-wrapper").style.transform = "rotateY(0deg)";
     });
 
-    signupTab.addEventListener("click", () => {
-      authForm.reset();
-      document.getElementById("reg-log").checked = true;
+    signupTab.addEventListener("click", function () {
+      // Switch to the signup form
+      document.querySelector(".card-3d-wrapper").style.transform = "rotateY(180deg)";
     });
 
+    // Set event listener for the reg-log checkbox
+    regLogCheckbox.addEventListener("change", function () {
+      // Switch between login and signup forms
+      if (this.checked) {
+        signupTab.click();
+      } else {
+        loginTab.click();
+      }
+    });
+
+    // Fetch club names from a backend API and populate the dropdown
+    fetch("http://localhost:8080/api/club-names/")
+  .then((response) => response.json())
+  .then((data) => {
+    const clubNames = data.club_names;
+
+    // Remove "1." from the beginning of team names
+    const modifiedClubNames = clubNames.map((clubName) => clubName.replace(/^1\. /, ''));
+
+    // Sort modified team names alphabetically
+    modifiedClubNames.sort((a, b) => a.localeCompare(b));
+
+    modifiedClubNames.forEach((clubName) => {
+      const option = document.createElement("option");
+      option.value = clubName;
+      option.text = clubName;
+      favoriteTeamDropdown.appendChild(option);
+    });
+  })
+  .catch((error) => {
+    console.error("Error fetching club names: ", error);
+  });
+
+favoriteTeamDropdown.addEventListener("change", function() {
+  if (this.value) {
+    this.placeholder = this.value;
+  } else {
+    this.placeholder = "Select your favorite team";
+  }
+});
+
+
+
+    // Handle form submission for login
     loginBtn.addEventListener("click", () => {
       // Fetch or make an API call to your backend for login logic here.
       const formData = new FormData(authForm);
@@ -119,86 +167,57 @@
     }
   })
   .then((data) => {
-    // Store the access token in a cookie
-    document.cookie = `access_token=${data.access_token}; path=/`;
+    const token = data.access_token;
     const username = loginData.username;
+
+    // Store the token as a "Authorization: Bearer [token]" header in a cookie
+    document.cookie = `Authorization=Bearer ${token}; path=/`;
     document.cookie = `username=${username}; path=/`;
 
     // Redirect to the homepage or reload the page
     window.location.href = "http://localhost:8080/highlights/view";
+})
 
-  })
   .catch((error) => {
     console.error("Error:", error);
   });
     });
 
-    const favoriteTeamDropdown = document.getElementById("favoriteTeam");
+    // Handle form submission for signup
+    signupBtn.addEventListener("click", function () {
+      const fullname = document.getElementById("signupfullname").value;
+      const signupusername = document.getElementById("signupusername").value;
+      const signupemail = document.getElementById("signupemail").value;
+      const signuppass = document.getElementById("signuppass").value;
+      const favoriteTeam = favoriteTeamDropdown.value;
 
-    fetch("http://localhost:8080/api/club-names/")
-      .then((response) => response.json())
-      .then((data) => {
-        const clubNames = data.club_names;
-
-        clubNames.sort(); // Sort club names alphabetically
-
-        clubNames.forEach((clubName) => {
-          const option = document.createElement("option");
-          option.value = clubName;
-          option.text = clubName;
-          favoriteTeamDropdown.appendChild(option);
-        });
-      })
-      .catch((error) => {
-        console.error("Error fetching club names: ", error);
-      });
-
-    favoriteTeamDropdown.addEventListener("change", function() {
-      if (this.value) {
-        this.placeholder = this.value;
-      } else {
-        this.placeholder = "Select your favorite team";
-      }
-    });
-
-
-
-    signupBtn.addEventListener("click", () => {
-      // Fetch or make an API call to your backend for signup logic here.
-      const formData = new FormData(authForm);
-      const signupData = {
-          fullname: formData.get("signupfullname"),
-        username: formData.get("signupusername"),
-        email: formData.get("signupemail"),
-        password: formData.get("signuppass"),
-          favoriteTeam: formData.get("favoriteTeam")
-
-      };
-
-      // Make an API call to your backend with signupData
-      // Replace the below with your actual API endpoint and logic
+      // Make an API call for signup using fetch or another library like Axios
       fetch("http://localhost:8080/api/register/", {
         method: "POST",
-        body: JSON.stringify(signupData),
+        body: JSON.stringify({
+          full_name: fullname,
+          username: signupusername,
+          email: signupemail,
+          password: signuppass,
+          favorite_team: favoriteTeam,
+        }),
         headers: {
           "Content-Type": "application/json",
         },
       })
-        .then((response) => {
-          if (response.status === 200) {
-            // Successful signup
-            alert("Sign up successful!");
-            // Redirect to a new page or perform other actions
-          } else {
-            // Handle signup failure
-            alert("Sign up failed. Please check your information.");
-          }
+        .then(response => response.json())
+        .then(data => {
+          // Handle successful signup, e.g., show a success message
+          alert("Signup successful. Check your email for verification.");
         })
-        .catch((error) => {
-          console.error("Error:", error);
+        .catch(error => {
+          // Handle signup failure and display an error message
+          console.error("Signup error:", error);
+          alert("Signup failed. Please try again.");
         });
     });
-  </script>
+  });
+</script>
 </body>
 </html>
 

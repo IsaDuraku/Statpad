@@ -41,7 +41,7 @@
 
     for (const cookie of cookies) {
         const [name, value] = cookie.split("=");
-        if (name === "access_token") {
+        if (name === "Authorization") {
             accessToken = value;
         }
         if (name === "username") {
@@ -70,13 +70,13 @@
 					<li><a href="{{url_for('show_livestream_links')}}">LIVESTREAMS</a></li>
                     <li><a href="about.html">ABOUT</a></li>
                     <li><a href="#" id="logoutBtn">Log Out</a></li>
-                    <li><a href="#">Welcome, ${username}</a>
+                    <li><a href="{{url_for('profile_view')}}">Welcome, ${username}</a>
 
           `;
         // Add an event listener to handle the logout button click
         document.getElementById("logoutBtn").addEventListener("click", () => {
             // Clear the access token and username cookies on the client side
-            document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            document.cookie = "Authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
             document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
             // Redirect to the login page or perform other actions
             location.href = "{{url_for('highlights_view')}}";
