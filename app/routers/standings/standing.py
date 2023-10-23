@@ -3,6 +3,7 @@ from fastapi.templating import Jinja2Templates
 
 from app.models.coaches import CoachesDB
 from app.models.media import MediaDB
+from app.models.players import Player
 from app.models.stadiums import Stadiums
 from app.models.standing import LeagueTable
 from app.scrapers.standings.standing import save_to_db, get_league_table, delete_all_data
@@ -45,12 +46,14 @@ def view_league_tables(request: Request):
     coaches=db.query(CoachesDB).all()
     media=db.query(MediaDB).all()
     stadium=db.query(Stadiums).all()
+    topscorers=db.query(Player).all()
 
     return templates.TemplateResponse('standings.html', {
         'request': request,
         'league_table':league_table,
         'coaches':coaches,
         'media':media,
-        'stadium':stadium
+        'stadium':stadium,
+        'topscorers':topscorers
 
     })
