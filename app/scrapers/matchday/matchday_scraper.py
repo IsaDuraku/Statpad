@@ -16,9 +16,11 @@ def scrape_matchday():
 
         html_text = requests.get(base_url).text
         soup = BeautifulSoup(html_text, 'lxml')
+
         response = requests.get(base_url)
         # Check if the request was successful
         if response.status_code == 200:
+            response.encoding = 'utf-8'
             # Parse the HTML content of the page
             soup = BeautifulSoup(response.text, 'lxml')
 
@@ -33,21 +35,38 @@ def scrape_matchday():
                     json_data = script_tag.string.strip()
                 else:
                     continue
-
+                matchweek_1 = soup.find('div', class_='comp-matches')
+                matchweek_2 = matchweek_1.find('h1', class_='panel-title')
+                matchweek = matchweek_2.text.strip() if matchweek_2 is not None else ""
                 # Extract other relevant data from the div elements
-                league_element = panel.find('div', class_='info-head')
-                league = league_element.text.strip() if league_element else ""
+                league_element_1 = panel.find('div', class_='info-head')
+                league_element_2 = league_element_1.find('div',class_='middle-info ta-c')
+                league = league_element_2.text.strip() if league_element_2 else ""
 
                 name_1 = panel.find('div', class_='team-name ta-r team_left')
                 h_name_element = name_1.find('div', class_='name') if name_1 else None
                 h_name = h_name_element.text.strip() if h_name_element else ""
+                # If 'team-name ta-r team_left' is empty, look for 'team-name ta-r team_left winner'
+                if not h_name:
+                    name_1_winner = panel.find('div', class_='team-name ta-r team_left winner')
+                    h_name_element_winner = name_1_winner.find('div', class_='name') if name_1_winner else None
+                    h_name = h_name_element_winner.text.strip() if h_name_element_winner else ""
 
                 name_2 = panel.find('div', class_='team-name ta-l team_right')
                 a_name_element = name_2.find('div', class_='name') if name_2 else None
                 a_name = a_name_element.text.strip() if a_name_element else ""
+                # If 'team-name ta-r team_left' is empty, look for 'team-name ta-r team_left winner'
+                if not a_name:
+                    name_2_winner = panel.find('div', class_='team-name ta-l team_right winner')
+                    a_name_element_winner = name_2_winner.find('div', class_='name') if name_2_winner else None
+                    a_name = a_name_element_winner.text.strip() if a_name_element_winner else ""
 
                 time_element = panel.find('p', class_='match_hour time')
                 time = time_element.text.strip() if time_element else ""
+
+                if not time:
+                    marker = panel.find('div', class_='marker')
+                    time = marker.text.strip() if marker else"FT"
 
                 date_element = panel.find('div', class_='date-transform date ta-c')
                 date = date_element.text.strip() if date_element else ""
@@ -60,6 +79,7 @@ def scrape_matchday():
 
                 # Create a dictionary to store the data
                 matchday_data = {
+                    'matchweek': matchweek,
                     'league': league,
                     'h_name': h_name,
                     'a_name': a_name,
@@ -86,6 +106,7 @@ def insert_matchday_into_database(data_list, session):
     delete_all_matchday(session)
     for item in data_list:
         new_matchday = Matchday(
+            matchweek=item['matchweek'],
             league=item["league"],
             h_team=item["h_name"],
             a_team=item["a_name"],

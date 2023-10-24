@@ -36,6 +36,7 @@
     <div class="container">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#laliga-home">Table</a></li>
+            <li><a data-toggle="tab" href="#laliga-menu5">Matchday</a></li>
             <li><a data-toggle="tab" href="#laliga-menu1">Coaches</a></li>
             <li><a data-toggle="tab" href="#laliga-menu2">Media</a></li>
             <li><a data-toggle="tab" href="#laliga-menu3">Stadiums</a></li>
@@ -98,7 +99,35 @@
                     {% endfor %}
                 </tbody>
             </table>
+                </div>
+           <div id="laliga-menu5" class="tab-pane fade">
+                <table class="coach-table">
+                    <thead>
+                        <tr>
+                            <th>Home Team</th>
+                            <th>{{ matchday[0].matchweek}}</th>
+                            <th>Away Team</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for match in matchday %}
+                            {% if match.league == "La Liga" %}
+                                <tr>
+                                    <td class="home-team">{{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo"></td>
+                                    <td><div class="match-time">{{ match.time }}</div>
+                                        <div class="match-date">{{ match.date }}</div>
+                                    </td>
+
+                                    <td class="away-team"> <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}</td>
+
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
             </div>
+
             <div id="laliga-menu2" class="tab-pane fade">
                 <div class="row">
                     {% for i in media[:12] %}
@@ -136,6 +165,7 @@
     <div class="container">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#bundesliga-home">Table</a></li>
+            <li><a data-toggle="tab" href="#bundesliga-menu5">Matchday</a></li>
             <li><a data-toggle="tab" href="#bundesliga-menu1">Coaches</a></li>
             <li><a data-toggle="tab" href="#bundesliga-menu2">Media</a></li>
             <li><a data-toggle="tab" href="#bundesliga-menu3">Stadiums</a></li>
@@ -199,6 +229,33 @@
                 </tbody>
             </table>
             </div>
+            <div id="bundesliga-menu5" class="tab-pane fade">
+                <table class="coach-table">
+                    <thead>
+                        <tr>
+                            <th>Home Team</th>
+                            <th>{{ matchday[14].matchweek}}</th>
+                            <th>Away Team</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for match in matchday %}
+                            {% if match.league == "Bundesliga" %}
+                                <tr>
+                                    <td class="home-team">{{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo"></td>
+                                    <td><div class="match-time">{{ match.time }}</div>
+                                        <div class="match-date">{{ match.date }}</div>
+                                    </td>
+
+                                    <td class="away-team"> <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}</td>
+
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
             <div id="bundesliga-menu2" class="tab-pane fade">
                 <div class="row">
                     {% for i in media[12:24] %}
@@ -236,6 +293,7 @@
     <div class="container">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#ligue1-home">Table</a></li>
+            <li><a data-toggle="tab" href="#ligue1-menu5">Matchday</a></li>
             <li><a data-toggle="tab" href="#ligue1-menu1">Coaches</a></li>
             <li><a data-toggle="tab" href="#ligue1-menu2">Media</a></li>
             <li><a data-toggle="tab" href="#ligue1-menu3">Stadiums</a></li>
@@ -300,6 +358,33 @@
                 </tbody>
             </table>
             </div>
+            <div id="ligue1-menu5" class="tab-pane fade">
+                <table class="coach-table">
+                    <thead>
+                        <tr>
+                            <th>Home Team</th>
+                            <th>{{ matchday[24].matchweek}}</th>
+                            <th>Away Team</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for match in matchday %}
+                            {% if match.league == "Ligue 1" %}
+                                <tr>
+                                    <td class="home-team">{{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo"></td>
+                                    <td><div class="match-time">{{ match.time }}</div>
+                                        <div class="match-date">{{ match.date }}</div>
+                                    </td>
+
+                                    <td class="away-team"> <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}</td>
+
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
             <div id="ligue1-menu2" class="tab-pane fade">
 
                 <div class="row">
@@ -338,6 +423,7 @@
     <div class="container">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#seriea-home">Table</a></li>
+            <li><a data-toggle="tab" href="#seriea-menu5">Matchday</a></li>
             <li><a data-toggle="tab" href="#seriea-menu1">Coaches</a></li>
             <li><a data-toggle="tab" href="#seriea-menu2">Media</a></li>
             <li><a data-toggle="tab" href="#seriea-menu3">Stadiums</a></li>
@@ -403,6 +489,33 @@
                 </tbody>
             </table>
             </div>
+            <div id="seriea-menu5" class="tab-pane fade">
+                <table class="coach-table">
+                    <thead>
+                        <tr>
+                            <th>Home Team</th>
+                            <th>{{ matchday[33].matchweek}}</th>
+                            <th>Away Team</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for match in matchday %}
+                            {% if match.league == "Serie A" %}
+                                <tr>
+                                    <td class="home-team">{{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo"></td>
+                                    <td><div class="match-time">{{ match.time }}</div>
+                                        <div class="match-date">{{ match.date }}</div>
+                                    </td>
+
+                                    <td class="away-team"> <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}</td>
+
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
             <div id="seriea-menu2" class="tab-pane fade">
 
                 <div class="row">
@@ -442,6 +555,7 @@
     <div class="container">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#premierleague-home">Table</a></li>
+            <li><a data-toggle="tab" href="#premierleague-menu5">Matchday</a></li>
             <li><a data-toggle="tab" href="#premierleague-menu1">Coaches</a></li>
             <li><a data-toggle="tab" href="#premierleague-menu2">Media</a></li>
             <li><a data-toggle="tab" href="#premierleague-menu3">Stadiums</a></li>
@@ -505,6 +619,33 @@
                     {% endfor %}
                 </tbody>
             </table>
+            </div>
+            <div id="premierleague-menu5" class="tab-pane fade">
+                <table class="coach-table">
+                    <thead>
+                        <tr>
+                            <th>Home Team</th>
+                            <th>{{ matchday[44].matchweek}}</th>
+                            <th>Away Team</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for match in matchday %}
+                            {% if match.league == "Premier League" %}
+                                <tr>
+                                    <td class="home-team">{{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo"></td>
+                                    <td><div class="match-time">{{ match.time }}</div>
+                                        <div class="match-date">{{ match.date }}</div>
+                                    </td>
+
+                                    <td class="away-team"> <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}</td>
+
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
             </div>
             <div id="premierleague-menu2" class="tab-pane fade">
 
