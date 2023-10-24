@@ -422,3 +422,67 @@ p{
 .away-team{
     text-align: left;
 }
+
+.ligtable.custom-button {
+  min-width: 130px;
+  height: 40px;
+  color: #000; /* Black font color */
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 5px;
+  z-index: 0;
+  overflow: hidden;
+  border: 2px solid #000; /* Black border color */
+  background: #fff;
+}
+
+/* Hover effect: change the background color to the data-table attribute value */
+.ligtable.custom-button:hover {
+  background: var(--hover-color, #0074e4); /* Default to blue (#0074e4) if data-table attribute not set */
+  color: #fff; /* White font color on hover */
+}
+
+/* Pseudo-element for the sliding color effect on hover */
+.ligtable.custom-button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  transition: all 0.3s ease;
+  left: -100%; /* Start off-screen to the left */
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent; /* Initial background color */
+}
+
+/* Sliding color effect */
+.ligtable.custom-button:hover::before {
+  left: 0;
+  background: var(--hover-color, #111544); /* Default to dark blue (#111544) if data-table attribute not set */
+}
+
+/* Set specific colors for each button using the data-table attribute */
+.ligtable.custom-button[data-table="laligaTable"] {
+  --hover-color: #e44040; /* La Liga color */
+}
+
+.ligtable.custom-button[data-table="serieaTable"] {
+  --hover-color: #6767f0; /* Serie A color */
+}
+
+.ligtable.custom-button[data-table="premierleagueTable"] {
+  --hover-color: #161c4b; /* Premier League color */
+}
+
+.ligtable.custom-button[data-table="bundesligaTable"] {
+  --hover-color: #dc2525; /* Bundesliga color */
+}
+
+.ligtable.custom-button[data-table="ligue1Table"] {
+  --hover-color: #201041; /* Ligue 1 color */
+}
