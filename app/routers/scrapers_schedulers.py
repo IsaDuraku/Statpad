@@ -39,7 +39,7 @@ def link_scrape():
 @scheduler.scheduled_job("interval", minutes=1)
 def scores_scrape():
     requests.get(
-        url="http://localhost:8080/matches/scores/"
+        url="http://localhost:8080/matches/scrape-scores/"
     )
 
 def delete_unverified_users():

@@ -1,60 +1,13 @@
-/* Style the form container */
-.form-container {
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 10px;
-    length: 50px;
-}
-
-/* Style the form label */
-.form-label {
-    font-size: 18px;
-    font-weight: bold;
-    font-family: 'Open Sans Condensed', sans-serif;
-    color: #222831;
-}
-
-/* Style the date input */
-.date-input {
-    width: 40%;
-    padding: 10px;
-    font-size: 16px;
-    font-family: 'Arial', sans-serif;
-    border: 2px solid #333;
-    border-radius: 10px;
-    margin-top: 10px;
-    outline: none;
-}
-
-/* Style the submit button */
-.submit-button {
-    background-color: #c50000;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
-/* Style the submit button on hover */
-.submit-button:hover {
-    background-color: #8f1d14;
-}
-
-/* Reset margin and padding for the table and its cells */
+/* Style the common table styles */
 .table, .table th, .table td {
     margin: 0;
     padding: 0;
 }
 
-/* Style the table */
 .table {
     font-size: 18px;
-    width: 80%; /* Adjust table width as needed */
-    margin: 0 auto; /* Center the table horizontally */
+    width: 80%;
+    margin: 0 auto;
     border-collapse: separate;
     border-spacing: 0;
     border-radius: 6px;
@@ -62,41 +15,47 @@
     background-color: #fff;
 }
 
-/* Style table header */
 .table th {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
+    background-color: #222831;
+    color: white;
+    text-align: left;
     padding: 10px;
-    font-weight: bold;
-    font-family: 'Helvetica Neue', sans-serif;
+
 }
 
-/* Style table rows */
 .table tr {
     border-bottom: 1px solid #c1c0b9;
 }
 
-/* Style table data cells */
 .table td {
     padding: 10px;
     border: 1px solid #c1c0b9;
+    width: 32%;
 }
 
-/* Center the text in home team, score, and away team columns */
+/* Style the league logo */
+.league-logo {
+    width: 30px; /* Adjust the width as needed */
+    height: auto; /* To maintain the aspect ratio */
+    margin-right: 5px; /* Add some spacing between the flag and the league name */
+    display: inline; /* Display the logo and name next to each other */
+}
+
+
+/* Style the common text alignment for home team, score, and away team */
 .team-cell {
     text-align: center;
     padding: 0;
     border: none;
 }
 
-/* Style the league title (if it's in a separate row) */
+/* Style the common league title */
 .league-title {
     text-align: left !important;
     background-color: #fff;
     font-weight: bold;
     padding: 10px;
-    border-bottom: 2px solid #000; /* Fix the league title line and make it 2px thick */
+    border-bottom: 2px solid #000;
 }
 
 /* Style the home team logo */
@@ -111,19 +70,7 @@
     font-size: 20px;
     text-align: right;
     padding-right: 10px;
-    position: relative;
-}
-
-/* Style the match status within home team */
-.match-status {
-    font-size: 10px !important;  /* Adjust the font size as needed */
-    position: absolute;
-    top: 0;
-    left: 0; /* Position it in the corner on the left side */
-    background-color: #c50000;
-    color: #fff;
-    padding: 3px 6px; /* Adjust the padding as needed */
-    border-radius: 6px;
+    vertical-align: middle;
 }
 
 /* Style the score column */
@@ -132,6 +79,7 @@
     text-align: center;
     padding-right: 10px;
     font-weight: bold;
+    width: 20%;
 }
 
 /* Style the away team logo */
@@ -146,4 +94,63 @@
     font-size: 20px;
     text-align: left;
     padding-left: 10px;
+    vertical-align: middle;
+}
+.status{
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Style the form container */
+.form-container {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    length: 50px;
+}
+
+/* Style the form label */
+.form-label {
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #222831;
+}
+
+/* Style the date input */
+.date-input {
+    width: 10%;
+    padding: 2px;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    border: 2px solid #333;
+    border-radius: 10px;
+    margin-top: 10px;
+    outline: none;
+}
+
+/* Style the submit button */
+.submit-button {
+    background-color: #c50000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 13px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* Style the submit button on hover */
+.submit-button:hover {
+    background-color: #8f1d14;
+}
+
+/* Reset margin and padding for the table and its cells */
+/* Reset margin and padding for the table and its cells */
+/* Style the common table styles */
+/* Add these styles to your CSS */
+.red-text {
+    color: red;
 }

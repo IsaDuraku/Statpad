@@ -13,12 +13,13 @@
         <div class="col-12 text-center align-self-center py-5">
           <div class="section pb-5 pt-5 pt-sm-2 text-center">
             <h6 class="mb-0 pb-3"><span>User Profile</span></h6>
+              <button class="btn" id="goBackBtn"><- Go Back</button>
             <div class="card-3d-wrap mx-auto">
               <div class="card-3d-wrapper">
                 <div class="card-front">
                   <div class="center-wrap mt-1">
                       <p>My name is:    <u><b><span id="full-name"></span></b></u></p>
-                      <p>But you can call me:    <u><b><span id="username"></span></b></u></p>
+                      <p>I go by the username:    <u><b><span id="username"></span></b></u></p>
                       <p>My email is:    <u><b><span id="email"></span></b></u></p>
                       <p>I am a fan of:    <u><b><span id="favorite-team"></span></b></u></p>
                       <!-- Buttons to update user information -->
@@ -254,6 +255,15 @@ document.getElementById("username-form").addEventListener("submit", function (ev
     messageElement.style.display = "none";
   }, 6000);
 });
+
+
+        function goBack() {
+    window.history.back();
+  }
+
+  // Add a click event listener to the "Go Back" button
+  document.getElementById("goBackBtn").addEventListener("click", goBack);
+</script>
     </script>
 </body>
 </html>
@@ -535,5 +545,11 @@ h6 span{
 
 .col-12.text-center.align-self-center.py-5 {
     padding-top: 1px !important; /* Your overridden style */
+  }
+
+#goBackBtn {
+    position: absolute;
+    bottom: 10px; /* Adjust the desired distance from the bottom */
+    left: 20px;   /* Adjust the desired distance from the left */
   }
 </style>

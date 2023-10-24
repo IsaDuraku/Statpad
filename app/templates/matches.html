@@ -3,7 +3,7 @@
 <!-- NAVBAR SECTION -->
 {% include "navbar.html" %}
 
-<link rel="stylesheet" type="text/css" href="/static/css/matches.css"> <!-- Include your CSS file path here -->
+<link rel="stylesheet" type="text/css" href="/static/css/matches.css">
 <link rel="stylesheet" type="text/css" href="../static/css/custom.css">
 
 <!-- BANNER -->
@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-md-12">
-                <div class="caption">Soccer Scores</div>
+                <div class="caption">Football Scores</div>
             </div>
         </div>
     </div>
@@ -27,6 +27,43 @@
 </div>
 
 <script>
+    // Function to update scores for today's date
+    function updateScoresForToday() {
+        // Send a request to the /matches/scrape-scores/ endpoint for today's date
+        fetch(`/matches/scrape-scores/`, {
+            method: 'GET'
+        })
+        .then(response => {
+            if (response.status === 200) {
+                console.log("Scores for today updated successfully!");
+            } else {
+                console.error("Failed to update scores for today.");
+            }
+        })
+        .catch(error => {
+            console.error("Error updating scores for today:", error);
+        });
+    }
+
+    // Function to get the current date in the format "YYYY-MM-DD"
+    function getCurrentDate() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    // Get the selected date from the query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedDate = urlParams.get('match_date');
+
+    // Check if the selected date is today's date
+    if (!selectedDate || selectedDate === getCurrentDate()) {
+        // If no date is selected or it's today's date, update scores for today
+        updateScoresForToday();
+    }
+
     document.getElementById("dateSelectionForm").addEventListener("submit", function (event) {
         event.preventDefault();
         const selectedDate = document.getElementById("matchDate").value;
@@ -51,7 +88,7 @@
 
 
 <div class="container">
-    {% set displayed_leagues = ["Premier League", "La Liga", "Bundesliga", "Serie A", "Ligue 1","Champions League", "Europa League"] %}
+    {% set displayed_leagues = ["Premier League", "La Liga", "Bundesliga", "Serie A", "Ligue 1", "Champions League", "Europa League"] %}
 
     {# Display specified leagues first #}
     {% for league in displayed_leagues %}
@@ -59,24 +96,33 @@
             <table class="table table-striped smaller-table">
                 <thead>
                     <tr>
-                        <th colspan="3">{{ league }}</th>
+                        <th colspan="3">
+                            <div class="league-info">
+                                <img src="{{ league.league_img }}" alt="{{ league.league }}" class="league-logo">
+                                {{ league }}
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for score in scores if score.league == league %}
+                    {% for score in scores if score.league == league and score.league_img != 'https://cdn.resfu.com/media/img/flags/st3/small/ru.png?size=30x&lossy=1' %}
                         <tr class="league-title-row">
                             <td class="team-cell home-team">
                                 <img src="{{ score.home_team_img }}" alt="{{ score.home_team }}" class="team-logo">
                                 {{ score.home_team }}
                             </td>
-                            <td class="team-cell score">{{ score.score }}</td>
+                            <td class="team-cell score">
+                                <div style="color: {% if score.match_status in ['End', 'P-P', ''] %}black{% else %}red{% endif %};">
+                                    {{ score.score }}
+                                </div>
+                                <div style="color: {% if score.match_status in ['End', 'P-P', ''] %}black{% else %}red{% endif %};" class="status">
+                                    {{ score.match_status }}
+                                </div>
+                            </td>
                             <td class="team-cell away-team">
                                 <img src="{{ score.away_team_img }}" alt="{{ score.away_team }}" class="team-logo">
                                 {{ score.away_team }}
                             </td>
-                        </tr>
-                        <tr class="match-status-row">
-                            <td class="match-status" colspan="3">{{ score.match_status }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -89,24 +135,35 @@
         <table class="table table-striped smaller-table">
             <thead>
                 <tr>
-                    <th colspan="3">{{ league }}</th>
+                    <th colspan="3">
+                        <div class="league-info">
+                            <img src="{{ league.league_img }}" alt="{{ league.league }}" class="league-logo">
+                            {{ league }}
+                        </div>
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                {% for score in scores if score.league == league %}
+                {% for score in scores if score.league == league and score.league_img != 'https://cdn.resfu.com/media/img/flags/st3/small/ru.png?size=30x&lossy=1' %}
                     <tr class="league-title-row">
                         <td class="team-cell home-team">
-                            <div class="match-status">{{ score.match_status }}</div>
                             <img src="{{ score.home_team_img }}" alt="{{ score.home_team }}" class="team-logo">
                             {{ score.home_team }}
                         </td>
-                        <td class="team-cell score">{{ score.score }}</td>
+                        <td class="team-cell score">
+                            <div style="color: {% if score.match_status in ['End', 'P-P', ''] %}black{% else %}red{% endif %};">
+                                {{ score.score }}
+                            </div>
+                            <div style="color: {% if score.match_status in ['End', 'P-P', ''] %}black{% else %}red{% endif %};" class="status">
+                                {{ score.match_status }}
+                            </div>
+                        </td>
+
                         <td class="team-cell away-team">
                             <img src="{{ score.away_team_img }}" alt="{{ score.away_team }}" class="team-logo">
                             {{ score.away_team }}
                         </td>
                     </tr>
-
                 {% endfor %}
             </tbody>
         </table>

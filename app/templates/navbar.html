@@ -17,15 +17,12 @@
 
         <nav class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="index.html">HOME</a></li>
+					<li><a href="{{url_for('scores_view')}}">RESULTS</a></li>
                     <li><a href="{{url_for('view_news')}}">NEWS</a></li>
-                    <li><a href="{{url_for('view_bets')}}">BETS</a></li>
-                    <li><a href="{{url_for('scores_view')}}">RESULTS</a></li>
-                    <li><a href="{{url_for('view_league_tables')}}">STANDINGS</a></li>
-					<li><a href="{{url_for('players_view')}}">STATS</a></li>
+                    <li><a href="{{url_for('view_league_tables')}}">COMPETITIONS</a></li>
 					<li ><a href="{{url_for('highlights_view')}}">HIGHLIGHTS</a></li>
 					<li><a href="{{url_for('show_livestream_links')}}">LIVESTREAMS</a></li>
-                    <li><a href="about.html">ABOUT</a></li>
+					<li><a href="{{url_for('view_bets')}}">BETS</a></li>
 				</ul>
 			</nav>
 
@@ -60,15 +57,12 @@
 
         <nav class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="index.html">HOME</a></li>
+					<li><a href="{{url_for('scores_view')}}">RESULTS</a></li>
                     <li><a href="{{url_for('view_news')}}">NEWS</a></li>
-                    <li><a href="{{url_for('view_bets')}}">BETS</a></li>
-                    <li><a href="{{url_for('scores_view')}}">RESULTS</a></li>
-                    <li><a href="{{url_for('view_league_tables')}}">STANDINGS</a></li>
-					<li><a href="{{url_for('players_view')}}">STATS</a></li>
+                    <li><a href="{{url_for('view_league_tables')}}">COMPETITIONS</a></li>
 					<li ><a href="{{url_for('highlights_view')}}">HIGHLIGHTS</a></li>
 					<li><a href="{{url_for('show_livestream_links')}}">LIVESTREAMS</a></li>
-                    <li><a href="about.html">ABOUT</a></li>
+					<li><a href="{{url_for('view_bets')}}">BETS</a></li>
                     <li><a href="#" id="logoutBtn">Log Out</a></li>
                     <li><a href="{{url_for('profile_view')}}">Welcome, ${username}</a>
 
@@ -93,15 +87,12 @@
 
         <nav class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="index.html">HOME</a></li>
+					<li><a href="{{url_for('scores_view')}}">RESULTS</a></li>
                     <li><a href="{{url_for('view_news')}}">NEWS</a></li>
-                    <li><a href="{{url_for('view_bets')}}">BETS</a></li>
-                    <li><a href="{{url_for('scores_view')}}">RESULTS</a></li>
-                    <li><a href="{{url_for('view_league_tables')}}">STANDINGS</a></li>
-					<li><a href="{{url_for('players_view')}}">STATS</a></li>
+                    <li><a href="{{url_for('view_league_tables')}}">COMPETITIONS</a></li>
 					<li ><a href="{{url_for('highlights_view')}}">HIGHLIGHTS</a></li>
 					<li><a href="{{url_for('show_livestream_links')}}">LIVESTREAMS</a></li>
-                    <li><a href="about.html">ABOUT</a></li>
+					<li><a href="{{url_for('view_bets')}}">BETS</a></li>
                     <li><a href="{{url_for('login_view')}}">Log In</a></li>
 
       `;

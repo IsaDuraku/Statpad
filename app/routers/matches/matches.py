@@ -30,10 +30,10 @@ def scrape_and_save_live_scores(date: Optional[str] = datetime.now().strftime("%
         if not query_date:
             raise HTTPException(status_code=400, detail="Invalid date provided")
 
-        print("Before calling scrape_and_store_soccer_scores")
+
         scraped_data=scrape_and_store_soccer_scores(query_date)
 
-        print("Before creating SessionLocal")
+
         db = SessionLocal()
         for match_data in scraped_data:
             if match_data["match_date"] == query_date:

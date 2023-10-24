@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
-from app.models.user import SignupUser, LoginUser, UserDB, UserInDB, ChangePasswordRequest, FullNameUpdate, UsernameUpdate
+from app.models.user import SignupUser, LoginUser, UserDB, UserInDB, ChangePasswordRequest, FullNameUpdate, UsernameUpdate, Post, PostCreate, PostInDB, CommentCreate, Comment, CommentInDB
 from app.models.auth import Token
 from app.database import SessionLocal
 from app.routers.user.security import create_access_token, get_password_hash, verify_password, \
@@ -12,6 +12,7 @@ from app.scrapers.standings.standing import get_club_names_from_leagues
 from app.database import get_db
 from fastapi.security import OAuth2PasswordBearer
 from fastapi.responses import JSONResponse
+from typing import List
 
 router = APIRouter()
 
@@ -178,3 +179,51 @@ def change_username(username_update: UsernameUpdate, db: Session = Depends(get_d
     current_user.username = new_username
     db.commit()
     return {"message": "Username updated successfully"}
+
+@router.post("/create-post/", response_model=PostInDB)
+def create_post(post: PostCreate, current_user: UserDB = Depends(get_current_user), db: Session = Depends(get_db)):
+    post_db = Post(**post.dict(), user_id=current_user.id)
+    db.add(post_db)
+    db.commit()
+    db.refresh(post_db)
+    return post_db
+
+@router.post("/create-comment/{post_id}", response_model=CommentInDB)
+def create_comment(post_id: int, comment: CommentCreate, current_user: UserDB = Depends(get_current_user), db: Session = Depends(get_db)):
+    post = db.query(Post).filter(Post.id == post_id).first()
+    if not post:
+        raise HTTPException(status_code=404, detail="Post not found")
+
+    comment_db = Comment(**comment.dict(), user_id=current_user.id, post_id=post_id)
+    db.add(comment_db)
+    db.commit()
+    db.refresh(comment_db)
+    return comment_db
+
+@router.get("/user-posts/{user_id}", response_model=List[PostInDB])
+def get_user_posts(user_id: int, db: Session = Depends(get_db)):
+    posts = db.query(Post).filter(Post.user_id == user_id).all()
+    if not posts:
+        raise HTTPException(status_code=404, detail="User has no posts")
+    return posts
+
+@router.get("/user-comments/{user_id}", response_model=List[CommentInDB])
+def get_user_comments(user_id: int, db: Session = Depends(get_db)):
+    comments = db.query(Comment).filter(Comment.user_id == user_id).all()
+    if not comments:
+        raise HTTPException(status_code=404, detail="User has no comments")
+    return comments
+
+@router.get("/post-comments/{post_id}", response_model=List[CommentInDB])
+def get_post_comments(post_id: int, db: Session = Depends(get_db)):
+    comments = db.query(Comment).filter(Comment.post_id == post_id).all()
+    if not comments:
+        raise HTTPException(status_code=404, detail="Post has no comments")
+    return comments
+
+@router.get("/posts-by-criteria/")
+def get_posts_by_criteria(criteria: str, db: Session = Depends(get_db)):
+    posts = db.query(Post).filter(Post.content.contains(criteria)).all()
+    if not posts:
+        raise HTTPException(status_code=404, detail="No posts match the criteria")
+    return posts
