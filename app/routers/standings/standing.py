@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
-
+from app.models.matchday import Matchday
 from app.models.coaches import CoachesDB
 from app.models.media import MediaDB
 from app.models.players import Player
@@ -47,6 +47,7 @@ def view_league_tables(request: Request):
     media=db.query(MediaDB).all()
     stadium=db.query(Stadiums).all()
     topscorers=db.query(Player).all()
+    matchday= db.query(Matchday).all()
 
     return templates.TemplateResponse('standings.html', {
         'request': request,
@@ -54,6 +55,7 @@ def view_league_tables(request: Request):
         'coaches':coaches,
         'media':media,
         'stadium':stadium,
-        'topscorers':topscorers
+        'topscorers':topscorers,
+        'matchday' : matchday
 
     })

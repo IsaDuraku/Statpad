@@ -9,6 +9,7 @@ class Matchday(Base):
     __tablename__ = "matchday"
     model_config = ConfigDict(from_attributes=True)
     id = Column(Integer, primary_key=True)
+    matchweek = Column(String)
     league = Column(String)
     h_team = Column(String)
     a_team = Column(String)
@@ -20,6 +21,7 @@ class Matchday(Base):
 
 # Pydantic Model
 class Matchday_model(BaseModel):
+    matchweek : str
     league: str
     h_name: str
     a_name: str

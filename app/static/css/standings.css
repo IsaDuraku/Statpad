@@ -408,3 +408,17 @@ p{
     padding: 2px;
 
 }
+.match-time{
+    font-size: 16px;
+    font-weight: 700;
+}
+.match-date{
+    font-size: 12px;
+    font-style: inherit;
+}
+.home-team{
+    text-align: right;
+}
+.away-team{
+    text-align: left;
+}
