@@ -39,7 +39,6 @@ StadiumBase.metadata.create_all(bind=engine)
 MatchdayBase.metadata.create_all(bind=engine)
 
 
-
 # Create a session for database operations
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
