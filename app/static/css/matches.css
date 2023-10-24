@@ -16,11 +16,11 @@
 }
 
 .table th {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
+    background-color: #222831;
+    color: white;
+    text-align: left;
     padding: 10px;
-    font-weight: bold;
+
 }
 
 .table tr {
@@ -32,6 +32,15 @@
     border: 1px solid #c1c0b9;
     width: 32%;
 }
+
+/* Style the league logo */
+.league-logo {
+    width: 30px; /* Adjust the width as needed */
+    height: auto; /* To maintain the aspect ratio */
+    margin-right: 5px; /* Add some spacing between the flag and the league name */
+    display: inline; /* Display the logo and name next to each other */
+}
+
 
 /* Style the common text alignment for home team, score, and away team */
 .team-cell {
@@ -90,8 +99,8 @@
 .status{
     font-size: 12px;
     text-align: center;
-    color: red;
 }
+
 /* Style the form container */
 .form-container {
     text-align: center;
