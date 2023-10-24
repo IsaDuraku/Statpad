@@ -25,6 +25,7 @@
   overflow: hidden;    /* Hide any overflowing text */
   text-overflow: ellipsis; /* Add ellipsis (...) for long text */
   font-size: large; /* Initial font size */
+  color: white;
 }
 
 /* You can also use media queries to reduce the font size for smaller screens */
