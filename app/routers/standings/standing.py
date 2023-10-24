@@ -46,7 +46,7 @@ def view_league_tables(request: Request):
     coaches=db.query(CoachesDB).all()
     media=db.query(MediaDB).all()
     stadium=db.query(Stadiums).all()
-    topscorers=db.query(Player).all()
+    players=db.query(Player).all()
     matchday= db.query(Matchday).all()
 
     return templates.TemplateResponse('standings.html', {
@@ -55,7 +55,7 @@ def view_league_tables(request: Request):
         'coaches':coaches,
         'media':media,
         'stadium':stadium,
-        'topscorers':topscorers,
-        'matchday' : matchday
+        'matchday' : matchday,
+        'players' : players
 
     })

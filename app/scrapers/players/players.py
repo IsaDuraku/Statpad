@@ -10,11 +10,11 @@ headers = {
 
 def scrape_players(league_name, num_pages=1, max_players=15):
     base_urls = {
-        "Premier League": "https://www.transfermarkt.com/premier-league/scorerliste/wettbewerb/GB1/saison_id/2023",
         "La Liga": "https://www.transfermarkt.com/laliga/scorerliste/wettbewerb/ES1/saison_id/2023",
         "Bundesliga": "https://www.transfermarkt.com/bundesliga/scorerliste/wettbewerb/L1/saison_id/2023",
-        "Serie A": "https://www.transfermarkt.com/serie-a/scorerliste/wettbewerb/IT1/saison_id/2023",
         "Ligue 1": "https://www.transfermarkt.com/ligue-1/scorerliste/wettbewerb/FR1/saison_id/2023",
+        "Serie A": "https://www.transfermarkt.com/serie-a/scorerliste/wettbewerb/IT1/saison_id/2023",
+        "Premier League": "https://www.transfermarkt.com/premier-league/scorerliste/wettbewerb/GB1/saison_id/2023",
     }
 
     base_url = base_urls.get(league_name)
@@ -57,8 +57,8 @@ def scrape_players(league_name, num_pages=1, max_players=15):
             club_name = tr_element.find_all('a', title=True)[1]['title']
 
             goals_elements = tr_element.find_all('td', class_='zentriert')
-            if len(goals_elements) > 4:
-                goals = goals_elements[4].text.strip()
+            if len(goals_elements) > 5:
+                goals = goals_elements[5].text.strip()
             else:
                 goals = "0"
 
@@ -77,7 +77,8 @@ def scrape_players(league_name, num_pages=1, max_players=15):
                 "Goals": goals,
                 "Nationality": nationality,
                 "Age": age,
-                "Assists": assists
+                "Assists": assists,
+                "League Name": league_name
             }
 
             all_players.append(player_data)
@@ -86,6 +87,9 @@ def scrape_players(league_name, num_pages=1, max_players=15):
                 break
     else:
         print(f"Failed to retrieve the {league_name} web page")
+
+    # Sort the players by goals in descending order
+    all_players.sort(key=lambda x: int(x['Goals']), reverse=True)
 
     return all_players
 
@@ -119,5 +123,3 @@ def save_player_data_to_db(player_data_list, session, league_name):
 
     session.commit()
     print(f"Saved {len(player_data_list)} players to the database for {league_name}")
-
-
