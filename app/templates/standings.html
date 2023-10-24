@@ -37,6 +37,7 @@
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#laliga-home">Table</a></li>
             <li><a data-toggle="tab" href="#laliga-menu5">Matchday</a></li>
+            <li><a data-toggle="tab" href="#laliga-menu4">Stats</a></li>
             <li><a data-toggle="tab" href="#laliga-menu1">Coaches</a></li>
             <li><a data-toggle="tab" href="#laliga-menu2">Media</a></li>
             <li><a data-toggle="tab" href="#laliga-menu3">Stadiums</a></li>
@@ -154,6 +155,40 @@
                     {% endfor %}
                 </div>
             </div>
+            <div id="laliga-menu4" class="tab-pane fade">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players[:15] %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="player-container">
+                                <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                                {{ player.player_name }}
+                            </div>
+
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+            </div>
         </div>
     </div>
 </div>
@@ -166,6 +201,7 @@
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#bundesliga-home">Table</a></li>
             <li><a data-toggle="tab" href="#bundesliga-menu5">Matchday</a></li>
+            <li><a data-toggle="tab" href="#bundesliga-menu4">Stats</a></li>
             <li><a data-toggle="tab" href="#bundesliga-menu1">Coaches</a></li>
             <li><a data-toggle="tab" href="#bundesliga-menu2">Media</a></li>
             <li><a data-toggle="tab" href="#bundesliga-menu3">Stadiums</a></li>
@@ -282,6 +318,39 @@
                     {% endfor %}
                 </div>
             </div>
+                <div id="bundesliga-menu4" class="tab-pane fade">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players[15:30] %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="player-container">
+                                <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                                {{ player.player_name }}
+                            </div>
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+            </div>
         </div>
     </div>
 </div>
@@ -294,6 +363,7 @@
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#ligue1-home">Table</a></li>
             <li><a data-toggle="tab" href="#ligue1-menu5">Matchday</a></li>
+            <li><a data-toggle="tab" href="#ligue1-menu4">Stats</a></li>
             <li><a data-toggle="tab" href="#ligue1-menu1">Coaches</a></li>
             <li><a data-toggle="tab" href="#ligue1-menu2">Media</a></li>
             <li><a data-toggle="tab" href="#ligue1-menu3">Stadiums</a></li>
@@ -412,6 +482,39 @@
                     {% endfor %}
                 </div>
             </div>
+            <div id="ligue1-menu4" class="tab-pane fade">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players[30:45] %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="player-container">
+                                <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                                {{ player.player_name }}
+                            </div>
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+            </div>
         </div>
     </div>
 </div>
@@ -424,6 +527,7 @@
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#seriea-home">Table</a></li>
             <li><a data-toggle="tab" href="#seriea-menu5">Matchday</a></li>
+            <li><a data-toggle="tab" href="#seriea-menu4">Stats</a></li>
             <li><a data-toggle="tab" href="#seriea-menu1">Coaches</a></li>
             <li><a data-toggle="tab" href="#seriea-menu2">Media</a></li>
             <li><a data-toggle="tab" href="#seriea-menu3">Stadiums</a></li>
@@ -543,6 +647,39 @@
                     {% endfor %}
                 </div>
             </div>
+            <div id="seriea-menu4" class="tab-pane fade">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players[45:60] %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="player-container">
+                                <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                                {{ player.player_name }}
+                            </div>
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+            </div>
         </div>
     </div>
 </div>
@@ -556,6 +693,7 @@
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#premierleague-home">Table</a></li>
             <li><a data-toggle="tab" href="#premierleague-menu5">Matchday</a></li>
+            <li><a data-toggle="tab" href="#premierleague-menu4">Stats</a></li>
             <li><a data-toggle="tab" href="#premierleague-menu1">Coaches</a></li>
             <li><a data-toggle="tab" href="#premierleague-menu2">Media</a></li>
             <li><a data-toggle="tab" href="#premierleague-menu3">Stadiums</a></li>
@@ -673,6 +811,39 @@
                     </div>
                     {% endfor %}
                 </div>
+            </div>
+            <div id="premierleague-menu4" class="tab-pane fade">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players[60:75] %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="player-container">
+                                <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                                {{ player.player_name }}
+                            </div>
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
             </div>
         </div>
     </div>

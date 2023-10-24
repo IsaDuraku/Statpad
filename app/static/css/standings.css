@@ -365,6 +365,19 @@ padding: 9px 10px;
    height: 13.33px;
 }
 
+.player-container {
+    display: flex;
+    align-items: center;
+}
+
+.player-image-small {
+    max-width: 50px;
+    max-height: 50px;
+    margin-right: 10px;
+}
+
+}
+
 td,
 th {
   padding: 1;

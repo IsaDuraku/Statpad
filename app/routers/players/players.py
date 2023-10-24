@@ -11,11 +11,11 @@ router = APIRouter(
 templates = Jinja2Templates(directory="templates")
 
 league_urls = {
-    "Premier League": "https://www.transfermarkt.com/premier-league/scorerliste/wettbewerb/GB1/saison_id/2023",
     "La Liga": "https://www.transfermarkt.com/laliga/scorerliste/wettbewerb/ES1/saison_id/2023",
     "Bundesliga": "https://www.transfermarkt.com/bundesliga/scorerliste/wettbewerb/L1/saison_id/2023",
-    "Serie A": "https://www.transfermarkt.com/serie-a/scorerliste/wettbewerb/IT1/saison_id/2023",
     "Ligue 1": "https://www.transfermarkt.com/ligue-1/scorerliste/wettbewerb/FR1/saison_id/2023",
+    "Serie A": "https://www.transfermarkt.com/serie-a/scorerliste/wettbewerb/IT1/saison_id/2023",
+    "Premier League": "https://www.transfermarkt.com/premier-league/scorerliste/wettbewerb/GB1/saison_id/2023",
 }
 
 @router.get("/scrapeplayers")
