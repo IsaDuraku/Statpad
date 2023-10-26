@@ -11,7 +11,6 @@ from app.database import SessionLocal
 from fastapi import HTTPException
 
 
-
 router = APIRouter(
     prefix='/league_table',
     tags=['league_table']
