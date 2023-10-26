@@ -6,7 +6,6 @@ from app.models.matchday import Matchday
 from fastapi.templating import Jinja2Templates
 
 
-
 router = APIRouter(
     prefix='/Matchday',
     tags=['matchday']
