@@ -5,7 +5,6 @@ from app.scrapers.media.media import get_media_links_with_text, insert_media_dat
 from app.database import SessionLocal
 from fastapi import HTTPException
 
-
 router = APIRouter(
     prefix='/media',
     tags=['media']
