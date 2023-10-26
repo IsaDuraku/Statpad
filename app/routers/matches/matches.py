@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Query,Request
+from fastapi import APIRouter, HTTPException, Request
 from datetime import datetime
 from fastapi.templating import Jinja2Templates
 from app.models.matches import LiveSoccerScores,TomorrowSoccerScores
