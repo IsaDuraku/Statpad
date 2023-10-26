@@ -35,7 +35,7 @@ def get_coaches_list():
     return data_dict_list
 
 def insert_coach_data_into_database(data_dict_list):
-    session = SessionLocal()  # Create a session here
+    session = SessionLocal()
 
     try:
         if data_dict_list:
