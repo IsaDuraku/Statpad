@@ -8,7 +8,6 @@ from sqlalchemy import desc
 
 
 
-
 templates = Jinja2Templates(directory="templates")
 
 router = APIRouter(
