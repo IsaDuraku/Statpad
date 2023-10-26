@@ -6,6 +6,7 @@ from app.models.stadiums import Stadiums
 from fastapi.templating import Jinja2Templates
 from collections import defaultdict
 
+
 router = APIRouter(
     prefix='/Stadiums',
     tags=['stadiums']
