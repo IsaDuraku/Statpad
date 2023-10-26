@@ -1,0 +1,330 @@
+ <div class="container">
+    <h1>Frontend Feed</h1>
+    <div class="input-section" id="post-form">
+      <input type="text" id="post-content" placeholder="Share your thoughts">
+      <button onclick="createPost()">Create Post</button>
+    </div>
+    <div class="input-section" id="search-bar">
+      <input type="text" id="search-criteria" placeholder="Search by criteria">
+      <button onclick="searchPosts()">Search</button>
+    </div>
+    <div class="posts" id="posts">
+      <!-- Posts will be displayed here -->
+    </div>
+  </div>
+
+    <style>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  background-color: #fff;
+  max-width: 730px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #1da1f2;
+  font-size: 24px;
+}
+
+.input-section {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+input[type="text"] {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #1da1f2;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #0f81d6;
+}
+
+.posts {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 30px 0;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+/* CSS for Reddit-style post cards */
+.post {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 30px;
+    display: flex;
+    flex-direction: column;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+.user-info {
+  margin-bottom: 10px;
+  font-size: 16px;
+    text-align: left;
+    padding: 17px;
+}
+
+.user-info strong {
+  font-weight: bold;
+
+}
+
+.post-content {
+  font-size: 14px;
+        text-align: left;
+}
+
+.show-comments-button {
+  background-color: #0079d3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+    margin: 10px;
+}
+
+.show-comments-button:hover {
+  background-color: #005a9e;
+}
+
+
+.comment {
+  border: 1px solid #eee;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #f0f0f0;
+}
+
+.comments-container {
+  margin-top: 10px;
+}
+
+input[type="text"], button {
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus, button:focus {
+  border-color: #1da1f2;
+}
+
+    </style>
+<script>
+// Function to create a new post
+function createPost() {
+  const postContent = document.getElementById("post-content").value;
+
+  // Check if the post content is not empty
+  if (!postContent.trim()) {
+    alert("Post content cannot be empty");
+    return;
+  }
+
+  // Get the authentication token from the cookies
+  const token = getCookie("Authorization");
+
+  if (!token) {
+    alert("Authentication token not found. Please log in.");
+    return;
+  }
+
+  // Make a POST request to your backend API to create a post
+  fetch("http://localhost:8080/api/create-post/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": token,
+    },
+    body: JSON.stringify({ content: postContent }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("post-content").value = ""; // Clear the input field
+      fetchPosts(); // Refresh the posts
+    })
+    .catch(error => {
+      console.error("Error creating post:", error);
+      alert("Failed to create a post");
+    });
+}
+
+// ... (the rest of your JavaScript code)
+
+// Function to get a cookie by name
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+}
+
+
+// Function to search for posts based on criteria
+function searchPosts() {
+  const criteria = document.getElementById("search-criteria").value;
+
+  // Make a GET request to your backend API to get posts by criteria
+  fetch(`http://localhost:8080/api/posts-by-criteria/?criteria=${criteria}`)
+    .then(response => response.json())
+    .then(data => displayPosts(data))
+    .catch(error => {
+      console.error("Error searching for posts:", error);
+      alert("Failed to search for posts");
+    });
+}
+
+// Function to get and display all posts
+function fetchPosts() {
+  fetch("http://localhost:8080/api/all-posts/")
+    .then(response => response.json())
+    .then(data => displayPosts(data))
+    .catch(error => {
+      console.error("Error fetching posts:", error);
+      alert("Failed to fetch posts");
+    });
+}
+
+// Function to display posts and comments
+// Function to display posts and comments
+function displayPosts(data) {
+  const postsDiv = document.getElementById("posts");
+  postsDiv.innerHTML = "";
+
+  if (Array.isArray(data)) {
+    data.reverse().forEach(post => {
+      // Create a div for the post card
+      const postElement = document.createElement("div");
+      postElement.classList.add("post");
+
+      // Create a div for the user information (username, favorite team, and created_at)
+      const userDiv = document.createElement("div");
+      userDiv.classList.add("user-info");
+
+      // Fetch user information for the post's author by user ID
+      fetch(`http://localhost:8080/api/user-profile/${post.user_id}`)
+        .then(response => response.json())
+        .then(user => {
+          // Format the created_at date and time
+          const createdAt = new Date(post.created_at);
+          const formattedDate = createdAt.toLocaleDateString();
+          const formattedTime = createdAt.toLocaleTimeString();
+
+          userDiv.innerHTML = `<strong>${user.username}</strong> (${user.favorite_team}) - Date: ${formattedDate}, Time: ${formattedTime}`;
+          postElement.appendChild(userDiv); // Append user information to the post card
+
+          // Create a div for the post content
+          const contentDiv = document.createElement("div");
+          contentDiv.classList.add("post-content");
+          contentDiv.innerHTML = post.content;
+          postElement.appendChild(contentDiv); // Append post content to the post card
+
+          // Create a button to fetch comments for this post
+          const commentsButton = document.createElement("button");
+          commentsButton.classList.add("show-comments-button");
+          commentsButton.textContent = "Show Comments";
+          commentsButton.onclick = () => getComments(post.id, postElement);
+
+          // Append the comments button to the post card
+          postElement.appendChild(commentsButton);
+
+          // Append the post card to the posts container
+          postsDiv.appendChild(postElement);
+        })
+        .catch(error => {
+          console.error("Error fetching user information:", error);
+          alert("Failed to fetch user information");
+        });
+    });
+  } else {
+    // Handle the case where the response data is not an array
+    postsDiv.innerHTML = "No posts found.";
+  }
+}
+
+
+
+
+// Function to get comments for a specific post
+function getComments(postId, postElement) {
+  // Make a GET request to your backend API to get comments for the post
+  fetch(`http://localhost:8080/api/post-comments/${postId}`)
+    .then(response => response.json())
+    .then(data => displayComments(data, postElement))
+    .catch(error => {
+      console.error("Error fetching comments:", error);
+      alert("Failed to fetch comments");
+    });
+}
+
+// Function to display comments
+// Function to display comments
+function displayComments(comments, postElement) {
+  const commentsDiv = document.createElement("div");
+  commentsDiv.classList.add("comments-container");
+
+  comments.forEach(comment => {
+    const commentElement = document.createElement("div");
+    commentElement.classList.add("comment");
+
+    // Fetch user information for the comment's author by user ID
+    fetch(`http://localhost:8080/api/user-profile/${comment.user_id}`)
+      .then(response => response.json())
+      .then(user => {
+        // Create a div for the user information (username and favorite team)
+        const userDiv = document.createElement("div");
+        userDiv.classList.add("user-info");
+        userDiv.innerHTML = `<strong>${user.username}</strong> (${user.favorite_team})`;
+
+        // Create a div for the comment content
+        const contentDiv = document.createElement("div");
+        contentDiv.classList.add("post-content");
+        contentDiv.textContent = comment.content;
+
+        // Append user information and comment content to the comment element
+        commentElement.appendChild(userDiv);
+        commentElement.appendChild(contentDiv);
+
+        // Append the comment element to the comments container
+        commentsDiv.appendChild(commentElement);
+      })
+      .catch(error => {
+        console.error("Error fetching user information for comment:", error);
+        alert("Failed to fetch user information for comment");
+      });
+  });
+
+  postElement.appendChild(commentsDiv);
+}
+
+
+// Fetch all posts when the page loads
+fetchPosts();
+
+</script>
