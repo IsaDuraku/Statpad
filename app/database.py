@@ -14,6 +14,7 @@ from app.models.stadiums import Base as StadiumBase
 from app.models.matchday import Base as MatchdayBase
 from app.models.form import Base as FormBase
 from app.models.team import Base as TeamBase
+from app.models.lineup import Base as LineupBase
 from fastapi import FastAPI
 
 
@@ -41,6 +42,7 @@ MediaBase.metadata.create_all(bind=engine)
 StadiumBase.metadata.create_all(bind=engine)
 MatchdayBase.metadata.create_all(bind=engine)
 FormBase.metadata.create_all(bind=engine)
+LineupBase.metadata.create_all(bind=engine)
 
 
 # Create a session for database operations

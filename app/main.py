@@ -19,6 +19,8 @@ from app.routers.matchday import matchday
 from app.routers.form import form
 
 
+from app.routers.lineup import lineup
+from app.routers.myteam import myteam
 app = FastAPI()
 
 templates = Jinja2Templates(directory="templates")
@@ -39,6 +41,8 @@ app.include_router(stadiums.router)
 app.include_router(matchday.router)
 app.include_router(form.router)
 app.include_router(team.router)
+app.include_router(lineup.router)
+app.include_router(myteam.router)
 
 @app.on_event("startup")
 async def startup():
