@@ -145,6 +145,10 @@ async def forgot_password_view(request: Request):
 async def profile_view(request: Request):
     return templates.TemplateResponse("profile.html", {"request": request})
 
+@router.get("/blog/")
+async def profile_view(request: Request):
+    return templates.TemplateResponse("blog.html", {"request": request})
+
 
 @router.get("/user-profile")
 def get_user_profile(user: UserDB = Depends(get_current_user)):
@@ -227,3 +231,17 @@ def get_posts_by_criteria(criteria: str, db: Session = Depends(get_db)):
     if not posts:
         raise HTTPException(status_code=404, detail="No posts match the criteria")
     return posts
+
+@router.get("/all-posts/", response_model=List[PostInDB])
+def get_all_posts(db: Session = Depends(get_db)):
+    posts = db.query(Post).all()
+    return posts
+
+
+@router.get("/user-profile/{user_id}", response_model=SignupUser)
+def get_user_profile_by_id(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(UserDB).filter(UserDB.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+

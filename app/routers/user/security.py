@@ -16,7 +16,7 @@ SECRET_KEY = "ede2ac3b38a9bdc5d90eb58c9e379f34cd18c8ffafa3b254c3879f15b8039f05"
 ALGORITHM = "HS256"
 
 # Token expiration time (e.g., 15 minutes)
-ACCESS_TOKEN_EXPIRE_MINUTES = 15
+ACCESS_TOKEN_EXPIRE_MINUTES = 180
 
 # Function to create an access token
 def create_access_token(data: dict, expires_delta: timedelta = None):
