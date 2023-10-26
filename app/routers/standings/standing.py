@@ -57,4 +57,5 @@ def view_league_tables(request: Request):
         'stadium':stadium,
         'matchday' : matchday,
         'players' : players
+
     })
