@@ -1,6 +1,9 @@
 from fastapi import APIRouter, Query, Request, Depends, HTTPException
 from fastapi.templating import Jinja2Templates
 from app.models.lineup import Lineup, LineupModel
+from app.models.form import Form,FormDB
+from app.models.form import Form,FormDB
+from app.models.team import Team,Team_model
 from app.models.user import UserDB
 from app.routers.user.security import get_current_user
 from app.database import SessionLocal, get_db
@@ -29,7 +32,11 @@ templates=Jinja2Templates(directory='templates')
 def get_favorite_team(request: Request):
     db = SessionLocal()
     lineup = db.query(Lineup).all()
+    forms = db.query(FormDB).all()
+    team = db.query(Team).all()
     return templates.TemplateResponse('myteam.html', {
         'request': request,
-        'lineup':lineup
+        'lineup':lineup,
+        'team':team,
+        'forms':forms
     })
