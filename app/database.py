@@ -13,6 +13,7 @@ from app.models.media import Base as MediaBase
 from app.models.stadiums import Base as StadiumBase
 from app.models.matchday import Base as MatchdayBase
 from app.models.form import Base as FormBase
+from app.models.team import Base as TeamBase
 from fastapi import FastAPI
 
 
@@ -26,6 +27,7 @@ DATABASE_URL = config("DATABASE_URL")
 engine = create_engine(DATABASE_URL)
 
 # Create tables if they don't exist
+TeamBase.metadata.create_all(bind=engine)
 NewsBase.metadata.create_all(bind=engine)
 MatchesBase.metadata.create_all(bind=engine)
 UserBase.metadata.create_all(bind=engine)
