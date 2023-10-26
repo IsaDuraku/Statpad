@@ -1,0 +1,27 @@
+{% include "header.html" %}
+
+{% include "navbar.html" %}
+
+    <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+	<!-- NAVBAR SECTION -->
+    <h1>News for {{ favorite_team }}</h1>
+
+    <!-- Display News -->
+    <ul>
+        {% for news_item in news %}
+            <li>{{ news_item.title }}</li>
+        {% endfor %}
+    </ul>
+
+    <h1>THE MOST REPEATED STARTING XI {{ favorite_team }}</h1>
+
+    <!-- Display Lineup -->
+    <ul>
+        {% for lineup_item in lineup %}
+            <li>{{ lineup_item.number }} - {{ lineup_item.name }}</li>
+        {% endfor %}
+    </ul>
+{% include "footer.html" %}
