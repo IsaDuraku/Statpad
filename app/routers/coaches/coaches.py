@@ -5,7 +5,6 @@ from app.scrapers.coaches.coaches import get_coaches_list, insert_coach_data_int
 from app.database import SessionLocal
 from fastapi import HTTPException
 
-
 router = APIRouter(
     prefix='/coaches',
     tags=['coaches']
