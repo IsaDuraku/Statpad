@@ -499,3 +499,12 @@ p{
 .ligtable.custom-button[data-table="ligue1Table"] {
   --hover-color: #201041; /* Ligue 1 color */
 }
+
+.table.table-striped{
+    width:80%
+}
+
+.table>tbody>tr>td {
+    background: white;
+    vertical-align: middle;
+}
