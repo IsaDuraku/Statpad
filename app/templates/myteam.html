@@ -1,0 +1,54 @@
+{% include "header.html" %}
+
+{% include "navbar.html" %}
+
+    <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+
+   <style>
+        /* Add your CSS styles here to customize the appearance */
+        .main-panel {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+        }
+        .game-panel {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+            width: 18%; /* Adjust the width as needed */
+            text-align: center;
+        }
+        .panel-header {
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            text-align: center;
+        }
+    </style>
+
+    <div class="main-panel">
+        <div class="panel-header">
+            <h1>Recent Games</h1>
+        </div>
+
+        <div class="panel-container">
+            {% for form in forms %}
+                <div class="game-panel">
+                    <div class="panel-header">
+                        <h2>{{ form.team_name }}</h2>
+                    </div>
+                    <img src="{{ form.competition_logo }}" alt="Competition Logo">
+                    <p>Date: {{ form.date }}</p>
+                    <p>Home Scores: {{ form.home_scores }}</p>
+                    <p>Away Scores: {{ form.away_scores }}</p>
+                    <img src="{{ form.enemy_logo }}" alt="Enemy Logo">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% include "footer.html" %}
