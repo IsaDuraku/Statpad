@@ -5,7 +5,9 @@ from app.models.matches import LiveSoccerScores, TomorrowSoccerScores
 from app.database import SessionLocal
 from sqlalchemy import asc
 
-
+league_ru = {
+    "https://cdn.resfu.com/media/img/flags/st3/small/ru.png?size=30x&lossy=1": "Russian Premier League",
+}
 def scrape_and_store_soccer_scores(date):
     session = SessionLocal()
     match_data_list = []  # Create an empty list to store match_data
@@ -30,6 +32,8 @@ def scrape_and_store_soccer_scores(date):
 
                 for l in league_img:
                     league_img = l.get('src')
+                    league = league_ru.get(league_img, league)  # Use the mapping or keep the original league name
+
             for body in panel_body:
                 info = body.find_all(class_='middle-info ta-c')
                 for i in info:
@@ -60,7 +64,7 @@ def scrape_and_store_soccer_scores(date):
                         "score": score_text,
                         "away_team": away_team,
                         "away_team_img": away_team_img,
-                        "match_status": match_status,  # Add match status to match_data
+                        "match_status": match_status,
                         "match_date": date,
                     }
 
@@ -108,6 +112,7 @@ def scrape_and_store_soccer_scores(date):
         session.close()
 
     return match_data_list
+
 
 
 def match_is_live(match_data):
@@ -183,7 +188,7 @@ def save_to_tomorrow_scores_table(match_data, session):
             # Insert a new match record
             tomorrow_score = TomorrowSoccerScores(
                 league_img=match_data["league_img"],
-                league=match_data["league"],
+                league=league_ru.get(match_data["league_img"], match_data["league"]),
                 round=match_data["round"],
                 home_team=match_data["home_team"],
                 home_team_img=match_data["home_team_img"],

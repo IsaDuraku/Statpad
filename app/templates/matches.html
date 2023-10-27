@@ -107,7 +107,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for score in league_scores if score.league_img != 'https://cdn.resfu.com/media/img/flags/st3/small/ru.png?size=30x&lossy=1' %}
+                    {% for score in league_scores if score.league_img != "https://cdn.resfu.com/media/img/flags/st3/small/ru.png?size=30x&lossy=1" %}
                         <tr class="league-title-row">
                             <td class="team-cell home-team">
                                 {{ score.home_team }}
@@ -148,7 +148,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for score in league_scores if score.league_img != 'https://cdn.resfu.com/media/img/flags/st3/small/ru.png?size=30x&lossy=1' %}
+            {% for score in league_scores %}
                 <tr class="league-title-row">
                     <td class="team-cell home-team">
                         {{ score.home_team }}
