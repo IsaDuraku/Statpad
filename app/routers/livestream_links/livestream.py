@@ -11,7 +11,7 @@ from collections import defaultdict
 
 
 router = APIRouter(
-    prefix='/livestream_scraper',
+    prefix='/livestream',
     tags=['Livestream_links']
 )
 
