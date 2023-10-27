@@ -15,6 +15,7 @@ class FormDB(Base):
     home_scores = Column(String)
     away_scores = Column(String)
     enemy_logo = Column(String)
+    h_or_a = Column(String)
 
 # Pydantic model for scraped form data
 class Form(BaseModel):
@@ -24,3 +25,4 @@ class Form(BaseModel):
     home_scores: str
     away_scores: str
     enemy_logo: str
+    h_or_a: str

@@ -4,11 +4,7 @@ from app.database import SessionLocal
 from app.models.form import FormDB
 from sqlalchemy import delete
 
-teams = ['almeria', 'athletic-bilbao', 'atletico-madrid', 'barcelona', 'cadiz', 'celta', 'alaves', 'getafe', 'girona-fc', 'granada', 'ud-palmas', 'mallorca', 'osasuna', 'rayo-vallecano', 'betis', 'real-madrid', 'real-sociedad', 'sevilla', 'valencia-cf', 'villarreal',
-             'borussia-dortmund', 'bayer-leverkusen', 'borussia-monchengla', 'bayern-munchen', 'darmstadt-98', 'eintracht-frankfurt', 'fc-augsburg', 'heidenheim', 'tsg-1899-hoffenheim', '1-fc-koln', 'mainz-amat', 'rb-leipzig', 'sc-freiburg', 'stuttgart', '1-fc-union-berlin', 'bochum', 'werder-bremen', 'wolfsburg',
-             'clermont-foot', 'havre-ac', 'lens', 'lillestrom', 'lorient', 'metz', 'monaco', 'montpellier-hsc', 'nantes', 'nice', 'olympique-lyonnais', 'olympique-marsella', 'paris-saint-germain-fc', 'stade-brestois-29', 'stade-reims', 'stade-rennes', 'strasbourg', 'toulouse-fc',
-             'ac-monza-brianza-1912', 'atalanta', 'bologna', 'cagliari', 'empoli-fc', 'fiorentina', 'frosinone-calcio', 'genoa', 'hellas-verona-fc', 'internazionale', 'juventus-fc', 'lazio', 'lecce', 'milan', 'napoli', 'roma', 'salernitana-calcio-1919', 'us-sassuolo-calcio', 'torino-fc', 'udinese',
-             'afc-bournemouth', 'arsenal', 'aston-villa-fc', 'brentford', 'brighton-amp-hov', 'burnley-fc', 'chelsea-fc', 'crystal-palace-fc', 'everton-fc', 'fulham', 'liverpool', 'luton-town-fc', 'manchester-city-fc', 'manchester-united-fc', 'newcastle-united-fc', 'nottingham-forest-fc', 'sheffield-united', 'tottenham-hotspur-fc', 'west-ham-united', 'wolverhampton']
+teams = ['almeria']
 
 
 def scrape_form_in_last_matches():
@@ -30,12 +26,17 @@ def scrape_form_in_last_matches():
             enemy_logo_element = game_element.find('img', class_='shield')
             competition_element = game_element.find('img', class_='league')
             result_element = game_element.find('div', class_='result')
-
+            result_1 = game_element.find('div', class_='result mb5')
             if enemy_logo_element and competition_element and result_element:
                 enemy_logo = enemy_logo_element['src']
 
-                # Extract the logo URL from the src attribute of the competition element
                 competition_logo = competition_element['src']
+                for result in result_1:
+                    first_span = result_element.find('span')
+                    if first_span.find('b'):
+                        h_or_a = 'H'
+                    else:
+                        h_or_a = 'A'
 
                 result = result_element.find_all('span')
                 if len(result) >= 2:
@@ -55,6 +56,7 @@ def scrape_form_in_last_matches():
                     "date": date,
                     "home_scores": home_scores,
                     "away_scores": away_scores,
+                    "h_or_a": h_or_a,
                 }
 
                 games_data.append(game_data)
