@@ -4,51 +4,90 @@
 
     <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
 
-
+<link rel="stylesheet" type="text/css" href="../static/css/standings.css">
+<link rel="stylesheet" type="text/css" href="../static/css/myteam.css">
 <link rel="stylesheet" type="text/css" href="../static/css/custom.css">
 
-   <style>
-        /* Add your CSS styles here to customize the appearance */
-        .main-panel {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin: 10px;
-        }
-        .game-panel {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin: 10px;
-            display: inline-block;
-            width: 18%; /* Adjust the width as needed */
-            text-align: center;
-        }
-        .panel-header {
-            background-color: #333;
-            color: #fff;
-            padding: 5px;
-            text-align: center;
-        }
-    </style>
+	<!-- BANNER -->
+	<div class="section subbanner">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<div class="caption">Football Highlights</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 
     <div class="main-panel">
         <div class="panel-header">
-            <h1>Recent Games</h1>
+            <h1 class="recent-h1"> Recent Games</h1>
         </div>
 
         <div class="panel-container">
             {% for form in forms %}
                 <div class="game-panel">
-                    <div class="panel-header">
-                        <h2>{{ form.team_name }}</h2>
-                    </div>
-                    <img src="{{ form.competition_logo }}" alt="Competition Logo">
-                    <p>Date: {{ form.date }}</p>
-                    <p>Home Scores: {{ form.home_scores }}</p>
-                    <p>Away Scores: {{ form.away_scores }}</p>
-                    <img src="{{ form.enemy_logo }}" alt="Enemy Logo">
+                    <img src="{{ form.competition_logo }}" class="comp-logo" alt="Competition Logo">
+                    <img src="{{ form.enemy_logo }}" class="enemy-team" alt="Enemy Logo">
+                    <p class="recent-scores">{{ form.home_scores }} - {{ form.away_scores }}</p>
+                    <p class="recent-date">{{ form.date }}</p>
                 </div>
             {% endfor %}
         </div>
+
     </div>
+
+
+ <div class="tab-content">
+            <div id="bundesliga-home" class="tab-pane fade in active">
+                <table>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class="common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Pts</th>
+                    </tr>
+                    {% for a in league_table[20:25] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" width="25px" height="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+          </div>
+       </div>
+
+                <div class="row">
+                    {% for i in stadiums[20:21] %}
+                    <div class="col-md-6 ">
+                        <div class="card">
+                            <img src="{{ i.img }}" class="stadium-img" alt="Stadium Image">
+                            <img src="{{ i.team }}" class="team-img" alt="Team Image">
+                            <p>{{i.name}}</p>
+                            <p>{{i.capacity}}</p>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
 
 {% include "footer.html" %}
