@@ -125,3 +125,12 @@ home-team, .away-team {
     padding: 5px;
     border-radius: 2%;
     box-shadow: 0 0 2px 1px #e1e1e1!important;
+}
+
+.last-main-panel {
+    width: fit-content;
+    height: fit-content;
+}
+.last_result{
+    width : fit-content;
+}

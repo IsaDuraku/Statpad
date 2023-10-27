@@ -12,7 +12,7 @@ from fastapi import HTTPException
 
 
 router = APIRouter(
-    prefix='/league_table',
+    prefix='/competitions',
     tags=['league_table']
 )
 templates=Jinja2Templates(directory='templates')

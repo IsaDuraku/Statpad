@@ -19,6 +19,30 @@
 		</div>
 	</div>
 
+<div class="last-main-panel" style="width: fit-content;">
+    <div class="panel-header">
+        <h1 class="recent-h1">Last Matches</h1>
+    </div>
+
+    <div class="panel-container">
+        <table class="table table-striped">
+
+            <tbody>
+                {% for match in last_match %}
+                    <tr>
+                        <td>{{ match.league }}</td>
+                        <td><img src="{{ match.h_image }}" alt="{{ match.h_name }}" class="team-logo"></td>
+                        <td>{{ match.h_name }}</td>
+                        <td class="last_result" style="width: 50px;">{{ match.result }}</td>
+                        <td><img src="{{ match.a_image }}" alt="{{ match.a_name }}" class="team-logo"></td>
+                        <td>{{ match.a_name }}</td>
+                        <td>{{ match.date }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 
 
     <div class="main-panel">
