@@ -1,11 +1,20 @@
+{# {% include "header.html" %}#}
+{##}
+{#{% include "navbar.html" %}#}
+{##}
+{#    <script type="text/javascript" src="../static/js/modernizr.min.js"></script>#}
+{##}
+{##}
+{#<link rel="stylesheet" type="text/css" href="../static/css/custom.css">#}
+
  <div class="container">
-    <h1>Frontend Feed</h1>
+    <h1>STATPAD SOCIAL</h1>
     <div class="input-section" id="post-form">
-      <input type="text" id="post-content" placeholder="Share your thoughts">
+      <textarea id="post-content" placeholder="Share your thoughts" style="height: 250px; width: 75%;"></textarea>
       <button onclick="createPost()">Create Post</button>
     </div>
     <div class="input-section" id="search-bar">
-      <input type="text" id="search-criteria" placeholder="Search by criteria">
+      <input type="text" id="search-criteria" placeholder="Search by keyword" style="height: 40px;">
       <button onclick="searchPosts()">Search</button>
     </div>
     <div class="posts" id="posts">
@@ -14,17 +23,21 @@
   </div>
 
     <style>
+
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   text-align: center;
-  background-color: #f0f0f0;
+	color: #c4c3ca;
+	background-color: #1f2029;
   margin: 0;
   padding: 0;
 }
 
 .container {
-  background-color: #fff;
-  max-width: 730px;
+	color: #c4c3ca;
+	background-color: #1f2029;
+  max-width: 800px;
   margin: 20px auto;
   padding: 20px;
   border-radius: 10px;
@@ -32,7 +45,7 @@ body {
 }
 
 h1 {
-  color: #1da1f2;
+  color: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
   font-size: 24px;
 }
 
@@ -43,43 +56,89 @@ h1 {
 }
 
 input[type="text"] {
-  width: 70%;
-  padding: 10px;
-  border: 1px solid #ccc;
+  width: 60%;
+  padding: 23px;
+    height: auto;
+    min-height: 50px;
+  border-radius: 30px;
+    	color: #c4c3ca;
+    background-color: #262731;
+    resize: vertical;
+    font-family: 'Poppins', sans-serif;
+
+}
+textarea {
+  width: 75%;
+  padding: 23px;
+  border-radius: 30px;
+  color: #c4c3ca;
+  background-color: #262731;
+  resize: vertical;
+  overflow-y: auto;
+  max-height: 500px;
+  word-wrap: break-word;
+    font-family: 'Poppins', sans-serif;
+}
+.slider {
+  width: 100%; /* Match the width of the textarea */
+  transform: rotate(90deg);
+  transform-origin: right top;
+  position: relative;
+  top: 0;
+  appearance: none;
+  background: #c4c3ca;
+  border: none;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
   border-radius: 30px;
 }
 
+
+
 button {
   padding: 10px 20px;
-  background-color: #1da1f2;
-  color: white;
+  background-color: #ffeba7;
+  color: #102770;;
   border: none;
   border-radius: 30px;
   cursor: pointer;
   transition: background-color 0.2s;
+    height: 40px;
+    font-family: 'Poppins', sans-serif;
 }
 
 button:hover {
-  background-color: #0f81d6;
+  background-color: #005a9e;
+  color: #ffeba7;
+  box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+}
+button:active,
+button:focus{
+  background-color: #ffeba7;
+  color: #102770;
+  box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
 
 .posts {
-  border: 1px solid #ccc;
+
   padding: 20px;
-  margin: 30px 0;
+  margin: 50px 0;
   border-radius: 10px;
-  background-color: #f9f9f9;
+	color: #c4c3ca;
+	background-color: #1f2029;
 }
 
 /* CSS for Reddit-style post cards */
 .post {
-  border: 1px solid #ccc;
+  border: 8px solid #262732;
   border-radius: 5px;
-  margin: 10px;
+  margin: 60px 0;
   padding: 30px;
     display: flex;
     flex-direction: column;
-  background-color: #fff;
+	color: #c4c3ca;
+	background-color: #1f2029;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
 }
@@ -89,26 +148,37 @@ button:hover {
   font-size: 16px;
     text-align: left;
     padding: 17px;
+color: #c4c3ca;
+    background-color: #262732; /* Add a subtle background color */
+  border-radius: 5px; /* Add rounded corners for a modern look */
 }
+
 
 .user-info strong {
   font-weight: bold;
 
 }
 
+.user-info .date {
+  font-style: italic;
+  font-size: 11px; /* Adjust the font size as needed */
+}
+
+
 .post-content {
   font-size: 14px;
         text-align: left;
+
 }
 
 .show-comments-button {
-  background-color: #0079d3;
-  color: #fff;
+  background-color: #ffeba7;
+  color: #102770;;
   border: none;
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 5px 20px;
   cursor: pointer;
-    margin: 10px;
+    margin: 10px 250px;
 }
 
 .show-comments-button:hover {
@@ -210,8 +280,11 @@ function fetchPosts() {
       alert("Failed to fetch posts");
     });
 }
-
-// Function to display posts and comments
+function convertUTCToLocalTime(utcTimestamp) {
+  const userTimezoneOffset = new Date().getTimezoneOffset();
+  const utcDate = new Date(utcTimestamp);
+  return new Date(utcDate.getTime() - userTimezoneOffset * 60000);
+}
 // Function to display posts and comments
 function displayPosts(data) {
   const postsDiv = document.getElementById("posts");
@@ -232,11 +305,11 @@ function displayPosts(data) {
         .then(response => response.json())
         .then(user => {
           // Format the created_at date and time
-          const createdAt = new Date(post.created_at);
+          const createdAt = convertUTCToLocalTime(post.created_at);
           const formattedDate = createdAt.toLocaleDateString();
-          const formattedTime = createdAt.toLocaleTimeString();
+          const formattedTime = createdAt.toLocaleTimeString().replace(/:\d+\s/, ' ');
 
-          userDiv.innerHTML = `<strong>${user.username}</strong> (${user.favorite_team}) - Date: ${formattedDate}, Time: ${formattedTime}`;
+          userDiv.innerHTML = `<strong>${user.username}</strong> <em>(${user.favorite_team} fan)</em> - <span class="date">${formattedDate}, ${formattedTime}</span>`;
           postElement.appendChild(userDiv); // Append user information to the post card
 
           // Create a div for the post content
@@ -248,7 +321,7 @@ function displayPosts(data) {
           // Create a button to fetch comments for this post
           const commentsButton = document.createElement("button");
           commentsButton.classList.add("show-comments-button");
-          commentsButton.textContent = "Show Comments";
+          commentsButton.textContent = "Comments";
           commentsButton.onclick = () => getComments(post.id, postElement);
 
           // Append the comments button to the post card
@@ -267,6 +340,7 @@ function displayPosts(data) {
     postsDiv.innerHTML = "No posts found.";
   }
 }
+
 
 
 

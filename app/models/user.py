@@ -35,7 +35,7 @@ class UserDB(Base):
     id = Column(Integer, primary_key=True, index=True)
     full_name = Column(String, nullable=False)
     username = Column(String, unique=True, index=True)
-    email = Column(String, unique=True, index=True)
+    email  = Column(String, unique=True, index=True)
     password = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)
     is_verified = Column(Boolean, default=False)  # New field for email verification

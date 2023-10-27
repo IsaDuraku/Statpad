@@ -146,7 +146,7 @@ async def profile_view(request: Request):
     return templates.TemplateResponse("profile.html", {"request": request})
 
 @router.get("/blog/")
-async def profile_view(request: Request):
+async def blog_view(request: Request):
     return templates.TemplateResponse("blog.html", {"request": request})
 
 
