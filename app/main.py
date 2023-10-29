@@ -17,6 +17,7 @@ from app.routers.stadiums import stadiums
 from app.routers.team import team
 from app.routers.matchday import matchday
 from app.routers.form import form
+from app.routers.live_game_href import live_game_href
 
 
 from app.routers.lineup import lineup
@@ -47,6 +48,7 @@ app.include_router(lineup.router)
 app.include_router(myteam.router)
 app.include_router(last_match.router)
 app.include_router(team_next_clash.router)
+app.include_router(live_game_href.router)
 
 @app.on_event("startup")
 async def startup():

@@ -17,6 +17,7 @@ from app.models.team import Base as TeamBase
 from app.models.lineup import Base as LineupBase
 from app.models.last_match import Base as LastMatchesBase
 from app.models.team_next_clash import Base as NextMatchesBase
+from app.models.live_game_href import Base as href_Base
 from fastapi import FastAPI
 
 
@@ -30,6 +31,7 @@ DATABASE_URL = config("DATABASE_URL")
 engine = create_engine(DATABASE_URL)
 
 # Create tables if they don't exist
+
 TeamBase.metadata.create_all(bind=engine)
 NewsBase.metadata.create_all(bind=engine)
 MatchesBase.metadata.create_all(bind=engine)
@@ -47,6 +49,7 @@ FormBase.metadata.create_all(bind=engine)
 LineupBase.metadata.create_all(bind=engine)
 LastMatchesBase.metadata.create_all(bind=engine)
 NextMatchesBase.metadata.create_all(bind=engine)
+href_Base.metadata.create_all(bind=engine)
 
 
 

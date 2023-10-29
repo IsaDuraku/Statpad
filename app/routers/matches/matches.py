@@ -3,6 +3,7 @@ from datetime import datetime
 from fastapi.templating import Jinja2Templates
 from app.models.matches import LiveSoccerScores,TomorrowSoccerScores
 from app.scrapers.matches.matches import scrape_and_store_soccer_scores,save_to_live_scores_table,save_to_tomorrow_scores_table
+from app.models.live_game_href import Live_game_href
 from app.database import SessionLocal
 from typing import Optional
 from datetime import timedelta
@@ -99,7 +100,7 @@ def scores_view(
     total_pages = 1  # Assuming all scores fit on one page since there's no paging logic provided
 
     page_numbers = range(1, total_pages + 1)
-
+    href = db.query(Live_game_href).all()
     if not scores:
         raise HTTPException(status_code=404, detail="No scores found for the specified date")
 
@@ -110,6 +111,7 @@ def scores_view(
                                           'total_pages': total_pages,
                                           'current_page': page,
                                           'page_numbers': page_numbers,
+                                          'live_game_href':href,
                                           'match_date': match_date,
                                       })
 
