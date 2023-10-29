@@ -16,27 +16,21 @@
                         <p>Welcome to our football community! We are dedicated to delivering the latest updates, match results, and exciting news from the world of football. With a deep passion for the beautiful game, we strive to provide you with the most engaging and informative content. Join us as we celebrate the sport that unites millions around the globe.</p>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                     <div class="footer-item">
                         <div class="footer-title">
                             <h4>Latest News</h4>
                         </div>
+                        {%for i in news[-2:]%}
                         <div class="footer-blog-item">
                             <div class="footer-blog-lead">
-                                <a href="news-1.html" title="">Exciting Matches Await in the Upcoming Season!</a>
+                                <a href="{{i.url}}" title="">{{i.title}}</a>
                             </div>
                             <div class="footer-blog-date">
-                                October 15, 2023
+                                {{i.dateposted}}
                             </div>
                         </div>
-                        <div class="footer-blog-item">
-                            <div class="footer-blog-lead">
-                                <a href="news-2.html" title="">Player Transfers Shake Up the League!</a>
-                            </div>
-                            <div class="footer-blog-date">
-                                October 10, 2023
-                            </div>
-                        </div>
+                        {%endfor%}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">

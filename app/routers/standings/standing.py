@@ -9,6 +9,7 @@ from app.models.standing import LeagueTable
 from app.scrapers.standings.standing import save_to_db, get_league_table, delete_all_data
 from app.database import SessionLocal
 from fastapi import HTTPException
+from app.models.news import News
 
 
 router = APIRouter(
@@ -48,6 +49,7 @@ def view_league_tables(request: Request):
     stadium=db.query(Stadiums).all()
     players=db.query(Player).all()
     matchday= db.query(Matchday).all()
+    news = db.query(News).all()
 
     return templates.TemplateResponse('standings.html', {
         'request': request,
@@ -56,6 +58,7 @@ def view_league_tables(request: Request):
         'media':media,
         'stadium':stadium,
         'matchday' : matchday,
-        'players' : players
+        'players' : players,
+        'news': news
     
     })

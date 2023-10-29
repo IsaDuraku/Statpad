@@ -12,6 +12,7 @@ from app.models.team_next_clash import NextMatches
 from app.models.user import UserDB
 from app.routers.user.security import get_current_user
 from app.database import SessionLocal, get_db
+from app.models.news import News
 
 router = APIRouter(
     prefix='/myteam',
@@ -46,6 +47,7 @@ def get_favorite_team(request: Request):
     for team_info in team:
         team_info.team_info = pickle.loads(team_info.team_info)
         team_info.team_performance = pickle.loads(team_info.team_performance)
+        news = db.query(News).all()
     return templates.TemplateResponse('myteam.html', {
         'request': request,
         'lineup':lineup,
@@ -55,4 +57,5 @@ def get_favorite_team(request: Request):
         'next_match':next_match,
         'last_match':last_match,
         'stadiums':stadiums,
+        'news': news
     })

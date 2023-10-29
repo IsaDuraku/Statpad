@@ -3,6 +3,7 @@ from fastapi.templating import Jinja2Templates
 from app.models.bet import Bets
 from app.scrapers.bets.bet import scrape_bet, save_to_db, delete_all_bets
 from app.database import SessionLocal
+from app.models.news import News
 
 router=APIRouter(
     prefix='/bets',
@@ -48,10 +49,12 @@ def view_bets(request: Request, page: int = 1, items_per_page: int = 15):
 
     page_numbers = list(range(1, total_pages + 1))
 
+    news = db.query(News).all()
     return templates.TemplateResponse('bets.html', {
         'request': request,
         'bets': bets,
         'page_numbers': page_numbers,
         'current_page': page,
-        'total_pages': total_pages
+        'total_pages': total_pages,
+        'news' : news
     })

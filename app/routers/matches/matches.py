@@ -7,6 +7,7 @@ from app.models.live_game_href import Live_game_href
 from app.database import SessionLocal
 from typing import Optional
 from datetime import timedelta
+from app.models.news import News
 
 
 
@@ -103,7 +104,7 @@ def scores_view(
     href = db.query(Live_game_href).all()
     if not scores:
         raise HTTPException(status_code=404, detail="No scores found for the specified date")
-
+    news = db.query(News).all()
     return templates.TemplateResponse('matches.html',
                                       {
                                           'request': request,
@@ -113,6 +114,7 @@ def scores_view(
                                           'page_numbers': page_numbers,
                                           'live_game_href':href,
                                           'match_date': match_date,
+                                          'news': news
                                       })
 
 

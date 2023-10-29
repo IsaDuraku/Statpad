@@ -4,6 +4,7 @@ from app.models.coaches import CoachesDB
 from app.scrapers.coaches.coaches import get_coaches_list, insert_coach_data_into_database
 from app.database import SessionLocal
 from fastapi import HTTPException
+from app.models.news import News
 
 router = APIRouter(
     prefix='/coaches',
@@ -36,7 +37,9 @@ def view_coaches_data(request: Request):
     db = SessionLocal()
     coaches_data = db.query(CoachesDB).all()
 
+    news = db.query(News).all()
     return templates.TemplateResponse('coaches.html', {
         'request': request,
-        'coaches_data': coaches_data
+        'coaches_data': coaches_data,
+        'news': news
     })

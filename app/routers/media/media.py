@@ -4,6 +4,7 @@ from app.models.media import MediaDB  # Import your Media model
 from app.scrapers.media.media import get_media_links_with_text, insert_media_data_into_database
 from app.database import SessionLocal
 from fastapi import HTTPException
+from app.models.news import News
 
 router = APIRouter(
     prefix='/media',
@@ -35,8 +36,9 @@ def get_media_data():
 def view_media_data(request: Request):
     db = SessionLocal()
     media_data = db.query(MediaDB).all()
-
+    news = db.query(News).all()
     return templates.TemplateResponse('media.html', {
         'request': request,
-        'media_data': media_data
+        'media_data': media_data,
+        'news': news
     })
