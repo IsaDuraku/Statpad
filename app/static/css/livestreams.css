@@ -10,9 +10,9 @@ tbody {
 }
 th{
     padding: 10px;
-    border: 1px solid #252525;
+    border-bottom: 1px solid #252525;
     color: #FFFFF0;
-    font-size: 22px;
+    font-size: 18px;
 
     background:	#333;
 
@@ -24,7 +24,7 @@ table {
     border-spacing: 0;
     border-width: 1px 0 0 1px;
     margin: 0 0 1.5em;
-    width: 100%;
+    width: 85%;
 
     padding-left: 300px;
     padding-right: 300px;
@@ -35,8 +35,8 @@ td {
     padding: 10px;
 
     color: #000000; /* Dark Blue */
-    font-size: 22px;
-    border: 1px solid #333;
+    font-size: 18px;
+    border-bottom: 1px solid #333;
 
 }
 
@@ -48,11 +48,11 @@ tr {
 }
 .linkz{
      /* Dark Blue */
-    font-size: 21px;
+    font-size: 18px;
     horiz-align: center;
     display: inline-flex;
     padding: 5px 10px;
-    background:#333;
+    background:linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
     color: #FFFFF0;
     border-radius: 20px; /* Adjust the value to control the roundness */
     transition: background-color 0.3s;

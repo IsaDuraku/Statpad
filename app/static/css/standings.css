@@ -83,9 +83,6 @@ th, td {
 
 }
 
-td, th {
-    padding: 5;
-}
 
 th {
      align-items: center;
@@ -376,12 +373,9 @@ padding: 9px 10px;
     margin-right: 10px;
 }
 
-}
 
-td,
-th {
-  padding: 1;
-}
+
+
 .team-img{
 position: absolute;
     bottom: 25px;

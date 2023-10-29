@@ -42,6 +42,12 @@ def scores_scrape():
         url="http://localhost:8080/matches/scrape-scores/"
     )
 
+@scheduler.scheduled_job("interval", minutes=50)
+def href_scrape():
+    requests.get(
+        url="http://localhost:8080/game_href/scrape-and-insert-href"
+    )
+
 def delete_unverified_users():
     try:
         db = SessionLocal()

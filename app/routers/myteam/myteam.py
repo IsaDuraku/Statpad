@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query, Request, Depends, HTTPException
 from fastapi.templating import Jinja2Templates
-
+import pickle
 from app.models.last_match import LastMatches
 from app.models.lineup import Lineup, LineupModel
 from app.models.form import Form,FormDB
@@ -43,7 +43,9 @@ def get_favorite_team(request: Request):
     next_match = db.query(NextMatches).all()
     last_match = db.query(LastMatches).all()
     stadiums = db.query(Stadiums).all()
-
+    for team_info in team:
+        team_info.team_info = pickle.loads(team_info.team_info)
+        team_info.team_performance = pickle.loads(team_info.team_performance)
     return templates.TemplateResponse('myteam.html', {
         'request': request,
         'lineup':lineup,

@@ -159,17 +159,18 @@
             <table class="table table-striped">
             <thead>
                 <tr>
-
+                    <th>#</th>
                     <th>Player</th>
                     <th>Age</th>
                     <th>Club</th>
                     <th>Nationality</th>
                     <th>Goals</th>
                     <th>Assists</th>
+                    <th>G+A</th>
                 </tr>
             </thead>
             <tbody>
-                {% for player in players[:15] %}
+                {% for player in players if player.league_name == "La Liga" %}
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>
@@ -177,17 +178,18 @@
                                 <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
                                 {{ player.player_name }}
                             </div>
-
                         </td>
                         <td>{{ player.age }}</td>
                         <td>{{ player.club_name }}</td>
                         <td>{{ player.nationality }}</td>
                         <td>{{ player.goals }}</td>
                         <td>{{ player.assists }}</td>
+                        <td>{{ player.assists + player.goals }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
-        </table>
+            </table>
+
             </div>
         </div>
     </div>
@@ -329,10 +331,11 @@
                     <th>Nationality</th>
                     <th>Goals</th>
                     <th>Assists</th>
+                    <th>G+A</th>
                 </tr>
             </thead>
             <tbody>
-                {% for player in players[15:30] %}
+                {% for player in players if player.league_name == "Bundesliga" %}
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>
@@ -346,10 +349,11 @@
                         <td>{{ player.nationality }}</td>
                         <td>{{ player.goals }}</td>
                         <td>{{ player.assists }}</td>
+                        <td>{{ player.assists + player.goals }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
-        </table>
+            </table>
             </div>
         </div>
     </div>
@@ -493,10 +497,11 @@
                     <th>Nationality</th>
                     <th>Goals</th>
                     <th>Assists</th>
+                    <th>G+A</th>
                 </tr>
             </thead>
             <tbody>
-                {% for player in players[30:45] %}
+                {% for player in players if player.league_name == "Ligue 1" %}
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>
@@ -510,10 +515,11 @@
                         <td>{{ player.nationality }}</td>
                         <td>{{ player.goals }}</td>
                         <td>{{ player.assists }}</td>
+                        <td>{{ player.assists + player.goals }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
-        </table>
+            </table>
             </div>
         </div>
     </div>
@@ -658,10 +664,11 @@
                     <th>Nationality</th>
                     <th>Goals</th>
                     <th>Assists</th>
+                    <th>G+A</th>
                 </tr>
             </thead>
             <tbody>
-                {% for player in players[45:60] %}
+                {% for player in players if player.league_name == "Serie A" %}
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>
@@ -675,10 +682,11 @@
                         <td>{{ player.nationality }}</td>
                         <td>{{ player.goals }}</td>
                         <td>{{ player.assists }}</td>
+                        <td>{{ player.assists + player.goals }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
-        </table>
+            </table>
             </div>
         </div>
     </div>
@@ -823,10 +831,11 @@
                     <th>Nationality</th>
                     <th>Goals</th>
                     <th>Assists</th>
+                    <th>G+A</th>
                 </tr>
             </thead>
             <tbody>
-                {% for player in players[60:75] %}
+                {% for player in players if player.league_name == "Premier League" %}
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>
@@ -840,10 +849,11 @@
                         <td>{{ player.nationality }}</td>
                         <td>{{ player.goals }}</td>
                         <td>{{ player.assists }}</td>
+                        <td>{{ player.assists + player.goals }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
-        </table>
+            </table>
             </div>
         </div>
     </div>
