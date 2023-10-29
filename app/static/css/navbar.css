@@ -4,19 +4,30 @@
 
     padding-right: 40px;
 
+
 }
 .logo {
 width:100%;
 height:inherit;
-height: 80px;
-margin-top: 44px;
+height: 64px;
+margin-top: 52px;
+-webkit-transition: inherit;
 
 }
 .navbar-main.stiky .navbar-brand > img {
     width: 100%;
     height: inherit;
     margin-top: 5px;
+    -webkit-transition: inherit;
+    transition: none;
  }
+
+.navbar-main .navbar-brand > img {
+    -webkit-transition: inherit;
+    transition: inherit;
+}
+
+
 .animationload {
     position: fixed;
     top: 0;
