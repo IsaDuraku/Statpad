@@ -1,11 +1,4 @@
-{# {% include "header.html" %}#}
-{##}
-{#{% include "navbar.html" %}#}
-{##}
-{#    <script type="text/javascript" src="../static/js/modernizr.min.js"></script>#}
-{##}
-{##}
-{#<link rel="stylesheet" type="text/css" href="../static/css/custom.css">#}
+
 
  <div class="container">
     <h1>STATPAD SOCIAL</h1>
@@ -14,7 +7,7 @@
       <button onclick="createPost()">Create Post</button>
     </div>
     <div class="input-section" id="search-bar">
-      <input type="text" id="search-criteria" placeholder="Search by keyword" style="height: 40px;">
+      <input type="text" id="search-criteria" placeholder="Search by keyword" style="height: 40px; margin: 0px; padding:23px;">
       <button onclick="searchPosts()">Search</button>
     </div>
     <div class="posts" id="posts">
@@ -57,7 +50,7 @@ h1 {
 
 input[type="text"] {
   width: 60%;
-  padding: 23px;
+  padding: 12px;
     height: auto;
     min-height: 50px;
   border-radius: 30px;
@@ -65,6 +58,7 @@ input[type="text"] {
     background-color: #262731;
     resize: vertical;
     font-family: 'Poppins', sans-serif;
+    margin: 15px;
 
 }
 textarea {
@@ -181,17 +175,28 @@ color: #c4c3ca;
     margin: 10px 250px;
 }
 
+.comment-button  {
+    background-color: #ffeba7;
+  color: #102770;;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 20px;
+  cursor: pointer;
+    margin: 10px 250px;
+}
+
 .show-comments-button:hover {
   background-color: #005a9e;
 }
 
 
 .comment {
-  border: 1px solid #eee;
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #f0f0f0;
+      border: 5px solid #262732;
+    margin: 20px 50px;
+    padding: 10px;
+    border-radius: 10px;
+    color: #c4c3ca;
+    background-color: #1f2029;
 }
 
 .comments-container {
@@ -204,6 +209,39 @@ input[type="text"], button {
 
 input[type="text"]:focus, button:focus {
   border-color: #1da1f2;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.comment-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.comment-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+        margin: 20px 16px;
+}
+
+.comment-container input[type="text"] {
+  flex: 1;
+  margin-right: 10px;
+  padding: 22px;
+    width: 1000px;
+    height: 2px;
+}
+
+.comment-button {
+  padding: 8px 20px;
 }
 
     </style>
@@ -285,7 +323,27 @@ function convertUTCToLocalTime(utcTimestamp) {
   const utcDate = new Date(utcTimestamp);
   return new Date(utcDate.getTime() - userTimezoneOffset * 60000);
 }
-// Function to display posts and comments
+
+const commentsState = {};
+
+// Function to toggle comments for a specific post
+function toggleComments(postId, postElement) {
+  if (commentsState[postId]) {
+    // Comments are currently open, so close them
+    commentsState[postId] = false;
+    // Remove the comments container
+    const commentsContainer = postElement.querySelector('.comments-container');
+    if (commentsContainer) {
+      commentsContainer.remove();
+    }
+  } else {
+    // Comments are currently closed, so open them
+    commentsState[postId] = true;
+    // Fetch and display comments for the post
+    getComments(postId, postElement);
+  }
+}
+
 function displayPosts(data) {
   const postsDiv = document.getElementById("posts");
   postsDiv.innerHTML = "";
@@ -322,7 +380,24 @@ function displayPosts(data) {
           const commentsButton = document.createElement("button");
           commentsButton.classList.add("show-comments-button");
           commentsButton.textContent = "Comments";
-          commentsButton.onclick = () => getComments(post.id, postElement);
+          commentsButton.onclick = () => toggleComments(post.id, postElement);
+
+          const commentContainer = document.createElement("div");
+            commentContainer.classList.add("comment-container");
+            postElement.appendChild(commentContainer);
+
+            // Create a comment input
+            const commentInput = document.createElement("input");
+            commentInput.setAttribute("type", "text");
+            commentInput.setAttribute("placeholder", "Add a comment");
+            commentContainer.appendChild(commentInput);
+
+            // Create a button to submit the comment
+            const commentButton = document.createElement("button");
+            commentButton.classList.add("comment-button");
+            commentButton.textContent = "Comment";
+            commentButton.onclick = () => createComment(post.id, commentInput, postElement);
+            commentContainer.appendChild(commentButton);
 
           // Append the comments button to the post card
           postElement.appendChild(commentsButton);
@@ -341,7 +416,39 @@ function displayPosts(data) {
   }
 }
 
+function createComment(postId, commentInput, postElement) {
+  const commentContent = commentInput.value;
 
+  if (!commentContent.trim()) {
+    alert("Comment content cannot be empty");
+    return;
+  }
+
+  const token = getCookie("Authorization");
+
+  if (!token) {
+    alert("Authentication token not found. Please log in.");
+    return;
+  }
+
+  fetch(`http://localhost:8080/api/create-comment/${postId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": token,
+    },
+    body: JSON.stringify({ content: commentContent }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      commentInput.value = "";
+      getComments(postId, postElement);
+    })
+    .catch(error => {
+      console.error("Error creating comment:", error);
+      alert("Failed to create a comment");
+    });
+}
 
 
 
@@ -363,6 +470,8 @@ function displayComments(comments, postElement) {
   const commentsDiv = document.createElement("div");
   commentsDiv.classList.add("comments-container");
 
+  shuffleArray(comments);
+
   comments.forEach(comment => {
     const commentElement = document.createElement("div");
     commentElement.classList.add("comment");
@@ -374,7 +483,12 @@ function displayComments(comments, postElement) {
         // Create a div for the user information (username and favorite team)
         const userDiv = document.createElement("div");
         userDiv.classList.add("user-info");
-        userDiv.innerHTML = `<strong>${user.username}</strong> (${user.favorite_team})`;
+        const createdAt = convertUTCToLocalTime(comment.created_at);
+          const formattedDate = createdAt.toLocaleDateString();
+          const formattedTime = createdAt.toLocaleTimeString().replace(/:\d+\s/, ' ');
+
+          userDiv.innerHTML = `<strong>${user.username}</strong> <em>(${user.favorite_team} fan)</em> - <span class="date">${formattedDate}, ${formattedTime}</span>`;
+          postElement.appendChild(userDiv);
 
         // Create a div for the comment content
         const contentDiv = document.createElement("div");
@@ -397,8 +511,16 @@ function displayComments(comments, postElement) {
   postElement.appendChild(commentsDiv);
 }
 
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 
 // Fetch all posts when the page loads
 fetchPosts();
 
 </script>
+
