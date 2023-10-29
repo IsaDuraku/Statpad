@@ -112,8 +112,8 @@ footer {
 .league-image {
     width: 100px; /* Adjust the width as needed */
     height: 100px; /* Adjust the height as needed */
-    margin: 10px; /* Adjust margins as needed */
-    /* Other styles */
+    margin: -6px;
+    margin-top: 13px;
 }
 
 .common-cell,
