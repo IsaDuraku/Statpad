@@ -217,6 +217,38 @@ favoriteTeamDropdown.addEventListener("change", function() {
         });
     });
   });
+
+  const signupFullNameInput = document.getElementById("signupfullname");
+
+signupFullNameInput.addEventListener("blur", function () {
+  const fullName = signupFullNameInput.value.trim();
+  if (/^[A-Z][a-z]+ [A-Z][a-z]+$/.test(fullName)) {
+    // Valid full name
+    signupFullNameInput.style.border = "1px solid #ccc"; // Reset border style
+  } else {
+    // Invalid full name
+    signupFullNameInput.style.border = "1px solid red"; // Set border style to indicate an error
+    alert("Full name must consist of two words, each starting with a capital letter.");
+    signupFullNameInput.value = ""; // Clear the input field
+      return;
+  }
+});
+
+const signupPasswordInput = document.getElementById("signuppass");
+
+signupPasswordInput.addEventListener("blur", function () {
+  const password = signupPasswordInput.value;
+  if (/^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(password)) {
+    // Valid password
+    signupPasswordInput.style.border = "1px solid #ccc"; // Reset border style
+  } else {
+    // Invalid password
+    signupPasswordInput.style.border = "1px solid red"; // Set border style to indicate an error
+    alert("Password must contain at least one uppercase letter, one number, and one symbol.");
+    signupPasswordInput.value = ""; // Clear the input field
+      return;
+  }
+});
 </script>
 </body>
 </html>
