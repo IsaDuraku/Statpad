@@ -6,7 +6,7 @@ from app.database import SessionLocal
 from app.models.livestream_links import Livestream_links
 from fastapi.templating import Jinja2Templates
 from collections import defaultdict
-
+from app.models.news import News
 
 
 
@@ -50,8 +50,8 @@ async def show_livestream_links(request: Request):
     match_groups = defaultdict(list)
     for match in matches:
         match_groups[match.match].append(match)
-
-    return templates.TemplateResponse("livestreams.html", {"request": request, "match_groups": match_groups})
+    news = db.query(News).all()
+    return templates.TemplateResponse("livestreams.html", {"request": request, "match_groups": match_groups, 'news' : news})
 
 
 

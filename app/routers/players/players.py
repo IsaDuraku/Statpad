@@ -3,6 +3,7 @@ from app.models.players import Player
 from app.scrapers.players.players import scrape_players, save_player_data_to_db
 from app.database import SessionLocal
 from fastapi.templating import Jinja2Templates
+from app.models.news import News
 
 router = APIRouter(
     prefix='/players',
@@ -50,5 +51,6 @@ def players_view(request: Request):
     db = SessionLocal()
     players = db.query(Player).all()
     db.close()
-    return templates.TemplateResponse("players.html", {"request": request, "players": players})
+    news = db.query(News).all()
+    return templates.TemplateResponse("players.html", {"request": request, "players": players, 'news' : news})
 

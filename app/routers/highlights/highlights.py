@@ -5,6 +5,7 @@ from app.scrapers.highlights.highlights import highlights_scraped, insert_data_i
 from app.scrapers.highlights.highlights_backup import backup_highlights_scraped
 from app.database import SessionLocal
 from sqlalchemy import desc
+from app.models.news import News
 
 
 
@@ -65,13 +66,16 @@ def highlights_view(request: Request, q: str = '', page: int = 1, items_per_page
         # Calculate page numbers for pagination
         page_numbers = range(1, total_pages + 1)
 
+        news = db.query(News).all()
+
         return templates.TemplateResponse('highlights.html',
                                           {
                                               'request': request,
                                               'hg': hg,
                                               'total_pages': total_pages,
                                               'current_page': page,
-                                              'page_numbers': page_numbers
+                                              'page_numbers': page_numbers,
+                                              'news': news
                                           })
     finally:
         db.close()

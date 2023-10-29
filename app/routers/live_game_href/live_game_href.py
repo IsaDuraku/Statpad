@@ -4,6 +4,7 @@ from app.scrapers.live_game_href.live_game_href_scraper import scrape_live_game_
 from app.database import SessionLocal
 from app.models.live_game_href import Live_game_href
 from fastapi.templating import Jinja2Templates
+from app.models.news import News
 
 templates=Jinja2Templates(directory='templates')
 router = APIRouter(
@@ -32,4 +33,5 @@ async def scrape_and_insert():
 async def show_href(request: Request):
     db = SessionLocal()
     href = db.query(Live_game_href).all()
-    return templates.TemplateResponse('matches.html',{'request': request,'live_game_href':href})
+    news = db.query(News).all()
+    return templates.TemplateResponse('matches.html',{'request': request,'live_game_href':href, 'news' : news})
