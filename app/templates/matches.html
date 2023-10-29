@@ -118,7 +118,7 @@
                                 {% set team2 = score.away_team %}
                                 {% set matching_href = live_game_href | selectattr('team_1', 'eq', team1) | selectattr('team_2', 'eq', team2) | first %}
                                 {% if matching_href %}
-                                    <a href="{{ matching_href.href_link }}" class="score-link">
+                                    <a href="{{ matching_href.href_link }}" class="score-link" target="_blank">
                                         <div class="score-text">
                                             <div style="color: {% if score.match_status in ['End', 'P-P', ''] %}black{% else %}red{% endif %};">
                                                 {{ score.score }}
@@ -175,7 +175,7 @@
                             {% set team2 = score.away_team %}
                             {% set matching_href = live_game_href | selectattr('team_1', 'eq', team1) | selectattr('team_2', 'eq', team2) | first %}
                             {% if matching_href %}
-                                <a href="{{ matching_href.href_link }}" class="score-link">
+                                <a href="{{ matching_href.href_link }}" class="score-link" target="_blank">
                                     <div class="score-text">
                                         <div style="color: {% if score.match_status in ['End', 'P-P', ''] %}black{% else %}red{% endif %};">
                                             {{ score.score }}

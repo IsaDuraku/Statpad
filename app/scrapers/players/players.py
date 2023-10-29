@@ -49,12 +49,16 @@ def scrape_players(league_name, num_pages=1, max_players=15):
             if player_img_element and 'data-src' in player_img_element.attrs:
                 player_img_url = player_img_element['data-src']
             else:
-                player_img_url = "Player image not found"
+                player_img_url = "2 Clubs"
 
             player_name_element = tr_element.find_all('a', title=True)[0]
             player_name = player_name_element.text.strip()
 
-            club_name = tr_element.find_all('a', title=True)[1]['title']
+            club_name_elements = tr_element.find_all('a', title=True)
+            if len(club_name_elements) >= 2:
+                club_name = club_name_elements[1]['title']
+            else:
+                club_name = "Club name not found"
 
             goals_elements = tr_element.find_all('td', class_='zentriert')
             if len(goals_elements) > 5:
