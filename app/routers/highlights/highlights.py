@@ -20,8 +20,8 @@ def scrape_and_save_to_db():
     try:
         scraped_data = highlights_scraped()
         if not scraped_data:
-            scraped_data = backup_highlights_scraped() 
-            
+            scraped_data = backup_highlights_scraped()
+
         db = SessionLocal()
         insert_data_into_database(db, scraped_data)
 
@@ -42,27 +42,39 @@ def highlights_data(q: str = Query(None)):
 
 
 @router.get('/view')
-def highlights_view(request: Request, page: int = 1, items_per_page: int = 12):
+def highlights_view(request: Request, q: str = '', page: int = 1, items_per_page: int = 12):
     db = SessionLocal()
 
-    offset = (page - 1) * items_per_page
+    try:
+        offset = (page - 1) * items_per_page
+        limit = items_per_page
 
-    hg = db.query(HighlightsDB).order_by(desc(HighlightsDB.date)).offset(offset).limit(items_per_page).all()
+        if q:
+            # Filter news based on the search query
+            query = db.query(HighlightsDB).filter(HighlightsDB.match_name.ilike(f"%{q}%"))
+            hg = query.order_by(desc(HighlightsDB.date)).offset(offset).limit(limit).all()
+            total_hg_count = query.count()
+        else:
+            query = db.query(HighlightsDB)
+            hg = query.order_by(desc(HighlightsDB.date)).offset(offset).limit(limit).all()
+            total_hg_count = query.count()
 
-    total_highlights = db.query(HighlightsDB).count()
-    total_pages = (total_highlights + items_per_page - 1) // items_per_page
+        total_highlights = total_hg_count
+        total_pages = (total_highlights + items_per_page - 1) // items_per_page
 
-    # Calculate page numbers for pagination
-    page_numbers = range(1, total_pages + 1)
+        # Calculate page numbers for pagination
+        page_numbers = range(1, total_pages + 1)
 
-    return templates.TemplateResponse('highlights.html',
-                                      {
-                                          'request': request,
-                                          'hg': hg,
-                                          'total_pages': total_pages,
-                                          'current_page': page,
-                                          'page_numbers': page_numbers
-                                      })
+        return templates.TemplateResponse('highlights.html',
+                                          {
+                                              'request': request,
+                                              'hg': hg,
+                                              'total_pages': total_pages,
+                                              'current_page': page,
+                                              'page_numbers': page_numbers
+                                          })
+    finally:
+        db.close()
 
 
 

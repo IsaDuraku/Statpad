@@ -37,25 +37,32 @@ def read_news(q:str=Query(None)):
     return news
 
 @router.get('/view')
-def view_news(request: Request, page: int = 1, items_per_page: int = 9):
+async def view_news(request: Request, q: str = '', page: int = 1, items_per_page: int = 9):
     db = SessionLocal()
 
+    try:
+        offset = (page - 1) * items_per_page
+        limit = items_per_page
 
-    offset = (page - 1) * items_per_page
-    limit = items_per_page
+        query = db.query(News)
 
-    news=db.query(News).order_by(desc(News.dateposted)).offset(offset).limit(limit).all()
+        if q:
+            query = query.filter(News.title.ilike(f"%{q}%") | News.context.ilike(f"%{q}%"))
 
-    total_news_count = db.query(News).count()
+        news = query.order_by(desc(News.dateposted)).offset(offset).limit(limit).all()
+        total_news_count = query.count()
 
-    total_pages = (total_news_count + items_per_page - 1) // items_per_page
+        total_pages = (total_news_count + items_per_page - 1) // items_per_page
+        page_numbers = list(range(1, total_pages + 1))
 
-    page_numbers = list(range(1, total_pages + 1))
-
-    return templates.TemplateResponse('news.html', {
-        'request': request,
-        'news': news,
-        'page_numbers': page_numbers,
-        'current_page': page,
-        'total_pages': total_pages
-    })
+        return templates.TemplateResponse('news.html', {
+            'request': request,
+            'news': news,
+            'page_numbers': page_numbers,
+            'current_page': page,
+            'total_pages': total_pages
+        })
+    except Exception as e:
+        return {"error": f"An error occurred: {str(e)}"}
+    finally:
+        db.close()

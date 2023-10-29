@@ -52,3 +52,32 @@
     padding: 10px; /* Add padding to the text */
 }
 
+
+form {
+        margin-top: 15px;
+        margin-left: 25%;
+        text-align: center;
+        max-width: 800px; /* Adjust the width as needed */
+        display: flex; /* Use flexbox layout */
+    }
+
+    /* Style the input field */
+input[type="text"] {
+        flex: 1; /* Allow the input to grow and take available space */
+        margin-right: 5px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style the submit button */
+button[type="submit"] {
+        background-color: #338766; /* Change the background color to your preference */
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
