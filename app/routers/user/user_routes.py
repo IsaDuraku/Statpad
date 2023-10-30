@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
+
+from app.models.news import News
 from app.models.user import SignupUser, LoginUser, UserDB, UserInDB, ChangePasswordRequest, FullNameUpdate, UsernameUpdate, Post, PostCreate, PostInDB, CommentCreate, Comment, CommentInDB
 from app.models.auth import Token
 from app.database import SessionLocal
@@ -145,9 +147,11 @@ async def forgot_password_view(request: Request):
 async def profile_view(request: Request):
     return templates.TemplateResponse("profile.html", {"request": request})
 
-@router.get("/blog/")
-async def blog_view(request: Request):
-    return templates.TemplateResponse("blog.html", {"request": request})
+# @router.get("/blog/")
+# async def blog_view(request: Request):
+#     db = SessionLocal()
+#     news = db.query(News).all()
+#     return templates.TemplateResponse("social.html", {"request": request, "news": news})
 
 
 @router.get("/user-profile")

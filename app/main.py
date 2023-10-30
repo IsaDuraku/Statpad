@@ -2,6 +2,8 @@ import uvicorn
 from fastapi import FastAPI
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
+
+from app.routers import blog
 from app.routers.user import user_routes
 from app.routers.matches import matches
 from app.routers.scrapers_schedulers import scheduler
@@ -49,6 +51,7 @@ app.include_router(myteam.router)
 app.include_router(last_match.router)
 app.include_router(team_next_clash.router)
 app.include_router(live_game_href.router)
+app.include_router(blog.router)
 
 @app.on_event("startup")
 async def startup():
