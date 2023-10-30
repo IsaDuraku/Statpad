@@ -1,4 +1,20 @@
+{% include "header.html" %}
 
+{% include "navbar.html" %}
+
+    <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css">
+
+	<script type="text/javascript" src="../static/js/jquery.min.js"></script>
+	<script type='text/javascript' src='https://maps.google.com/maps/api/js?sensor=false&ver=4.1.5'></script>
+	<script type='text/javascript' src='../static/js/jqBootstrapValidation.js'></script>
+	<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../static/js/owl.carousel.min.js"></script>
+	<script type="text/javascript" src="../static/js/bootstrap-hover-dropdown.min.js"></script>
+	<script type="text/javascript" src="../static/js/jquery.magnific-popup.min.js"></script>
+
+	<script type="text/javascript" src="../static/js/script.js"></script>
 
  <div class="container">
     <h1>STATPAD SOCIAL</h1>
@@ -19,19 +35,20 @@
 
         @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
 body {
-  font-family: 'Poppins', sans-serif;
-  text-align: center;
-	color: #c4c3ca;
-	background-color: #1f2029;
-  margin: 0;
-  padding: 0;
+      font-family: 'Poppins', sans-serif;
+    text-align: center;
+    color: #1f2029;
+    background-color: ghostwhite;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-	color: #c4c3ca;
-	background-color: #1f2029;
+	background-color: ghostwhite;
+    color: #1f2029;
   max-width: 800px;
   margin: 20px auto;
+        margin-top: 120px;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -40,12 +57,13 @@ body {
 h1 {
   color: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
   font-size: 24px;
+    font-weight: bold;
 }
 
 .input-section {
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
+  margin: 50px 0;
 }
 
 input[type="text"] {
@@ -54,8 +72,8 @@ input[type="text"] {
     height: auto;
     min-height: 50px;
   border-radius: 30px;
-    	color: #c4c3ca;
-    background-color: #262731;
+    	background-color: #c4c3ca45;
+    color: #26273;
     resize: vertical;
     font-family: 'Poppins', sans-serif;
     margin: 15px;
@@ -65,8 +83,8 @@ textarea {
   width: 75%;
   padding: 23px;
   border-radius: 30px;
-  color: #c4c3ca;
-  background-color: #262731;
+      background-color: #c4c3ca45;
+    color: #262731;
   resize: vertical;
   overflow-y: auto;
   max-height: 500px;
@@ -91,25 +109,25 @@ textarea {
 
 
 button {
-  padding: 10px 20px;
-  background-color: #ffeba7;
-  color: #102770;;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+      padding: 10px 20px;
+        background-color: #338766;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.2s;
     height: 40px;
     font-family: 'Poppins', sans-serif;
+    color: ghostwhite;
 }
 
 button:hover {
-  background-color: #005a9e;
+  background-color: #338766;
   color: #ffeba7;
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
 button:active,
 button:focus{
-  background-color: #ffeba7;
+  background-color: #338766;
   color: #102770;
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
@@ -119,20 +137,19 @@ button:focus{
   padding: 20px;
   margin: 50px 0;
   border-radius: 10px;
-	color: #c4c3ca;
-	background-color: #1f2029;
+	    background-color: #c4c3ca45;
+    color: #1f2029;
 }
 
 /* CSS for Reddit-style post cards */
 .post {
-  border: 8px solid #262732;
   border-radius: 5px;
   margin: 60px 0;
   padding: 30px;
     display: flex;
     flex-direction: column;
-	color: #c4c3ca;
-	background-color: #1f2029;
+	color: #1f2029;
+	background-color: ghostwhite;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
 }
@@ -142,8 +159,8 @@ button:focus{
   font-size: 16px;
     text-align: left;
     padding: 17px;
-color: #c4c3ca;
-    background-color: #262732; /* Add a subtle background color */
+color: #262732;
+    background-color: #c4c3ca45; /* Add a subtle background color */
   border-radius: 5px; /* Add rounded corners for a modern look */
 }
 
@@ -166,37 +183,38 @@ color: #c4c3ca;
 }
 
 .show-comments-button {
-  background-color: #ffeba7;
-  color: #102770;;
+      background-color: #338766;
+  color: ghostwhite;
   border: none;
-  border-radius: 5px;
+  border-radius: 30px;
   padding: 5px 20px;
   cursor: pointer;
     margin: 10px 250px;
 }
 
 .comment-button  {
-    background-color: #ffeba7;
-  color: #102770;;
+        background-color: #338766;
+  color: ghostwhite;
+    background: #338766;
   border: none;
-  border-radius: 5px;
+  border-radius: 30px;
   padding: 5px 20px;
   cursor: pointer;
     margin: 10px 250px;
 }
 
 .show-comments-button:hover {
-  background-color: #005a9e;
+  background-color: #338766;
 }
 
 
 .comment {
-      border: 5px solid #262732;
+      border: 10px solid #c4c3ca45;
     margin: 20px 50px;
     padding: 10px;
     border-radius: 10px;
-    color: #c4c3ca;
-    background-color: #1f2029;
+color: #262732;
+    background-color: ghostwhite;
 }
 
 .comments-container {
@@ -379,7 +397,7 @@ function displayPosts(data) {
           // Create a button to fetch comments for this post
           const commentsButton = document.createElement("button");
           commentsButton.classList.add("show-comments-button");
-          commentsButton.textContent = "Comments";
+          commentsButton.textContent = " All Comments";
           commentsButton.onclick = () => toggleComments(post.id, postElement);
 
           const commentContainer = document.createElement("div");
@@ -523,4 +541,3 @@ function shuffleArray(array) {
 fetchPosts();
 
 </script>
-
