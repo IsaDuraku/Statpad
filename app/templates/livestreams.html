@@ -25,14 +25,14 @@
         <tr>
             <th>Time:</th>
             <th>Match:</th>
-            <th>Watch:</th>
+            <th class="watchz">Watch:</th>
         </tr>
     </thead>
     <tbody>
         {% for match_name, matches in match_groups.items() %}
         <tr>
-            <td>{{ matches[0].time }}</td>
-            <td>{{ match_name }}</td>
+            <td class="timez">{{ matches[0].time }}</td>
+            <td class="matchez">{{ match_name }}</td>
             <td>
                 <ul>
                     {% for match in matches %}
@@ -44,7 +44,7 @@
             </td>
         </tr>
         <tr class="iframe-tr">
-            <td colspan="3">
+            <td colspan="3" class="iframez">
                 <div class="iframe-container" style="display: none;"></div>
             </td>
         </tr>
