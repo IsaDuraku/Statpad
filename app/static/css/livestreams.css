@@ -23,11 +23,11 @@ table {
     border-collapse: separate;
     border-spacing: 0;
     border-width: 1px 0 0 1px;
-    margin: 0 0 1.5em;
-    width: 85%;
+    width: 70%;
+    margin: 0 15%;
+    padding-right: 75px;
 
-    padding-left: 300px;
-    padding-right: 300px;
+
 }
 td {
     text-align: left;
@@ -52,12 +52,12 @@ tr {
     horiz-align: center;
     display: inline-flex;
     padding: 5px 10px;
-    background:linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
+    background:#338766;
     color: #FFFFF0;
-    border-radius: 20px; /* Adjust the value to control the roundness */
+    border-radius: 10px; /* Adjust the value to control the roundness */
     transition: background-color 0.3s;
     cursor: pointer;
-    margin:2px 0;
+    margin:3px 0;
 }
 a:hover {
   color: #3fc323; /* Change this to the color you want when hovering */
@@ -71,5 +71,16 @@ a:hover {
   padding: 0px 0; /* Adjust the padding as needed */
 }
 li{
+    text-align: center;
+}
+.timez{
+}
+.matchez{
+
+}
+.iframez{
+    border-bottom: 0px white;
+}
+.watchz{
     text-align: center;
 }
