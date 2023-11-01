@@ -13,134 +13,134 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12 col-md-12">
-					<div class="caption">Football Highlights</div>
+					<div class="caption" id="favorite-team"></div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-<div class="last-main-panel" style="width: fit-content;">
-    <div class="panel-header">
-        <h1 class="recent-h1">Last Matches</h1>
-    </div>
-
-    <div class="panel-container">
-        <table class="table table-striped">
-
-            <tbody>
-                {% for match in last_match %}
-                    <tr>
-                        <td>{{ match.league }}</td>
-                        <td><img src="{{ match.h_image }}" alt="{{ match.h_name }}" class="team-logo"></td>
-                        <td>{{ match.h_name }}</td>
-                        <td class="last_result" style="width: 50px;">{{ match.result }}</td>
-                        <td><img src="{{ match.a_image }}" alt="{{ match.a_name }}" class="team-logo"></td>
-                        <td>{{ match.a_name }}</td>
-                        <td>{{ match.date }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-
-
-    <div class="main-panel">
-        <div class="panel-header">
-            <h1 class="recent-h1"> Recent Games</h1>
-        </div>
-
-        <div class="panel-container">
-            {% for form in forms %}
-                <div class="game-panel">
-                    <img src="{{ form.competition_logo }}" class="comp-logo" alt="Competition Logo">
-                    <img src="{{ form.enemy_logo }}" class="enemy-team" alt="Enemy Logo">
-                    <p class="recent-scores">{{ form.home_scores }} - {{ form.away_scores }}</p>
-                    <p class="recent-date">{{ form.date }}</p>
-                </div>
-            {% endfor %}
-        </div>
-
-    </div>
-<h1>My Team</h1>
-
-<!-- Rest of your content here -->
-
-<!--<h2>Team Information</h2>-->
-<!--<table class="team-table">-->
-<!--    <tr>-->
-<!--        <th>Job Title</th>-->
-<!--        <th>Name</th>-->
-<!--        <th>Number</th>-->
-<!--        <th>Image</th>-->
-<!--        <th>Team Performance</th>-->
-<!--        <th>Team Info</th>-->
-<!--        <th>Team</th>-->
-<!--    </tr>-->
-<!--    {% for team_info in team %}-->
-<!--    <tr>-->
-<!--        <td>{{ team_info.job_title }}</td>-->
-<!--        <td>{{ team_info.name }}</td>-->
-<!--        <td>{{ team_info.number }}</td>-->
-<!--        <td><img src="{{ team_info.image }}" alt="{{ team_info.name }} Image" width="100"></td>-->
-<!--        <td>{{ team_info.team_performance }}</td>-->
-<!--        <td>{{ team_info.team_info }}</td>-->
-<!--        <td>{{ team_info.team }}</td>-->
-<!--    </tr>-->
-<!--    {% endfor %}-->
-<!--</table>-->
-
-
- <div class="tab-content">
-            <div id="bundesliga-home" class="tab-pane fade in active">
-                <table>
-                    <tr>
-                        <th class="common-cell position-header">#</th>
-                        <th class="common-cell">Logo</th>
-                        <th class="common-cell club-header">Club</th>
-                        <th class="common-cell">P</th>
-                        <th class="common-cell">W</th>
-                        <th class="common-cell">D</th>
-                        <th class="common-cell">L</th>
-                        <th class="common-cell gs-header">GS</th>
-                        <th class="common-cell gc-header">GC</th>
-                        <th class="common-cell gd-header">GD</th>
-                        <th class="common-cell points-header">Pts</th>
-                    </tr>
-                    {% for a in league_table[20:25] %}
-                    <tr>
-                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
-                        <td class="common-cell"><img src="{{a.imageurl}}" width="25px" height="25px"></td>
-                        <td class="common-cell">{{ a.club }}</td>
-                        <td class="common-cell">{{ a.plays }}</td>
-                        <td class="common-cell">{{ a.wins }}</td>
-                        <td class="common-cell">{{ a.draws }}</td>
-                        <td class="common-cell">{{ a.losses }}</td>
-                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
-                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
-                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
-                        <td class="common-cell points-header">{{ a.points }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-          </div>
-       </div>
-
-                <div class="row">
-                    {% for i in stadiums[20:21] %}
-                    <div class="col-md-6 ">
-                        <div class="card">
-                            <img src="{{ i.img }}" class="stadium-img" alt="Stadium Image">
-                            <img src="{{ i.team }}" class="team-img" alt="Team Image">
-                            <p>{{i.name}}</p>
-                            <p>{{i.capacity}}</p>
-
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-
-
+{#<div class="last-main-panel" style="width: fit-content;">#}
+{#    <div class="panel-header">#}
+{#        <h1 class="recent-h1">Last Matches</h1>#}
+{#    </div>#}
+{##}
+{#    <div class="panel-container">#}
+{#        <table class="table table-striped">#}
+{##}
+{#            <tbody>#}
+{#                {% for match in last_match %}#}
+{#                    <tr>#}
+{#                        <td>{{ match.league }}</td>#}
+{#                        <td><img src="{{ match.h_image }}" alt="{{ match.h_name }}" class="team-logo"></td>#}
+{#                        <td>{{ match.h_name }}</td>#}
+{#                        <td class="last_result" style="width: 50px;">{{ match.result }}</td>#}
+{#                        <td><img src="{{ match.a_image }}" alt="{{ match.a_name }}" class="team-logo"></td>#}
+{#                        <td>{{ match.a_name }}</td>#}
+{#                        <td>{{ match.date }}</td>#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
+{#    </div>#}
+{#</div>#}
+{##}
+{##}
+{#    <div class="main-panel">#}
+{#        <div class="panel-header">#}
+{#            <h1 class="recent-h1"> Recent Games</h1>#}
+{#        </div>#}
+{##}
+{#        <div class="panel-container">#}
+{#            {% for form in forms %}#}
+{#                <div class="game-panel">#}
+{#                    <img src="{{ form.competition_logo }}" class="comp-logo" alt="Competition Logo">#}
+{#                    <img src="{{ form.enemy_logo }}" class="enemy-team" alt="Enemy Logo">#}
+{#                    <p class="recent-scores">{{ form.home_scores }} - {{ form.away_scores }}</p>#}
+{#                    <p class="recent-date">{{ form.date }}</p>#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{##}
+{#    </div>#}
+{#<h1>My Team</h1>#}
+{##}
+{#<!-- Rest of your content here -->#}
+{##}
+{#<!--<h2>Team Information</h2>-->#}
+{#<!--<table class="team-table">-->#}
+{#<!--    <tr>-->#}
+{#<!--        <th>Job Title</th>-->#}
+{#<!--        <th>Name</th>-->#}
+{#<!--        <th>Number</th>-->#}
+{#<!--        <th>Image</th>-->#}
+{#<!--        <th>Team Performance</th>-->#}
+{#<!--        <th>Team Info</th>-->#}
+{#<!--        <th>Team</th>-->#}
+{#<!--    </tr>-->#}
+{#<!--    {% for team_info in team %}-->#}
+{#<!--    <tr>-->#}
+{#<!--        <td>{{ team_info.job_title }}</td>-->#}
+{#<!--        <td>{{ team_info.name }}</td>-->#}
+{#<!--        <td>{{ team_info.number }}</td>-->#}
+{#<!--        <td><img src="{{ team_info.image }}" alt="{{ team_info.name }} Image" width="100"></td>-->#}
+{#<!--        <td>{{ team_info.team_performance }}</td>-->#}
+{#<!--        <td>{{ team_info.team_info }}</td>-->#}
+{#<!--        <td>{{ team_info.team }}</td>-->#}
+{#<!--    </tr>-->#}
+{#<!--    {% endfor %}-->#}
+{#<!--</table>-->#}
+{##}
+{##}
+{# <div class="tab-content">#}
+{#            <div id="bundesliga-home" class="tab-pane fade in active">#}
+{#                <table>#}
+{#                    <tr>#}
+{#                        <th class="common-cell position-header">#</th>#}
+{#                        <th class="common-cell">Logo</th>#}
+{#                        <th class="common-cell club-header">Club</th>#}
+{#                        <th class="common-cell">P</th>#}
+{#                        <th class="common-cell">W</th>#}
+{#                        <th class="common-cell">D</th>#}
+{#                        <th class="common-cell">L</th>#}
+{#                        <th class="common-cell gs-header">GS</th>#}
+{#                        <th class="common-cell gc-header">GC</th>#}
+{#                        <th class="common-cell gd-header">GD</th>#}
+{#                        <th class="common-cell points-header">Pts</th>#}
+{#                    </tr>#}
+{#                    {% for a in league_table[20:25] %}#}
+{#                    <tr>#}
+{#                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>#}
+{#                        <td class="common-cell"><img src="{{a.imageurl}}" width="25px" height="25px"></td>#}
+{#                        <td class="common-cell">{{ a.club }}</td>#}
+{#                        <td class="common-cell">{{ a.plays }}</td>#}
+{#                        <td class="common-cell">{{ a.wins }}</td>#}
+{#                        <td class="common-cell">{{ a.draws }}</td>#}
+{#                        <td class="common-cell">{{ a.losses }}</td>#}
+{#                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>#}
+{#                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>#}
+{#                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>#}
+{#                        <td class="common-cell points-header">{{ a.points }}</td>#}
+{#                    </tr>#}
+{#                    {% endfor %}#}
+{#                </table>#}
+{#          </div>#}
+{#       </div>#}
+{##}
+{#                <div class="row">#}
+{#                    {% for i in stadiums[20:21] %}#}
+{#                    <div class="col-md-6 ">#}
+{#                        <div class="card">#}
+{#                            <img src="{{ i.img }}" class="stadium-img" alt="Stadium Image">#}
+{#                            <img src="{{ i.team }}" class="team-img" alt="Team Image">#}
+{#                            <p>{{i.name}}</p>#}
+{#                            <p>{{i.capacity}}</p>#}
+{##}
+{#                        </div>#}
+{#                    </div>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{##}
+{##}
 <script>
     const token = getCookie("Authorization");
         if (token) {
