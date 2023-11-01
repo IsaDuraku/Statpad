@@ -13,7 +13,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12 col-md-12">
-					<div class="caption" id="favorite-team"></div>
+					<div class="caption">{{ favorite_team }}</div>
 				</div>
 			</div>
 		</div>
@@ -141,41 +141,41 @@
 {#                </div>#}
 {##}
 {##}
-<script>
-    const token = getCookie("Authorization");
-        if (token) {
-            fetchUserData(token);
-        } else {
-            // Handle unauthorized access
-            window.location.href = "http://localhost:8080/api/login/";
-        }
-
-        function fetchUserData(token) {
-            fetch("http://localhost:8080/api/user-profile", {
-                method: "GET",
-                headers: {
-                    Authorization: token,
-                },
-            })
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json();
-                } else {
-                    throw new Error("Unauthorized");
-                }
-            })
-            .then(data => {
-                document.getElementById("favorite-team").textContent = data.favorite_team;
-            })
-        }
-
-        // Function to get a cookie by name
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(";").shift();
-        }
-</script>
+{#<script>#}
+{#    const token = getCookie("Authorization");#}
+{#        if (token) {#}
+{#            fetchUserData(token);#}
+{#        } else {#}
+{#            // Handle unauthorized access#}
+{#            window.location.href = "http://localhost:8080/api/login/";#}
+{#        }#}
+{##}
+{#        function fetchUserData(token) {#}
+{#            fetch("http://localhost:8080/api/user-profile", {#}
+{#                method: "GET",#}
+{#                headers: {#}
+{#                    Authorization: token,#}
+{#                },#}
+{#            })#}
+{#            .then(response => {#}
+{#                if (response.status === 200) {#}
+{#                    return response.json();#}
+{#                } else {#}
+{#                    throw new Error("Unauthorized");#}
+{#                }#}
+{#            })#}
+{#            .then(data => {#}
+{#                document.getElementById("favorite-team").textContent = data.favorite_team;#}
+{#            })#}
+{#        }#}
+{##}
+{#        // Function to get a cookie by name#}
+{#        function getCookie(name) {#}
+{#            const value = `; ${document.cookie}`;#}
+{#            const parts = value.split(`; ${name}=`);#}
+{#            if (parts.length === 2) return parts.pop().split(";").shift();#}
+{#        }#}
+{#</script>#}
 
 
 {% include "footer.html" %}
