@@ -65,7 +65,8 @@ def get_favorite_team(request: Request):
         'next_match': next_match,
         'last_match': last_match,
         'stadiums': stadiums,
-        'news': news
+        'news': news,
+        'favorite_team': favorite_team
     })
 
 
