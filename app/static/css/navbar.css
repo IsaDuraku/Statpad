@@ -1,6 +1,5 @@
 .navbar-main {
-    background: rgb(56, 189, 140);
-    background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
+    background: #338766;
 
     padding-right: 40px;
 
@@ -35,8 +34,7 @@ margin-top: 52px;
     right: 0;
     bottom: 0;
     z-index: 999999;
-    background: rgb(56, 189, 140);
-    background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
+    background: #338766;
 
 }
 

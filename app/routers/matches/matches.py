@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, Request
 from datetime import datetime
 from fastapi.templating import Jinja2Templates
+from app.models.highlights import HighlightsDB
 from app.models.matches import LiveSoccerScores,TomorrowSoccerScores
 from app.scrapers.matches.matches import scrape_and_store_soccer_scores,save_to_live_scores_table,save_to_tomorrow_scores_table
 from app.models.live_game_href import Live_game_href
@@ -105,6 +106,7 @@ def scores_view(
     if not scores:
         raise HTTPException(status_code=404, detail="No scores found for the specified date")
     news = db.query(News).all()
+    hg = db.query(HighlightsDB).all()
     return templates.TemplateResponse('matches.html',
                                       {
                                           'request': request,
@@ -114,7 +116,8 @@ def scores_view(
                                           'page_numbers': page_numbers,
                                           'live_game_href':href,
                                           'match_date': match_date,
-                                          'news': news
+                                          'news': news,
+                                          'hg': hg
                                       })
 
 
