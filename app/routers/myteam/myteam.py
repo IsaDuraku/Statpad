@@ -40,25 +40,22 @@ def get_favorite_team(request: Request):
 
     # Query Lineup with the filter based on the favorite_team
     lineup = db.query(Lineup).filter(Lineup.team.ilike(f"%{favorite_team}%")).all()
-
-    # The rest of your queries
-    forms = db.query(FormDB).all()
-    team = db.query(Team).all()
-    league_table = db.query(LeagueTable).all()
-    next_match = db.query(NextMatches).all()
-    last_match = db.query(LastMatches).all()
-    stadiums = db.query(Stadiums).all()
+    forms = db.query(FormDB).filter(FormDB.team_name.ilike(f"%{favorite_team}%")).all()
+    last_match = db.query(LastMatches).filter(LastMatches.team_name.ilike(f"%{favorite_team}%")).all()
+    league_table = db.query(LeagueTable).filter(LeagueTable.club.ilike(f"%{favorite_team}%")).all()
+    stadiums = db.query(Stadiums).filter(Stadiums.team.ilike(f"%{favorite_team}%")).all()
+    team = db.query(Team).filter(Team.team.ilike(f"%{favorite_team}%")).all()
+    next_match=db.query(NextMatches).filter(NextMatches.team_name.ilike(f"%{favorite_team}%")).all()
     news = db.query(News).all()
+
 
     # Close the database session
     db.close()
 
-    # Convert the results to LineupModel instances
-    lineup_list = [LineupModel(**item.__dict__) for item in lineup]
 
     return templates.TemplateResponse('myteam.html', {
         'request': request,
-        'lineup': lineup_list,
+        'lineup': lineup,
         'team': team,
         'forms': forms,
         'league_table': league_table,

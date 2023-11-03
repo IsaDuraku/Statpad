@@ -2,12 +2,9 @@
 
 {% include "navbar.html" %}
 
-    <script type="text/javascript" src="../static/js/modernizr.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="../static/css/standings.css">
+<!--<link rel="stylesheet" type="text/css" href="../static/css/standings.css">-->
 <link rel="stylesheet" type="text/css" href="../static/css/myteam.css">
 <link rel="stylesheet" type="text/css" href="../static/css/custom.css">
-
 	<!-- BANNER -->
 	<div class="section subbanner">
 		<div class="container">
@@ -19,163 +16,191 @@
 		</div>
 	</div>
 
-{#<div class="last-main-panel" style="width: fit-content;">#}
-{#    <div class="panel-header">#}
-{#        <h1 class="recent-h1">Last Matches</h1>#}
-{#    </div>#}
-{##}
-{#    <div class="panel-container">#}
-{#        <table class="table table-striped">#}
-{##}
-{#            <tbody>#}
-{#                {% for match in last_match %}#}
-{#                    <tr>#}
-{#                        <td>{{ match.league }}</td>#}
-{#                        <td><img src="{{ match.h_image }}" alt="{{ match.h_name }}" class="team-logo"></td>#}
-{#                        <td>{{ match.h_name }}</td>#}
-{#                        <td class="last_result" style="width: 50px;">{{ match.result }}</td>#}
-{#                        <td><img src="{{ match.a_image }}" alt="{{ match.a_name }}" class="team-logo"></td>#}
-{#                        <td>{{ match.a_name }}</td>#}
-{#                        <td>{{ match.date }}</td>#}
-{#                    </tr>#}
-{#                {% endfor %}#}
-{#            </tbody>#}
-{#        </table>#}
-{#    </div>#}
-{#</div>#}
-{##}
-{##}
-{#    <div class="main-panel">#}
-{#        <div class="panel-header">#}
-{#            <h1 class="recent-h1"> Recent Games</h1>#}
-{#        </div>#}
-{##}
-{#        <div class="panel-container">#}
-{#            {% for form in forms %}#}
-{#                <div class="game-panel">#}
-{#                    <img src="{{ form.competition_logo }}" class="comp-logo" alt="Competition Logo">#}
-{#                    <img src="{{ form.enemy_logo }}" class="enemy-team" alt="Enemy Logo">#}
-{#                    <p class="recent-scores">{{ form.home_scores }} - {{ form.away_scores }}</p>#}
-{#                    <p class="recent-date">{{ form.date }}</p>#}
-{#                </div>#}
-{#            {% endfor %}#}
-{#        </div>#}
-{##}
-{#    </div>#}
-{#<h1>My Team</h1>#}
-{##}
-{#<!-- Rest of your content here -->#}
-{##}
-{#<!--<h2>Team Information</h2>-->#}
-{#<!--<table class="team-table">-->#}
-{#<!--    <tr>-->#}
-{#<!--        <th>Job Title</th>-->#}
-{#<!--        <th>Name</th>-->#}
-{#<!--        <th>Number</th>-->#}
-{#<!--        <th>Image</th>-->#}
-{#<!--        <th>Team Performance</th>-->#}
-{#<!--        <th>Team Info</th>-->#}
-{#<!--        <th>Team</th>-->#}
-{#<!--    </tr>-->#}
-{#<!--    {% for team_info in team %}-->#}
-{#<!--    <tr>-->#}
-{#<!--        <td>{{ team_info.job_title }}</td>-->#}
-{#<!--        <td>{{ team_info.name }}</td>-->#}
-{#<!--        <td>{{ team_info.number }}</td>-->#}
-{#<!--        <td><img src="{{ team_info.image }}" alt="{{ team_info.name }} Image" width="100"></td>-->#}
-{#<!--        <td>{{ team_info.team_performance }}</td>-->#}
-{#<!--        <td>{{ team_info.team_info }}</td>-->#}
-{#<!--        <td>{{ team_info.team }}</td>-->#}
-{#<!--    </tr>-->#}
-{#<!--    {% endfor %}-->#}
-{#<!--</table>-->#}
-{##}
-{##}
-{# <div class="tab-content">#}
-{#            <div id="bundesliga-home" class="tab-pane fade in active">#}
-{#                <table>#}
-{#                    <tr>#}
-{#                        <th class="common-cell position-header">#</th>#}
-{#                        <th class="common-cell">Logo</th>#}
-{#                        <th class="common-cell club-header">Club</th>#}
-{#                        <th class="common-cell">P</th>#}
-{#                        <th class="common-cell">W</th>#}
-{#                        <th class="common-cell">D</th>#}
-{#                        <th class="common-cell">L</th>#}
-{#                        <th class="common-cell gs-header">GS</th>#}
-{#                        <th class="common-cell gc-header">GC</th>#}
-{#                        <th class="common-cell gd-header">GD</th>#}
-{#                        <th class="common-cell points-header">Pts</th>#}
-{#                    </tr>#}
-{#                    {% for a in league_table[20:25] %}#}
-{#                    <tr>#}
-{#                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>#}
-{#                        <td class="common-cell"><img src="{{a.imageurl}}" width="25px" height="25px"></td>#}
-{#                        <td class="common-cell">{{ a.club }}</td>#}
-{#                        <td class="common-cell">{{ a.plays }}</td>#}
-{#                        <td class="common-cell">{{ a.wins }}</td>#}
-{#                        <td class="common-cell">{{ a.draws }}</td>#}
-{#                        <td class="common-cell">{{ a.losses }}</td>#}
-{#                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>#}
-{#                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>#}
-{#                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>#}
-{#                        <td class="common-cell points-header">{{ a.points }}</td>#}
-{#                    </tr>#}
-{#                    {% endfor %}#}
-{#                </table>#}
-{#          </div>#}
-{#       </div>#}
-{##}
-{#                <div class="row">#}
-{#                    {% for i in stadiums[20:21] %}#}
-{#                    <div class="col-md-6 ">#}
-{#                        <div class="card">#}
-{#                            <img src="{{ i.img }}" class="stadium-img" alt="Stadium Image">#}
-{#                            <img src="{{ i.team }}" class="team-img" alt="Team Image">#}
-{#                            <p>{{i.name}}</p>#}
-{#                            <p>{{i.capacity}}</p>#}
-{##}
-{#                        </div>#}
-{#                    </div>#}
-{#                    {% endfor %}#}
-{#                </div>#}
-{##}
-{##}
-{#<script>#}
-{#    const token = getCookie("Authorization");#}
-{#        if (token) {#}
-{#            fetchUserData(token);#}
-{#        } else {#}
-{#            // Handle unauthorized access#}
-{#            window.location.href = "http://localhost:8080/api/login/";#}
-{#        }#}
-{##}
-{#        function fetchUserData(token) {#}
-{#            fetch("http://localhost:8080/api/user-profile", {#}
-{#                method: "GET",#}
-{#                headers: {#}
-{#                    Authorization: token,#}
-{#                },#}
-{#            })#}
-{#            .then(response => {#}
-{#                if (response.status === 200) {#}
-{#                    return response.json();#}
-{#                } else {#}
-{#                    throw new Error("Unauthorized");#}
-{#                }#}
-{#            })#}
-{#            .then(data => {#}
-{#                document.getElementById("favorite-team").textContent = data.favorite_team;#}
-{#            })#}
-{#        }#}
-{##}
-{#        // Function to get a cookie by name#}
-{#        function getCookie(name) {#}
-{#            const value = `; ${document.cookie}`;#}
-{#            const parts = value.split(`; ${name}=`);#}
-{#            if (parts.length === 2) return parts.pop().split(";").shift();#}
-{#        }#}
-{#</script>#}
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{favorite_team}}: All the info, news and results</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <section class="info-section">
+            <div class="info-container">
+                <h1>  </h1>
+                <div class="grid">
+                    <div class="area-1">
+                        <div class="panel panel-1">
+                            <div class="panel-header">
+                                <h3 class="panel-title">LAST MATCH</h3>
+                                <h4 class="panel-more">MORE</h4>
+                            </div>
+                            <div class="panel-body">
+                                {%for match in last_match%}
+                                <h5 class="panel-body-text">{{match.league}}</h5>
+                                <div class="clubs-container">
+
+                                    <div class="club1">
+
+                                        <h5>{{match.h_name}}</h5>
+                                        <img src="{{ match.h_image }}" alt="{{ match.h_name }}">
+                                    </div>
+                                    <h3 class="score">{{match.result}}</h3>
+                                    <div class="club2">
+                                        <img src="{{ match.a_image }}" alt="{{ match.a_name }}">
+                                        <h5>{{match.a_name}}</h5>
+                                    </div>
+                                </div>
+                                <h5 class="panel-body-date">{{match.date}}</h5>
+                            </div>
+                            {%endfor%}
+                        </div>
+                        <div class="panel panel-2">
+                            <div class="panel-header">
+                                <h3 class="panel-title">LEAGUE PERFORMANCE</h3>
+                                <h4 class="panel-more">MORE</h4>
+                            </div>
+                            <div class="panel-body">
+                                <table>
+                                   <tr class="light-green">
+                                        <th class="table-num"></th>
+                                        <th class="matchday">Matchday</th>
+                                        <th>PTS</th>
+                                        <th>MP</th>
+                                        <th>W</th>
+                                        <th>D</th>
+                                        <th>L</th>
+                                        <th>GF</th>
+                                        <th>GA</th>
+                                        <th>GD</th>
+                                    </tr>
+                                    {%for i in league_table%}
+                                    <tr class="lighter-green">
+                                        <td class="table-num lime">{{i.position}}</td>
+                                        <td class="matchday"><img src="{{i.imageurl}}" alt="">{{i.club}}</td>
+                                        <td>{{i.points}}</td>
+                                        <td>{{i.plays}}</td>
+                                        <td>{{i.wins}}</td>
+                                        <td>{{i.draws}}</td>
+                                        <td>{{i.losses}}</td>
+                                        <td>{{i.goalsscored}}</td>
+                                        <td>{{ i.goalsconceded }}</td>
+                                        <td>{{ i.goaldifference }}</td>
+                                    </tr>
+                                    {%endfor%}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="area-2">
+                        <div class="panel panel-1">
+
+                            <div class="panel-header">
+                                <h3 class="panel-title">IN THEIR NEXT CLASH</h3>
+                                <h4 class="panel-more">MORE</h4>
+                            </div>
+                            <div class="panel-body">
+                                {%for i in next_match%}
+                                <h5 class="panel-body-text">{{i.league}}</h5>
+                                <div class="clubs-container">
+                                    <div class="club1">
+                                        <h5>{{i.h_name}}</h5>
+                                         <img src="{{i.h_image }}" alt="{{ i.h_name }}">
+                                    </div>
+                                    <h3 class="score">{{i.date}}</h3>
+                                    <div class="club2">
+                                         <img src="{{ i.a_image }}" alt="{{ i.a_name }}">
+                                        <h5>{{i.a_name}}</h5>
+                                    </div>
+                                </div>
+                                <h5 class="panel-body-date">05 NOV 2023</h5>
+                                {%endfor%}
+                            </div>
+
+                        </div>
+                        <div class="panel panel-2">
+                            <div class="panel-header">
+                                <h3 class="panel-title">STADIUM</h3>
+                            </div>
+                            <div class="panel-body">
+                                <img src="./img/19.jpg" alt="" class="stadium-img">
+                                <div class="stadium-container">
+                                    <div class="stadium-text">
+                                        <h2>Santiago Bernabéu</h2>
+                                        <h4>Madrid</h4>
+                                        <h5>Av. de Concha Espina, 1, 28036 Madrid</h5>
+                                    </div>
+                                    <div class="stadium-info">
+                                        <div class="date info-card">
+                                            <h5 class="grey">Date of construction</h5>
+                                            <h5>1947</h5>
+                                        </div>
+                                        <div class="capacity info-card">
+                                            <h5 class="grey">Capacity</h5>
+                                            <h5>81.044</h5>
+                                        </div>
+                                        <div class="size info-card">
+                                            <h5 class="grey">Size</h5>
+                                            <h5>105x68</h5>
+                                        </div>
+                                        <div class="grass info-card">
+                                            <h5 class="grey">Type of grass</h5>
+                                            <h5>Natural turf</h5>
+                                        </div>
+                                        <div class="phone info-card">
+                                            <h5 class="grey">Phone</h5>
+                                            <h5>913 98 43 00</h5>
+                                        </div>
+                                        <div class="fax info-card">
+                                            <h5 class="grey">Fax</h5>
+                                            <h5>34 (91) 398 43 82</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="area-3">
+                        <div class="panel panel-1">
+                            <div class="panel-header">
+                                <h3 class="panel-title">FORM IN LAST MATCHES</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel-container">
+                                   {% for form in forms %}
+                                    <div class="card{{ loop.index }} card">
+                                        <div class="{% if form.result == 'W' %}green{% elif form.result == 'D' %}yellow{% else %}red{% endif %}"></div>
+                                        <div class="img-container">
+                                            <img src="{{ form.competition_logo }}" class="comp-logo" alt="Competition Logo">
+                                            <img src="{{ form.enemy_logo }}" class="enemy-team" alt="Enemy Logo">
+
+                                        </div>
+                                        <h3>{{ form.home_scores }}-{{ form.away_scores }}</h3>
+                                        <h5>{{ form.date }}</h5>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-2">
+                            <div class="panel-header">
+                                <h3 class="panel-title">THE MOST REPEATED STARTING XI</h3>
+                            </div>
+                            <div class="panel-body">
+                                {%for i in lineup%}
+                                <p>{{i.name}}-{{i.number}}</p>
+                                {%endfor%}
+                                <img src="./img/screenshot.png" alt="" class="screenshot">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
 
 {% include "footer.html" %}
