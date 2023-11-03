@@ -2,8 +2,8 @@ import uvicorn
 from fastapi import FastAPI
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
-
 from app.routers import blog
+from app.routers.highlights_pages import highlights_pages
 from app.routers.user import user_routes
 from app.routers.matches import matches
 from app.routers.scrapers_schedulers import scheduler
@@ -20,14 +20,13 @@ from app.routers.team import team
 from app.routers.matchday import matchday
 from app.routers.form import form
 from app.routers.live_game_href import live_game_href
-
-
 from app.routers.lineup import lineup
 from app.routers.myteam import myteam
 from app.routers.last_matches import last_match
 from app.routers.team_next_clash import team_next_clash
-app = FastAPI()
 
+
+app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -52,6 +51,7 @@ app.include_router(last_match.router)
 app.include_router(team_next_clash.router)
 app.include_router(live_game_href.router)
 app.include_router(blog.router)
+app.include_router(highlights_pages.router)
 
 @app.on_event("startup")
 async def startup():
