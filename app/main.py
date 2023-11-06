@@ -24,7 +24,7 @@ from app.routers.lineup import lineup
 from app.routers.myteam import myteam
 from app.routers.last_matches import last_match
 from app.routers.team_next_clash import team_next_clash
-
+from app.routers.stadium_info import stadiums_info
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -52,6 +52,7 @@ app.include_router(team_next_clash.router)
 app.include_router(live_game_href.router)
 app.include_router(blog.router)
 app.include_router(highlights_pages.router)
+app.include_router(stadiums_info.router)
 
 @app.on_event("startup")
 async def startup():

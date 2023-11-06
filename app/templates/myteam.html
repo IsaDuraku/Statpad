@@ -16,16 +16,6 @@
 		</div>
 	</div>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{favorite_team}}: All the info, news and results</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
     <div class="container">
         <section class="info-section">
             <div class="info-container">
@@ -109,7 +99,7 @@
                                         <h5>{{i.h_name}}</h5>
                                          <img src="{{i.h_image }}" alt="{{ i.h_name }}">
                                     </div>
-                                    <h3 class="score">{{i.date}}</h3>
+                                    <h3 class="score">{{i.result}}</h3>
                                     <div class="club2">
                                          <img src="{{ i.a_image }}" alt="{{ i.a_name }}">
                                         <h5>{{i.a_name}}</h5>
@@ -120,46 +110,48 @@
                             </div>
 
                         </div>
-                        <div class="panel panel-2">
+                       <div class="panel panel-2">
                             <div class="panel-header">
                                 <h3 class="panel-title">STADIUM</h3>
                             </div>
+                            {% for i in stadiums %}
                             <div class="panel-body">
-                                <img src="./img/19.jpg" alt="" class="stadium-img">
+                                <img src="{{i.image}}" alt="" class="stadium-img">
                                 <div class="stadium-container">
                                     <div class="stadium-text">
-                                        <h2>Santiago Bernabéu</h2>
-                                        <h4>Madrid</h4>
-                                        <h5>Av. de Concha Espina, 1, 28036 Madrid</h5>
+                                        <h2>{{i.stadium_name}}</h2>
+                                        <h4>{{i.city}}</h4>
+                                        <h5>{{i.address}}</h5>
                                     </div>
                                     <div class="stadium-info">
                                         <div class="date info-card">
                                             <h5 class="grey">Date of construction</h5>
-                                            <h5>1947</h5>
+                                            <h5>{{i.construction_date}}</h5>
                                         </div>
                                         <div class="capacity info-card">
-                                            <h5 class="grey">Capacity</h5>
-                                            <h5>81.044</h5>
+                                            <h5 class ="grey">Capacity</h5>
+                                            <h5>{{i.capacity}}</h5>
                                         </div>
                                         <div class="size info-card">
                                             <h5 class="grey">Size</h5>
-                                            <h5>105x68</h5>
+                                            <h5>{{i.size}}</h5>
                                         </div>
                                         <div class="grass info-card">
                                             <h5 class="grey">Type of grass</h5>
-                                            <h5>Natural turf</h5>
+                                            <h5>{{i.grass_type}}</h5>
                                         </div>
                                         <div class="phone info-card">
                                             <h5 class="grey">Phone</h5>
-                                            <h5>913 98 43 00</h5>
+                                            <h5>{{i.phone}}</h5>
                                         </div>
                                         <div class="fax info-card">
                                             <h5 class="grey">Fax</h5>
-                                            <h5>34 (91) 398 43 82</h5>
+                                            <h5>{{i.fax}}</h5>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="area-3">
@@ -178,6 +170,7 @@
 
                                         </div>
                                         <h3>{{ form.home_scores }}-{{ form.away_scores }}</h3>
+                                        <h5>{{ form.h_or_a}}</h5>
                                         <h5>{{ form.date }}</h5>
                                     </div>
                                     {% endfor %}
@@ -200,7 +193,6 @@
             </div>
         </section>
     </div>
-</body>
-</html>
+
 
 {% include "footer.html" %}

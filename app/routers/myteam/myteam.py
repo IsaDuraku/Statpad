@@ -6,6 +6,7 @@ from app.models.lineup import Lineup, LineupModel
 from app.models.form import Form,FormDB
 from app.models.form import Form,FormDB
 from app.models.stadiums import Stadiums
+from app.models.stadiums_info import Stadiumsinfo
 from app.models.standing import LeagueTable
 from app.models.team import Team,Team_model
 from app.models.team_next_clash import NextMatches
@@ -43,7 +44,7 @@ def get_favorite_team(request: Request):
     forms = db.query(FormDB).filter(FormDB.team_name.ilike(f"%{favorite_team}%")).all()
     last_match = db.query(LastMatches).filter(LastMatches.team_name.ilike(f"%{favorite_team}%")).all()
     league_table = db.query(LeagueTable).filter(LeagueTable.club.ilike(f"%{favorite_team}%")).all()
-    stadiums = db.query(Stadiums).filter(Stadiums.team.ilike(f"%{favorite_team}%")).all()
+    stadiums = db.query(Stadiumsinfo).filter(Stadiumsinfo.team.ilike(f"%{favorite_team}%")).all()
     team = db.query(Team).filter(Team.team.ilike(f"%{favorite_team}%")).all()
     next_match=db.query(NextMatches).filter(NextMatches.team_name.ilike(f"%{favorite_team}%")).all()
     news = db.query(News).all()
