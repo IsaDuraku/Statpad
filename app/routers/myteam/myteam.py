@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Query, Request, Depends, HTTPException
 from fastapi.templating import Jinja2Templates
+from sqlalchemy import or_, asc
 
 from app.models.last_match import LastMatches
 from app.models.lineup import Lineup, LineupModel
@@ -42,11 +43,16 @@ def get_favorite_team(request: Request):
     # Query Lineup with the filter based on the favorite_team
     lineup = db.query(Lineup).filter(Lineup.team.ilike(f"%{favorite_team}%")).all()
     forms = db.query(FormDB).filter(FormDB.team_name.ilike(f"%{favorite_team}%")).all()
-    last_match = db.query(LastMatches).filter(LastMatches.team_name.ilike(f"%{favorite_team}%")).all()
+    last_match = db.query(LastMatches).filter(
+        or_(LastMatches.h_name.ilike(f"%{favorite_team}%"), LastMatches.a_name.ilike(f"%{favorite_team}%"))
+    ).all()
+
     league_table = db.query(LeagueTable).filter(LeagueTable.club.ilike(f"%{favorite_team}%")).all()
     stadiums = db.query(Stadiumsinfo).filter(Stadiumsinfo.team.ilike(f"%{favorite_team}%")).all()
     team = db.query(Team).filter(Team.team.ilike(f"%{favorite_team}%")).all()
-    next_match=db.query(NextMatches).filter(NextMatches.team_name.ilike(f"%{favorite_team}%")).all()
+    next_match= db.query(NextMatches).filter(
+        or_(NextMatches.h_name.ilike(f"%{favorite_team}%"), NextMatches.a_name.ilike(f"%{favorite_team}%"))
+    ).order_by(asc(NextMatches.date)).all()
     news = db.query(News).all()
 
 
