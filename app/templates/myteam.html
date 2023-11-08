@@ -28,7 +28,7 @@
                                 <h4 class="panel-more">MORE</h4>
                             </div>
                             <div class="panel-body">
-                                {%for match in last_match%}
+                                {%for match in last_match[:1]%}
                                 <h5 class="panel-body-text">{{match.league}}</h5>
                                 <div class="clubs-container">
 
@@ -92,7 +92,7 @@
                                 <h4 class="panel-more">MORE</h4>
                             </div>
                             <div class="panel-body">
-                                {%for i in next_match%}
+                                {%for i in next_match[:1]%}
                                 <h5 class="panel-body-text">{{i.league}}</h5>
                                 <div class="clubs-container">
                                     <div class="club1">
@@ -105,7 +105,7 @@
                                         <h5>{{i.a_name}}</h5>
                                     </div>
                                 </div>
-                                <h5 class="panel-body-date">05 NOV 2023</h5>
+                                <h5 class="panel-body-date">{{i.date}}</h5>
                                 {%endfor%}
                             </div>
 

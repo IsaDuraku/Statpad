@@ -180,7 +180,7 @@
 }
 .recent-highlights {
     float: right;
-    width: fit-content;
+    width: 25%;
     padding: 10px;
     margin-top: -22px;
 

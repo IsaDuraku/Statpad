@@ -38,6 +38,16 @@
                     <a href="{{ url_for('highlight_detail', video_id=i.match_name) }}">{{ i.match_name }}</a>
                 </div>
         {% endfor %}
+        <div>
+
+            <a href="{{url_for('view_news')}}" class ="hg-border"><h3> Latest News ▶ </h3></a>
+        </div>
+        {% for i in news[-5:] %}
+                <div class="highlight-item">
+                    <a href="{{i.url}}" target="_blank">{{ i.title }}</a>
+                    <p>{{i.context}}</p>
+                </div>
+        {% endfor %}
     </div>
 
 
