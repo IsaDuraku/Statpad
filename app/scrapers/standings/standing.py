@@ -9,52 +9,66 @@ from app.database import SessionLocal
 import re
 
 def get_league_table():
-    league_names = ["primera_division", "bundesliga", "ligue_1", "serie_a", "premier_league"]
-    base_url = 'https://www.besoccer.com/competition/table'
-    data_dict_list = []
+        league_names = ["primera_division", "bundesliga", "ligue_1", "serie_a","premier_league", "champions_league", "europa_league"]
+        base_url = 'https://www.besoccer.com/competition/table'
 
-    for league_name in league_names:
-        league_url = f'{base_url}/{league_name}'
+        # Initialize a list to store the scraped data
+        all_standings_data = []
 
-        html_text = requests.get(league_url).text
-        soup = BeautifulSoup(html_text, 'html.parser')
+        for league_name in league_names:
+            league_url = f'{base_url}/{league_name}'
 
-        table = soup.find('table', class_='table')
-        rows = table.find_all('tr', class_='row-body')
+            html_text = requests.get(league_url).text
+            soup = BeautifulSoup(html_text, 'html.parser')
 
-        for row in rows:
-            columns = row.find_all('td')
-            position = columns[0].div.text.strip()
-            image_url = columns[1].find('img')['src']
-            team_name = columns[2].find('span', class_='team-name').text.strip()
-            points = columns[3].text.strip()
-            matches_played = columns[4].text.strip()
-            matches_played = matches_played.split('\n')[0]
-            wins = columns[5].text.strip()
-            draws = columns[6].text.strip()
-            losses = columns[7].text.strip()
-            goals_for = columns[8].text.strip()
-            goals_against = columns[9].text.strip()
-            goal_difference = columns[10].text.strip()
+            # Find all divs with class 'tab-content' and ID 'tab_total0' or 'tab_total1'
+            tab_content_divs = soup.find_all('div', {
+                'id': ['tab_total0', 'tab_total1', 'tab_total2', 'tab_total3', 'tab_total4', 'tab_total5', 'tab_total6',
+                       'tab_total7'], 'class': 'tab-content'})
 
-            # Clean the 'matches_played' value to contain only digits
-            cleaned_matches_played = re.sub(r'\D', '', matches_played)
+            # Iterate through each div
+            for tab_total_div in tab_content_divs:
+                # Find all rows within the div
+                rows = tab_total_div.find_all('tr', class_='row-body')
 
-            data_dict_list.append({
-                'Position': position,
-                'ImageURL': image_url,
-                'TeamName': team_name,
-                'Points': points,
-                'MatchesPlayed': int(cleaned_matches_played),  # Convert cleaned value to an integer
-                'Wins': wins,
-                'Draws': draws,
-                'Losses': losses,
-                'GoalsFor': goals_for,
-                'GoalsAgainst': goals_against,
-                'GoalDifference': goal_difference,
-            })
+                for row in rows:
+                    # Extract data from each column in the row
+                    columns = row.find_all('td')
+                    position = columns[0].div.text.strip()
+                    image_url = columns[1].find('img')['src']
+                    team_name = columns[2].find('span', class_='team-name').text.strip()
+                    points = columns[3].text.strip()
+                    matches_played = columns[4].text.strip()
+                    wins = columns[5].text.strip()
+                    draws = columns[6].text.strip()
+                    losses = columns[7].text.strip()
+                    goals_for = columns[8].text.strip()
+                    goals_against = columns[9].text.strip()
+                    goal_difference = columns[10].text.strip()
 
-    return data_dict_list
+                    # Create a dictionary for the team
+                    # Clean the 'matches_played' value to contain only digits
+                    cleaned_matches_played = re.sub(r'\D', '', matches_played)
+
+                    team_info = {
+                        'Position': position,
+                        'ImageURL': image_url,
+                        'TeamName': team_name,
+                        'Points': points,
+                        'MatchesPlayed': int(cleaned_matches_played),  # Convert cleaned value to an integer
+                        'Wins': wins,
+                        'Draws': draws,
+                        'Losses': losses,
+                        'GoalsFor': goals_for,
+                        'GoalsAgainst': goals_against,
+                        'GoalDifference': goal_difference,
+
+                    }
+
+                    # Append the team information to the list
+                    all_standings_data.append(team_info)
+
+        return all_standings_data
 
 
 def get_club_names_from_leagues():

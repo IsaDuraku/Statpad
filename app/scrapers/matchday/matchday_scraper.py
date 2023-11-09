@@ -9,7 +9,7 @@ from sqlalchemy import delete
 
 # Send an HTTP GET request to the URL
 def scrape_matchday():
-    league_names = ["primera_division", "bundesliga", "ligue_1", "serie_a", "premier_league"]
+    league_names = ["primera_division", "bundesliga", "ligue_1", "serie_a", "premier_league",'champions_league']
     data_list = []
     for league_name in league_names:
         base_url = f'https://www.besoccer.com/competition/scores/{league_name}'
