@@ -112,7 +112,7 @@ footer {
 .league-image {
     width: 100px; /* Adjust the width as needed */
     height: 100px; /* Adjust the height as needed */
-    margin: -6px;
+    margin: -16px;
     margin-top: 13px;
 }
 
@@ -141,7 +141,11 @@ a:focus, a:hover {
 .common-cell.points-header{
 width: 20px;
 }
-
+#championsTable tr td.common-cell-rank[data-position="1"] ,
+#championsTable tr td.common-cell-rank[data-position="2"]{
+    background: rgb(0, 70, 130);
+    color: white;
+}
 #premierleagueTable tr td.common-cell-rank[data-position="1"],
 #premierleagueTable tr td.common-cell-rank[data-position="2"],
 #premierleagueTable tr td.common-cell-rank[data-position="3"],

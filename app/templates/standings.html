@@ -26,6 +26,7 @@
       <a href="#" class="ligtable custom-button" data-table="serieaTable" onclick="showTable('serieaTable'); return false;">Serie A</a>
       <a href="#" class="ligtable custom-button" data-table="bundesligaTable" onclick="showTable('bundesligaTable'); return false;">Bundesliga</a>
       <a href="#" class="ligtable custom-button" data-table="ligue1Table" onclick="showTable('ligue1Table'); return false;">Ligue 1</a>
+      <a href="#" class="ligtable custom-button" data-table="ligue1Table" onclick="showTable('championsTable'); return false;">Champions League</a>
 </div>
 
 
@@ -724,7 +725,7 @@
                         <th class="common-cell gd-header">GD</th>
                         <th class="common-cell points-header">Points</th>
                     </tr>
-                    {% for a in league_table[76:] %}
+                    {% for a in league_table[76:96] %}
                     <tr>
                         <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
                         <td class="common-cell"><img src="{{ a.imageurl }}" width="25px" height="25px"></td>
@@ -855,6 +856,300 @@
             </tbody>
             </table>
             </div>
+        </div>
+    </div>
+</div>
+<div class="table-container" id="championsTable" style="display: block;">
+    <img src="https://seeklogo.com/images/U/UEFA_Champions_League-logo-DD9AE0500D-seeklogo.com.png" alt="champions Logo" class="league-image">
+    <h1>Champions League 23/24</h1>
+
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#champions-home">Table</a></li>
+            <li><a data-toggle="tab" href="#champions-menu5">Matchday</a></li>
+            <li><a data-toggle="tab" href="#laliga-menu4">Stats</a></li>
+
+        </ul>
+
+        <div class="tab-content">
+            <div id="champions-home" class="tab-pane fade in active">
+                   <table>
+                       <h4>Group A</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[96:100] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group B</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[100:104] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group C</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[104:108] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group D</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[108:112] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group E</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[112:116] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group F</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[116:120] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group G</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[120:124] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table>
+                    <h4>Group H</h4>
+                    <tr>
+                        <th class="common-cell position-header">#</th>
+                        <th class="common-cell">Logo</th>
+                        <th class= "common-cell club-header">Club</th>
+                        <th class="common-cell">P</th>
+                        <th class="common-cell">W</th>
+                        <th class="common-cell">D</th>
+                        <th class="common-cell">L</th>
+                        <th class="common-cell gs-header">GS</th>
+                        <th class="common-cell gc-header">GC</th>
+                        <th class="common-cell gd-header">GD</th>
+                        <th class="common-cell points-header">Points</th>
+                    </tr>
+                    {% for a in league_table[124:128] %}
+                    <tr>
+                        <td class="common-cell-rank" data-position="{{ a.position }}">{{ a.position }}</td>
+                        <td class="common-cell"><img src="{{a.imageurl}}" height="25px" width="25px"></td>
+                        <td class="common-cell">{{ a.club }}</td>
+                        <td class="common-cell">{{ a.plays }}</td>
+                        <td class="common-cell">{{ a.wins }}</td>
+                        <td class="common-cell">{{ a.draws }}</td>
+                        <td class="common-cell">{{ a.losses }}</td>
+                        <td class="common-cell gs-header">{{ a.goalsscored }}</td>
+                        <td class="common-cell gc-header">{{ a.goalsconceded }}</td>
+                        <td class="common-cell gd-header">{{ a.goaldifference }}</td>
+                        <td class="common-cell points-header">{{ a.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+           <div id="champions-menu5" class="tab-pane fade">
+                <table class="coach-table">
+                    <thead>
+                        <tr>
+                            <th>Home Team</th>
+                            <th>{{ matchday[55].matchweek}}</th>
+                            <th>Away Team</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for match in matchday %}
+                            {% if match.league == "Champions League" %}
+                                <tr>
+                                    <td class="home-team">{{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo"></td>
+                                    <td><div class="match-time">{{ match.time }}</div>
+                                        <div class="match-date">{{ match.date }}</div>
+                                    </td>
+
+                                    <td class="away-team"> <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}</td>
+
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+
         </div>
     </div>
 </div>
