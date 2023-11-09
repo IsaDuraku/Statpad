@@ -43,7 +43,11 @@ def scrape_stadiums():
 
             construction_date = stadium_info.find('div', text='Date of construction').find_next('div').text
             capacity = stadium_info.find('div', text='Capacity').find_next('div').text
-            size = stadium_info.find('div', text='Size').find_next('div').text
+            size_element = stadium_info.find('div', text='Size')
+            if size_element:
+                size = size_element.find_next('div').text
+            else:
+                size = "Size information not found"
             grass_type_element = stadium_info.find('div', text='Type of grass')
 
             if grass_type_element:
