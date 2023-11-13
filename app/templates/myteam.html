@@ -178,8 +178,7 @@
                         <div class="panel-body">
                             <div class="panel-container">
                                 {% for form in forms %}
-                                    <div class="card">
-                                        <div class="{% if form.result == 'W' %}green{% elif form.result == 'D' %}yellow{% else %}red{% endif %}"></div>
+                                    <div class="card{{ loop.index }} card {% if form.h_or_a == 'A' and form.home_scores < form.away_scores %}green{% elif form.h_or_a == 'H' and form.home_scores > form.away_scores %}green{% elif form.h_or_a == 'H' and form.home_scores < form.away_scores %}red{% elif form.h_or_a == 'A' and form.home_scores > form.away_scores %}red{% elif form.h_or_a in ['H', 'A'] and form.home_scores == form.away_scores %}yellow{% endif %}">
                                         <div class="img-container">
                                             <img src="{{ form.competition_logo }}" class="comp-logo" alt="Competition Logo">
                                             <img src="{{ form.enemy_logo }}" class="enemy-team" alt="Enemy Logo">
