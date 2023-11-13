@@ -47,7 +47,23 @@
                             </div>
                             {%endfor%}
                         </div>
-                        <div class="panel panel-2">
+                        <div class="panel panel-3">
+                            <div class="panel-header">
+                                <h3 class="panel-title">LAST MATCH HIGHLIGHTS</h3>
+                                <h4 class="panel-more">MORE</h4>
+                            </div>
+                            <div class="panel-body">
+                                 {%for match in hg[:1]%}
+                                <h5 class="panel-body-text">{{match.competition}}</h5>
+                                <h3 class="panel-body-text">{{match.match_name}}</h3>
+                                <div class="clubs-container">
+                                    <iframe width="100%" height="315" src="{{ match.video_link }}" frameborder="0"
+                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                                {%endfor%}
+                            </div>
+                        </div>
+                         <div class="panel panel-2">
                             <div class="panel-header">
                                 <h3 class="panel-title">LEAGUE PERFORMANCE</h3>
                                 <h4 class="panel-more">MORE</h4>
@@ -66,12 +82,12 @@
                                         <th>GA</th>
                                         <th>GD</th>
                                     </tr>
-                                    {%for i in league_table%}
+                                    {%for i in league_table[:1]%}
                                     <tr class="lighter-green">
                                         <td class="table-num lime">{{i.position}}</td>
                                         <td class="matchday"><img src="{{i.imageurl}}" alt="">{{i.club}}</td>
                                         <td>{{i.points}}</td>
-                                        <td>{{i.plays}}</td>
+                                        <td>{{i.plays[:2]}}</td>
                                         <td>{{i.wins}}</td>
                                         <td>{{i.draws}}</td>
                                         <td>{{i.losses}}</td>
@@ -155,35 +171,48 @@
                         </div>
                     </div>
                     <div class="area-3">
-                        <div class="panel panel-1">
-                            <div class="panel-header">
-                                <h3 class="panel-title">FORM IN LAST MATCHES</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="panel-container">
-                                   {% for form in forms %}
-                                    <div class="card{{ loop.index }} card">
+                    <div class="panel panel-1">
+                        <div class="panel-header">
+                            <h3 class="panel-title">FORM IN LAST MATCHES</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-container">
+                                {% for form in forms %}
+                                    <div class="card">
                                         <div class="{% if form.result == 'W' %}green{% elif form.result == 'D' %}yellow{% else %}red{% endif %}"></div>
                                         <div class="img-container">
                                             <img src="{{ form.competition_logo }}" class="comp-logo" alt="Competition Logo">
                                             <img src="{{ form.enemy_logo }}" class="enemy-team" alt="Enemy Logo">
-
                                         </div>
-                                        <h3>{{ form.home_scores }}-{{ form.away_scores }}</h3>
-                                        <h5>{{ form.h_or_a}}</h5>
+                                        {% if form.h_or_a == 'H' %}
+                                            <h3><strong><span class="home">{{ form.home_scores }}</span></strong>-<span class="away">{{ form.away_scores }}</span></h3>
+                                        {% else %}
+                                            <h3><span class="home">{{ form.home_scores }}</span>-<strong><span class="away">{{ form.away_scores }}</span></strong></h3>
+                                        {% endif %}
+                                        <h5>{{ form.h_or_a }}</h5>
                                         <h5>{{ form.date }}</h5>
                                     </div>
-                                    {% endfor %}
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
+                    </div>
+
                         <div class="panel panel-2">
                             <div class="panel-header">
                                 <h3 class="panel-title">THE MOST REPEATED STARTING XI</h3>
                             </div>
                             <div class="panel-body">
-                                {%for i in lineup%}
-                                <p>{{i.name}}-{{i.number}}</p>
+                                {%for i in lineup[:1]%}
+                                <p>Goalkeeper {{i.name}}  {{i.number}}</p>
+                                {%endfor%}
+                                {%for i in lineup[1:5]%}
+                                <p>Defender {{i.name}}  {{i.number}}</p>
+                                {%endfor%}
+                                {%for i in lineup[5:8]%}
+                                <p>Midfielder {{i.name}}  {{i.number}}</p>
+                                {%endfor%}
+                                {%for i in lineup[8:11]%}
+                                <p>Forward {{i.name}}  {{i.number}}</p>
                                 {%endfor%}
                                 <img src="./img/screenshot.png" alt="" class="screenshot">
                             </div>

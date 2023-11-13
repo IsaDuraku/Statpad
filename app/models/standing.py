@@ -11,7 +11,7 @@ class LeagueTable(Base):
     position = Column(String)
     imageurl=Column(String)
     club = Column(String(500))
-    plays=Column(Integer)
+    plays=Column(String)
     wins=Column(Integer)
     draws=Column(Integer)
     losses=Column(Integer)

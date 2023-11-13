@@ -35,19 +35,27 @@ form input[type="text"] {
   outline: none;
 }
 
-form input[type="submit"] {
-  color: #fff;
-  padding: 8px 8px;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  background: rgb(56, 189, 140);
-    background: linear-gradient(0deg, rgba(56, 189, 140, 1) 0%, rgba(17, 112, 111, 1) 76%);
+    /* Style the input field */
+input[type="text"] {
+        flex: 1; /* Allow the input to grow and take available space */
+        margin-right: 5px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
+    /* Style the submit button */
+button[type="submit"] {
+        background-color: #338766; /* Change the background color to your preference */
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
-}
 thead tr{
   background-color: #333;
 }
-

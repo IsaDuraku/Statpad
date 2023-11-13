@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Query, Request, Depends, HTTPException
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import or_, asc
+from sqlalchemy import or_, asc,desc
 
+from app.models.highlights import HighlightsDB
 from app.models.last_match import LastMatches
 from app.models.lineup import Lineup, LineupModel
 from app.models.form import Form,FormDB
@@ -43,9 +44,10 @@ def get_favorite_team(request: Request):
     # Query Lineup with the filter based on the favorite_team
     lineup = db.query(Lineup).filter(Lineup.team.ilike(f"%{favorite_team}%")).all()
     forms = db.query(FormDB).filter(FormDB.team_name.ilike(f"%{favorite_team}%")).all()
+    hg = db.query(HighlightsDB).filter(HighlightsDB.match_name.ilike(f"%{favorite_team}%")).order_by(desc(HighlightsDB.date)).all()
     last_match = db.query(LastMatches).filter(
         or_(LastMatches.h_name.ilike(f"%{favorite_team}%"), LastMatches.a_name.ilike(f"%{favorite_team}%"))
-    ).all()
+    ).order_by(desc(LastMatches.date)).all()
 
     league_table = db.query(LeagueTable).filter(LeagueTable.club.ilike(f"%{favorite_team}%")).all()
     stadiums = db.query(Stadiumsinfo).filter(Stadiumsinfo.team.ilike(f"%{favorite_team}%")).all()
@@ -64,6 +66,7 @@ def get_favorite_team(request: Request):
         'request': request,
         'lineup': lineup,
         'team': team,
+        'hg':hg,
         'forms': forms,
         'league_table': league_table,
         'next_match': next_match,
