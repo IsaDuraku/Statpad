@@ -1,0 +1,60 @@
+/* Center the video horizontally */
+.video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh; /* Adjust the height as needed */
+  flex-direction: column;
+}
+
+/* Set the video width to 70% */
+.video-container iframe {
+  width: 64.5%;
+  max-width: 100%; /* Ensure it doesn't exceed the container width */
+  height: 80%; /* Maintain aspect ratio */
+}
+
+
+
+.card-title, .card-text {
+  width: 100%;
+  overflow: hidden; /* Hide overflow if the title is longer */
+  white-space: nowrap; /* Prevent wrapping to a new line */
+  text-overflow: ellipsis; /* Display ellipsis (...) for overflow */
+  margin: 0; /* Reset margin */
+  padding: 0; /* Remove padding */
+  color: black; /* Set the default text color to black */
+  transition: color 0.1s; /* Add a smooth transition for color changes */
+  text-align: center;
+  margin-left: 55px;
+}
+
+/* Change text color to #338766 on hover */
+.card-title:hover, .card-text:hover {
+  color: #338766;
+}
+.card-body {
+    text-align: center;
+    margin-top: -45px;
+    width: fit-content;
+    margin-left: 300px;
+    margin-bottom: 70px;
+}
+
+.card-title{
+font-size: 25px;
+}
+
+.highlight-box {
+    border: 1px solid #ddd; /* Add a border */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    margin: 50px;
+    margin-left: 100px;
+}
+
+
+.highlight-box:hover {
+    transform: scale(1.05); /* Scale up on hover for a subtle effect */
+}
+

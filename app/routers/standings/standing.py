@@ -4,6 +4,7 @@ from app.models.matchday import Matchday
 from app.models.coaches import CoachesDB
 from app.models.media import MediaDB
 from app.models.players import Player
+from app.models.players_new import Players
 from app.models.stadiums import Stadiums
 from app.models.standing import LeagueTable
 from app.scrapers.standings.standing import save_to_db, get_league_table, delete_all_data
@@ -50,6 +51,7 @@ def view_league_tables(request: Request):
     players=db.query(Player).all()
     matchday= db.query(Matchday).all()
     news = db.query(News).all()
+    players_new = db.query(Players).all()
 
     return templates.TemplateResponse('standings.html', {
         'request': request,
@@ -59,6 +61,7 @@ def view_league_tables(request: Request):
         'stadium':stadium,
         'matchday' : matchday,
         'players' : players,
-        'news': news
+        'news': news,
+        'players_new': players_new
     
     })

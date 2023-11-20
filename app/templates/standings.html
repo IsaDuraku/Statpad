@@ -868,7 +868,7 @@
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#champions-home">Table</a></li>
             <li><a data-toggle="tab" href="#champions-menu5">Matchday</a></li>
-            <li><a data-toggle="tab" href="#laliga-menu4">Stats</a></li>
+            <li><a data-toggle="tab" href="#champions-menu4">Stats</a></li>
 
         </ul>
 
@@ -1150,7 +1150,41 @@
                         </tbody>
                     </table>
             </div>
-
+        <div id="champions-menu4" class="tab-pane fade">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                    <th>G+A</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players_new[0:15] %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="player-container">
+                                <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                                {{ player.player_name }}
+                            </div>
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                        <td>{{ player.assists + player.goals }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+            </div>
         </div>
     </div>
 </div>
@@ -1163,7 +1197,7 @@
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#europe-home">Table</a></li>
             <li><a data-toggle="tab" href="#europe-menu5">Matchday</a></li>
-            <li><a data-toggle="tab" href="#laliga-menu4">Stats</a></li>
+            <li><a data-toggle="tab" href="#europe-menu4">Stats</a></li>
 
         </ul>
 
@@ -1445,7 +1479,41 @@
                         </tbody>
                     </table>
             </div>
-
+            <div id="europe-menu4" class="tab-pane fade">
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Nationality</th>
+                    <th>Goals</th>
+                    <th>Assists</th>
+                    <th>G+A</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for player in players_new[15:30] %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <div class="player-container">
+                                <img src="{{ player.player_image_url }}" alt="{{ player.player_name }}" class="player-image-small">
+                                {{ player.player_name }}
+                            </div>
+                        </td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.club_name }}</td>
+                        <td>{{ player.nationality }}</td>
+                        <td>{{ player.goals }}</td>
+                        <td>{{ player.assists }}</td>
+                        <td>{{ player.assists + player.goals }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+            </div>
         </div>
     </div>
 </div>
