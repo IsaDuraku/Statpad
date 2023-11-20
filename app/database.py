@@ -19,6 +19,7 @@ from app.models.last_match import Base as LastMatchesBase
 from app.models.team_next_clash import Base as NextMatchesBase
 from app.models.live_game_href import Base as href_Base
 from app.models.stadiums_info import Stadiumsinfo
+from app.models.players_new import Base as PlayersNewBase
 from fastapi import FastAPI
 
 
@@ -52,6 +53,8 @@ LastMatchesBase.metadata.create_all(bind=engine)
 NextMatchesBase.metadata.create_all(bind=engine)
 href_Base.metadata.create_all(bind=engine)
 Stadiumsinfo.metadata.create_all(bind=engine)
+PlayersNewBase.metadata.create_all(bind=engine)
+
 
 
 # Create a session for database operations
