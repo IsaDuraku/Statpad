@@ -190,7 +190,6 @@
 /* Style for each highlight item */
 .highlight-item {
     margin-bottom: 10px;
-    border: solid;
     padding: 15px;
 }
 
@@ -209,12 +208,15 @@
     padding: 10px;
 }
 .hg-border {
-    background: #338766;
+    margin-top: 14px;
+    background: #222831;
     text-align: center;
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius:12px ;
+    height: 43px;
 }
 
 a:hover {
