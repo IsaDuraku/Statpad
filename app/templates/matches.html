@@ -40,12 +40,13 @@
         {% endfor %}
         <div>
 
-            <a href="{{url_for('view_news')}}" class ="hg-border"><h3> Latest News ▶ </h3></a>
+            <a href="{{url_for('view_news')}}" class ="hg-border"><h3> Latest News 📰  </h3></a>
         </div>
         {% for i in news[-5:] %}
                 <div class="highlight-item">
+                    <img src="{{i.image_url}}" width="95%">
                     <a href="{{i.url}}" target="_blank">{{ i.title }}</a>
-                    <p>{{i.context}}</p>
+                    
                 </div>
         {% endfor %}
     </div>

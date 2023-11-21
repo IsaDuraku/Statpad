@@ -526,6 +526,7 @@ strong, b{
 	font-size: 40px;
 	font-family: 'bebas_neue', sans-serif;
     font-weight: 700;
+	padding-left: 800px;
 	text-shadow: 0 2px 6px rgba(0, 0, 0, .6);
 }
 .subbanner .caption a{
