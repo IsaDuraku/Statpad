@@ -327,6 +327,14 @@ padding: 9px 10px;
     background-color: #161c4b;
     padding: 9px 10px;
 }
+#championsTable th {
+    background-color: #2f3031;
+    padding: 9px 10px;
+}
+#europeTable th {
+    background-color: #e7803b;
+    padding: 9px 10px;
+}
 
 #bundesligaTable th {
 background-color: #dc2525;
@@ -482,25 +490,33 @@ p{
   background: var(--hover-color, #111544); /* Default to dark blue (#111544) if data-table attribute not set */
 }
 
-/* Set specific colors for each button using the data-table attribute */
+
 .ligtable.custom-button[data-table="laligaTable"] {
-  --hover-color: #e44040; /* La Liga color */
+  --hover-color: #fb4c44;
 }
 
 .ligtable.custom-button[data-table="serieaTable"] {
-  --hover-color: #6767f0; /* Serie A color */
+  --hover-color: #508dd3;
 }
 
 .ligtable.custom-button[data-table="premierleagueTable"] {
-  --hover-color: #161c4b; /* Premier League color */
+  --hover-color: #332750;
 }
 
 .ligtable.custom-button[data-table="bundesligaTable"] {
-  --hover-color: #dc2525; /* Bundesliga color */
+  --hover-color: #d20514;
 }
 
 .ligtable.custom-button[data-table="ligue1Table"] {
-  --hover-color: #201041; /* Ligue 1 color */
+  --hover-color: #091c3d;
+}
+
+.ligtable.custom-button[data-table="UCLTable"] {
+  --hover-color: #2f3031;
+}
+
+.ligtable.custom-button[data-table="EuropaTable"] {
+  --hover-color: #e7803b;
 }
 
 .table.table-striped{

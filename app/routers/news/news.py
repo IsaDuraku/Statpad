@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query,Request
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import desc
+from sqlalchemy import desc, func
 
 from app.models.news import News
 from app.scrapers.news.news import scrape_sport_articles, save_to_db
@@ -49,7 +49,7 @@ async def view_news(request: Request, q: str = '', page: int = 1, items_per_page
         if q:
             query = query.filter(News.title.ilike(f"%{q}%") | News.context.ilike(f"%{q}%"))
 
-        news = query.order_by(desc(News.dateposted)).offset(offset).limit(limit).all()
+        news = query.order_by(desc(func.to_date(News.dateposted, 'DD-MM-YYYY'))).offset(offset).limit(limit).all()
         total_news_count = query.count()
 
         total_pages = (total_news_count + items_per_page - 1) // items_per_page
