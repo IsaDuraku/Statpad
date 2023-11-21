@@ -1,10 +1,12 @@
+from datetime import datetime
+
 from fastapi import APIRouter, HTTPException, Query, Request
 from fastapi.templating import Jinja2Templates
 from app.models.highlights import HighlightsDB
 from app.scrapers.highlights.highlights import highlights_scraped, insert_data_into_database
 from app.scrapers.highlights.highlights_backup import backup_highlights_scraped
 from app.database import SessionLocal
-from sqlalchemy import desc
+from sqlalchemy import desc, func
 from app.models.news import News
 
 
@@ -53,19 +55,15 @@ def highlights_view(request: Request, q: str = '', page: int = 1, items_per_page
         if q:
             # Filter news based on the search query
             query = db.query(HighlightsDB).filter(HighlightsDB.match_name.ilike(f"%{q}%"))
-            hg = query.order_by(desc(HighlightsDB.date)).offset(offset).limit(limit).all()
+            hg = query.order_by(desc(func.to_date(HighlightsDB.date, 'DD-MM-YYYY'))).offset(offset).limit(limit).all()
             total_hg_count = query.count()
         else:
             query = db.query(HighlightsDB)
-            hg = query.order_by(desc(HighlightsDB.date)).offset(offset).limit(limit).all()
+            hg = query.order_by(desc(func.to_date(HighlightsDB.date, 'DD-MM-YYYY'))).offset(offset).limit(limit).all()
             total_hg_count = query.count()
-
         total_highlights = total_hg_count
         total_pages = (total_highlights + items_per_page - 1) // items_per_page
-
-        # Calculate page numbers for pagination
         page_numbers = range(1, total_pages + 1)
-
         news = db.query(News).all()
 
         return templates.TemplateResponse('highlights.html',
@@ -79,6 +77,7 @@ def highlights_view(request: Request, q: str = '', page: int = 1, items_per_page
                                           })
     finally:
         db.close()
+
 
 
 
