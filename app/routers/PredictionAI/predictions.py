@@ -39,7 +39,6 @@ def calculate_team_evaluation(team, is_home=False):
                 else:
                     last5_draws += 1
         except ValueError:
-            print(f"Error converting score for match ID {match.id}. Skipping this entry.")
             continue
 
     last5_points = last5_wins * 3 + last5_draws * 1
@@ -107,8 +106,5 @@ for matchday_instance in more_data:
 
 
     odds_h_wins, odds_a_wins = calculate_odds(evaluate_h_team, evaluate_a_team)
-    print(f"Odds of {H_Team} winning: {odds_h_wins:.2f}%")
-    print(f"Odds of {A_Team} winning: {odds_a_wins:.2f}%")
-    print("--------------------")
 
 

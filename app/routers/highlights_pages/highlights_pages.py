@@ -19,12 +19,14 @@ def highlight_detail(request: Request, video_id: str):
             raise HTTPException(status_code=404, detail="Highlights not found")
 
         news = db.query(News).all()
+        highlights = db.query(HighlightsDB).all()
 
         return templates.TemplateResponse('highlights_pages.html',
                                           {
                                               'request': request,
                                               'hg': hg,
-                                              'news': news
+                                              'news': news,
+                                              'highlights': highlights
                                           })
     finally:
         db.close()
