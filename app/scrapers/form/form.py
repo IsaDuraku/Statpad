@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from app.database import SessionLocal
 from app.models.form import FormDB
 from sqlalchemy import delete
+import re
 
 teams = ['almeria', 'athletic-bilbao', 'atletico-madrid', 'barcelona', 'cadiz', 'celta', 'alaves', 'getafe', 'girona-fc', 'granada', 'ud-palmas', 'mallorca', 'osasuna', 'rayo-vallecano', 'betis', 'real-madrid', 'real-sociedad', 'sevilla', 'valencia-cf', 'villarreal',
              'borussia-dortmund', 'bayer-leverkusen', 'borussia-monchengla', 'bayern-munchen', 'darmstadt-98', 'eintracht-frankfurt', 'fc-augsburg', 'heidenheim', 'tsg-1899-hoffenheim', '1-fc-koln', 'mainz-amat', 'rb-leipzig', 'sc-freiburg', 'stuttgart', '1-fc-union-berlin', 'bochum', 'werder-bremen', 'wolfsburg',
@@ -22,9 +23,14 @@ def scrape_form_in_last_matches():
 
         game_elements = soup.find_all('a', class_='spree-box')
         try:
-            team_name = soup.find('h2', class_='title ta-c').text.strip()
+            team_subtitle_element = soup.find('div', class_='panel-stats').find('div', class_='subtitlte')
+            team_subtitle = team_subtitle_element.text.strip()
+
+            # Remove content within parentheses using regex
+            team_subtitle_cleaned = re.sub(r'\s*\([^)]*\)', '', team_subtitle)
+            team_name = team_subtitle_cleaned if team_subtitle_cleaned else "Subtitle Not Found"  # Provide a default value if empty
         except AttributeError:
-            team_name = "Team Name Not Found"  # Provide a default value
+            team_name = "Subtitle Not Found"  # Provide a default value if the element is not found
 
         for game_element in game_elements:
             enemy_logo_element = game_element.find('img', class_='shield')
