@@ -17,15 +17,47 @@
         </div>
     </div>
 </div>
-
+<div class="col-md-1 sidebar">
+    <div class="sidebar-header">
+        <h5 class="sidebar-title" style="font-size: 20px">Pinned Leagues</h5>
+    </div>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link league-link"  href="/matches/view?match_date=&league_name=Premier%20League" id="premierLeagueLink">Premier League</a>
+            <a class="nav-link league-link" href="/matches/view?match_date=&league_name=LaLiga" id="laLigaLink">LaLiga</a>
+            <a class="nav-link league-link" href="/matches/view?match_date=&league_name=Bundesliga" id="bundesligaLink">Bundesliga</a>
+            <a class="nav-link league-link" href="/matches/view?match_date=&league_name=Serie%20A" id="serieALink">Serie A</a>
+            <a class="nav-link league-link" href="/matches/view?match_date=&league_name=Ligue%201" id="ligue1Link">Ligue 1</a>
+        </li>
+    </ul>
+</div>
 <!-- Date Selection Form -->
 <div class="form-container">
-    <form id="dateSelectionForm">
+    <form id="dateSelectionForm" action="/matches/view" method="get">
         <label class="form-label" for="matchDate">Select a Date:</label>
-        <input type="date" id="matchDate" name="matchDate" class="date-input">
+        <input type="date" id="matchDate" name="match_date" class="date-input">
         <input type="submit" value="Submit" class="submit-button">
     </form>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get all league links
+        const leagueLinks = document.querySelectorAll('.league-link');
+
+        // Add click event listener to each league link
+        leagueLinks.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+                // Get the selected date from the date input
+                const selectedDate = document.getElementById('matchDate').value;
+
+                // Update the href of the league link with the selected date
+                link.href = `/matches/view?match_date=${selectedDate}&league_name=${encodeURIComponent(link.innerText.trim())}`;
+            });
+        });
+    });
+</script>
+
 
     <div class="recent-highlights">
         <div>

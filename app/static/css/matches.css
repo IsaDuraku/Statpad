@@ -172,7 +172,7 @@
 }
 .container{
     padding-bottom: 40px;
-    width: fit-content;
+    width:1000px;
     margin-left: 200px;
 }
 #dateSelectionForm {

@@ -81,32 +81,43 @@ def get_scores_by_date(date: Optional[str] = None):
 @router.get('/view')
 def scores_view(
         request: Request,
-        match_date: Optional[str] = None
+        match_date: Optional[str] = None,
+        league_name: Optional[str] = None
 ):
     db = SessionLocal()
     scores_query = db.query(LiveSoccerScores)
-    is_tomorrow = False
 
-    if match_date:
-         scores_query = scores_query.filter(LiveSoccerScores.match_date == match_date).order_by(LiveSoccerScores.league)
+    if match_date and league_name:
+        scores_query = scores_query.filter(
+            LiveSoccerScores.match_date == match_date,
+            LiveSoccerScores.league == league_name
+        ).order_by(LiveSoccerScores.match_date)  # Change the order_by clause to match_date
+    elif match_date:
+        scores_query = scores_query.filter(LiveSoccerScores.match_date == match_date).order_by(
+            LiveSoccerScores.match_date)
+    elif league_name:
+        scores_query = scores_query.filter(LiveSoccerScores.league == league_name).order_by(
+            LiveSoccerScores.match_date).limit(10)
     else:
-        # No match_date provided, default to today
+        # No match_date or league_name provided, default to today
         match_date = datetime.now().strftime("%Y-%m-%d")
-        scores_query = scores_query.filter(LiveSoccerScores.match_date == match_date).order_by(LiveSoccerScores.league)
+        scores_query = scores_query.filter(LiveSoccerScores.match_date == match_date).order_by(
+            LiveSoccerScores.match_date)
 
     scores = scores_query.all()
-
-    db.close()
 
     page = 1
     total_pages = 1  # Assuming all scores fit on one page since there's no paging logic provided
 
     page_numbers = range(1, total_pages + 1)
     href = db.query(Live_game_href).all()
+
     if not scores:
-        raise HTTPException(status_code=404, detail="No scores found for the specified date")
+        raise HTTPException(status_code=404, detail="No scores found for the specified date or league")
+
     news = db.query(News).all()
     hg = db.query(HighlightsDB).all()
+
     return templates.TemplateResponse('matches.html',
                                       {
                                           'request': request,
@@ -114,12 +125,12 @@ def scores_view(
                                           'total_pages': total_pages,
                                           'current_page': page,
                                           'page_numbers': page_numbers,
-                                          'live_game_href':href,
+                                          'live_game_href': href,
                                           'match_date': match_date,
+                                          'league_name': league_name,
                                           'news': news,
                                           'hg': hg
                                       })
-
 
 
 
