@@ -104,7 +104,6 @@ def delete_all_players(session):
 def save_player_data_to_db(player_data_list, session, league_name):
     if not player_data_list:
         return
-
     for player_data in player_data_list:
         new_player = Player(
             rank=player_data["Rank"],

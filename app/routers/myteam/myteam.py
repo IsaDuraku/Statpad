@@ -5,14 +5,15 @@ from sqlalchemy import or_, asc,desc
 from app.models.highlights import HighlightsDB
 from app.models.last_match import LastMatches
 from app.models.lineup import Lineup, LineupModel
-from app.models.form import Form,FormDB
-from app.models.form import Form,FormDB
+from app.models.form import Form, FormDB
+from app.models.form import Form, FormDB
 from app.models.stadiums import Stadiums
 from app.models.stadiums_info import Stadiumsinfo
 from app.models.standing import LeagueTable
 from app.models.team import Team,Team_model
 from app.models.team_next_clash import NextMatches
 from app.models.user import UserDB
+from app.routers.Predictions.Predictions import matches, predict_winner
 from app.routers.user.security import get_current_user
 from app.database import SessionLocal, get_db
 from app.models.news import News

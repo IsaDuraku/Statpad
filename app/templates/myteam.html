@@ -19,6 +19,32 @@
     <div class="team-container">
         <section class="info-section">
             <div class="info-container">
+                <h1>Predict Winner between Two Teams</h1>
+    <form id="predictionForm">
+        <label for="team1">Your Team:</label>
+        <input id="team1" name="team1" required type="text" value="{{ favorite_team }}">
+
+        <label for="team2">Opponent:</label>
+        <input type="text" id="team2" name="team2" required><br><br>
+
+        <input type="button" value="Predict Winner" onclick="predictWinner()">
+    </form>
+
+    <div id="predictionResult"></div>
+
+    <script>
+        function predictWinner() {
+            const team1 = document.getElementById('team1').value;
+            const team2 = document.getElementById('team2').value;
+
+            fetch(`/predictions/predict_winner?team1=${team1}&team2=${team2}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('predictionResult').innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
                 <h1>  </h1>
                 <div class="grid">
                     <div class="area-1">
