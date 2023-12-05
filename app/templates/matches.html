@@ -28,9 +28,39 @@
             <a class="nav-link league-link" href="/matches/view?match_date=&league_name=Bundesliga" id="bundesligaLink">Bundesliga</a>
             <a class="nav-link league-link" href="/matches/view?match_date=&league_name=Serie%20A" id="serieALink">Serie A</a>
             <a class="nav-link league-link" href="/matches/view?match_date=&league_name=Ligue%201" id="ligue1Link">Ligue 1</a>
+            <section class="info-section">
+            <div class="info-container">
+                <h1>Predict Winner between Two Teams</h1>
+    <form id="predictionForm">
+        <label for="team1">Team 1:</label>
+        <input type="text" id="team1" name="team1" required><br><br>
+
+        <label for="team2">Team 2</label>
+        <input type="text" id="team2" name="team2" required><br><br>
+
+        <input type="button" value="Predict Winner" onclick="predictWinner()">
+    </form>
+
+    <div id="predictionResult"></div>
+
+    <script>
+        function predictWinner() {
+            const team1 = document.getElementById('team1').value;
+            const team2 = document.getElementById('team2').value;
+
+            fetch(`/predictions/predict_winner?team1=${team1}&team2=${team2}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('predictionResult').innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
         </li>
     </ul>
+
 </div>
+
 <!-- Date Selection Form -->
 <div class="form-container">
     <form id="dateSelectionForm" action="/matches/view" method="get">

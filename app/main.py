@@ -28,6 +28,7 @@ from app.routers.stadium_info import stadiums_info
 from app.routers.players_new import players_new
 from app.routers.Predictions import Predictions
 from app.routers.contact import contact
+from app.routers.Match_data import match_data_router
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -58,6 +59,7 @@ app.include_router(highlights_pages.router)
 app.include_router(stadiums_info.router)
 app.include_router(players_new.router)
 app.include_router(contact.router)
+app.include_router(match_data_router.router)
 @app.on_event("startup")
 async def startup():
     scheduler.start()
