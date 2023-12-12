@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query, Request, Depends, HTTPException
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import or_, asc,desc
+from sqlalchemy import or_, asc, desc, func
 
 from app.models.highlights import HighlightsDB
 from app.models.last_match import LastMatches
@@ -45,7 +45,7 @@ def get_favorite_team(request: Request):
     # Query Lineup with the filter based on the favorite_team
     lineup = db.query(Lineup).filter(Lineup.team.ilike(f"%{favorite_team}%")).all()
     forms = db.query(FormDB).filter(FormDB.team_name.ilike(f"%{favorite_team}%")).all()
-    hg = db.query(HighlightsDB).filter(HighlightsDB.match_name.ilike(f"%{favorite_team}%")).order_by(desc(HighlightsDB.date)).all()
+    hg = db.query(HighlightsDB).filter(HighlightsDB.match_name.ilike(f"%{favorite_team}%")).order_by(desc(func.to_date(HighlightsDB.date, 'DD-MM-YYYY')))
     last_match = db.query(LastMatches).filter(
         or_(LastMatches.h_name.ilike(f"%{favorite_team}%"), LastMatches.a_name.ilike(f"%{favorite_team}%"))
     ).order_by(desc(LastMatches.date)).all()

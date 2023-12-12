@@ -16,35 +16,38 @@
 		</div>
 	</div>
 
-    <div class="team-container">
-        <section class="info-section">
-            <div class="info-container">
-                <h1>Predict Winner between Two Teams</h1>
-    <form id="predictionForm">
-        <label for="team1">Your Team:</label>
-        <input id="team1" name="team1" required type="text" value="{{ favorite_team }}">
+<!--    <div class="team-container">-->
+<!--        <section class="info-section">-->
+<!--            <div class="info-container">-->
+<!--                <h1>Predict Winner between Two Teams</h1>-->
+<!--    <form id="predictionForm">-->
+<!--        <label for="team1">Your Team:</label>-->
+<!--        <input id="team1" name="team1" required type="text" value="{{ favorite_team }}">-->
 
-        <label for="team2">Opponent:</label>
-        <input type="text" id="team2" name="team2" required><br><br>
+<!--        <label for="team2">Opponent:</label>-->
+<!--        <input type="text" id="team2" name="team2" required><br><br>-->
 
-        <input type="button" value="Predict Winner" onclick="predictWinner()">
-    </form>
+<!--        <input type="button" value="Predict Winner" onclick="predictWinner()">-->
+<!--    </form>-->
 
-    <div id="predictionResult"></div>
+<!--    <div id="predictionResult"></div>-->
 
     <script>
-        function predictWinner() {
-            const team1 = document.getElementById('team1').value;
-            const team2 = document.getElementById('team2').value;
+    function predictWinner(event) {
+        event.preventDefault();
 
-            fetch(`/predictions/predict_winner?team1=${team1}&team2=${team2}`)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('predictionResult').innerHTML = data;
-                })
-                .catch(error => console.error('Error:', error));
-        }
-    </script>
+        const team1 = document.getElementById('team1').innerText;
+        const team2 = document.getElementById('team2').innerText;
+
+        fetch(`/predictions/predict_winner?team1=${team1}&team2=${team2}`)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('predictionResult').innerHTML = data;
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
                 <h1>  </h1>
                 <div class="grid">
                     <div class="area-1">
@@ -128,25 +131,30 @@
 
                             <div class="panel-header">
                                 <h3 class="panel-title">IN THEIR NEXT CLASH</h3>
+                                 <form id="predictionForm" action="javascript:void(0)">
+<!--                                        <input class="panel-title" type="button" value="Predict Winner" onclick="predictWinner(event)">-->
+                                    </form>
                             </div>
                             <div class="panel-body">
-                                {%for i in next_match[:1]%}
-                                <h5 class="panel-body-text">{{i.league}}</h5>
+                                {% for i in next_match[:1] %}
+                                <h5 class="panel-body-text">{{ i.league }}</h5>
                                 <div class="clubs-container">
                                     <div class="club1">
-                                        <h5>{{i.h_name}}</h5>
+                                        <h5 id="team1">{{i.h_name}}</h5>
                                          <img src="{{i.h_image }}" alt="{{ i.h_name }}">
                                     </div>
                                     <h3 class="score">{{i.result}}</h3>
                                     <div class="club2">
                                          <img src="{{ i.a_image }}" alt="{{ i.a_name }}">
-                                        <h5>{{i.a_name}}</h5>
+                                        <h5 id="team2">{{i.a_name}}</h5>
                                     </div>
                                 </div>
                                 <h5 class="panel-body-date">{{i.date}}</h5>
+                                <button type="button" class="btn btn-primary" style="background-color: #338766;" onclick="predictWinner(event)">Predict Winner</button>
+                                <div id="predictionResult" style="font-weight: bold"></div>
+
                                 {%endfor%}
                             </div>
-
                         </div>
                        <div class="panel panel-2">
                             <div class="panel-header">

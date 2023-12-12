@@ -19,7 +19,7 @@
 </div>
 <div class="col-md-1 sidebar">
     <div class="sidebar-header">
-        <h5 class="sidebar-title" style="font-size: 20px">Pinned Leagues</h5>
+        <h5 class ="hg-border-1" style="font-size: 20px;margin-top: 90px;">Pinned Leagues</h5>
     </div>
     <ul class="nav flex-column">
         <li class="nav-item">
@@ -30,18 +30,29 @@
             <a class="nav-link league-link" href="/matches/view?match_date=&league_name=Ligue%201" id="ligue1Link">Ligue 1</a>
             <section class="info-section">
             <div class="info-container">
-                <h1>Predict Winner between Two Teams</h1>
-    <form id="predictionForm">
-        <label for="team1">Team 1:</label>
-        <input type="text" id="team1" name="team1" required><br><br>
+                <h5 class ="hg-border-1" style="font-size: 20px">Predict Winner</h5>
+     <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-mdff-6">
+        <form id="predictionForm">
+          <div class="form-group">
+            <label for="team1">Team 1:</label>
+            <input type="text" class="form-control" id="team1" name="team1" required>
+          </div>
 
-        <label for="team2">Team 2</label>
-        <input type="text" id="team2" name="team2" required><br><br>
+          <div class="form-group">
+            <label for="team2">Team 2:</label>
+            <input type="text" class="form-control" id="team2" name="team2" required>
+          </div>
 
-        <input type="button" value="Predict Winner" onclick="predictWinner()">
-    </form>
+          <button type="button" class="btn btn-primary" style="background-color: #338766;" onclick="predictWinner()">Predict</button>
+        </form>
 
-    <div id="predictionResult"></div>
+        <div id="predictionResult" class="mt-3" style="font-weight: bold"></div>
+      </div>
+    </div>
+  </div>
+
 
     <script>
         function predictWinner() {
