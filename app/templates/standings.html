@@ -107,35 +107,37 @@
     <table class="coach-table">
         <thead>
             <tr>
-                <th>Home Team Odds of Winning</th>
-                <th>Home Team</th>
-                <th>{{ matchday[0].matchweek }}</th>
-                <th>Away Team</th>
-                <th>Away Team Odds of Winning</th>
+                <th>W Odds</th>
+                            <th>Home Team</th>
+                            <th>{{ matchday[0].matchweek }}</th>
+                            <th>Away Team</th>
+                            <th>W Odds</th>
             </tr>
         </thead>
         <tbody>
-            {% for match in matchday %}
-                {% if match.league == "LaLiga" %}
-                    <tr>
-                        <td>{{ odds_h_wins.get(match.h_team, 'N/A') }}%</td>
-                        <td class="home-team">
-                            {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
-                        </td>
-                        <td>
-                            <div class="match-time">{{ match.time }}</div>
-                            <div class="match-date">{{ match.date }}</div>
-                        </td>
-                        <td class="away-team">
-                            <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
-                        </td>
-                        <!-- Display odds of each team winning -->
-
-                        <td>{{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
-                    </tr>
-                {% endif %}
-            {% endfor %}
-        </tbody>
+                    {% for match in matchday %}
+                        {% if match.league == "LaLiga" %}
+                            <tr>
+                               <td class="home-odds" style="{% if odds_h_wins.get(match.h_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_h_wins.get(match.h_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_h_wins.get(match.h_team, 0) < 50 %}background-color: #f08078;{% elif odds_h_wins.get(match.h_team, 0) < 40 %}background-color: red;{% endif %}">
+                                    {{ odds_h_wins.get(match.h_team, 'N/A') }}%
+                                </td>
+                                <td class="home-team">
+                                    {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
+                                </td>
+                                <td>
+                                    <div class="match-time">{{ match.time }}</div>
+                                    <div class="match-date">{{ match.date }}</div>
+                                </td>
+                                <td class="away-team">
+                                    <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
+                                </td>
+                                <!-- Display odds of each team winning -->
+                                <td class="away-odds" style="{% if odds_a_wins.get(match.a_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_a_wins.get(match.a_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_a_wins.get(match.a_team, 0) < 50 %}background-color: #f08078;{% elif odds_a_wins.get(match.a_team, 0) < 40 %}background-color: red;{% endif %}">
+                                {{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
     </table>
 </div>
 
@@ -282,35 +284,37 @@
                 <table class="coach-table">
                     <thead>
                         <tr>
-                            <th>Home Team Odds of Winning</th>
+                            <th>W Odds</th>
                             <th>Home Team</th>
                             <th>{{ matchday[14].matchweek }}</th>
                             <th>Away Team</th>
-                            <th>Away Team Odds of Winning</th>
+                            <th>W Odds</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {% for match in matchday %}
-                            {% if match.league == "Bundesliga" %}
-                                <tr>
-                                    <td>{{ odds_h_wins.get(match.h_team, 'N/A') }}%</td>
-                                    <td class="home-team">
-                                        {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
-                                    </td>
-                                    <td>
-                                        <div class="match-time">{{ match.time }}</div>
-                                        <div class="match-date">{{ match.date }}</div>
-                                    </td>
-                                    <td class="away-team">
-                                        <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
-                                    </td>
-                                    <!-- Display odds of each team winning -->
-
-                                    <td>{{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </tbody>
+                   <tbody>
+                    {% for match in matchday %}
+                        {% if match.league == "Bundesliga" %}
+                            <tr>
+                               <td class="home-odds" style="{% if odds_h_wins.get(match.h_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_h_wins.get(match.h_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_h_wins.get(match.h_team, 0) < 50 %}background-color: #f08078;{% elif odds_h_wins.get(match.h_team, 0) < 40 %}background-color: red;{% endif %}">
+                                    {{ odds_h_wins.get(match.h_team, 'N/A') }}%
+                                </td>
+                                <td class="home-team">
+                                    {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
+                                </td>
+                                <td>
+                                    <div class="match-time">{{ match.time }}</div>
+                                    <div class="match-date">{{ match.date }}</div>
+                                </td>
+                                <td class="away-team">
+                                    <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
+                                </td>
+                                <!-- Display odds of each team winning -->
+                                <td class="away-odds" style="{% if odds_a_wins.get(match.a_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_a_wins.get(match.a_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_a_wins.get(match.a_team, 0) < 50 %}background-color: #f08078;{% elif odds_a_wins.get(match.a_team, 0) < 40 %}background-color: red;{% endif %}">
+                                {{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
                 </table>
             </div>
             <div id="bundesliga-menu2" class="tab-pane fade">
@@ -455,35 +459,37 @@
     <table class="coach-table">
         <thead>
             <tr>
-                <th>Home Team Odds of Winning</th>
-                <th>Home Team</th>
-                <th>{{ matchday[24].matchweek }}</th>
-                <th>Away Team</th>
-                <th>Away Team Odds of Winning</th>
+                <th>W Odds</th>
+                            <th>Home Team</th>
+                            <th>{{ matchday[24].matchweek }}</th>
+                            <th>Away Team</th>
+                            <th>W Odds</th>
             </tr>
         </thead>
         <tbody>
-            {% for match in matchday %}
-                {% if match.league == "Ligue 1" %}
-                    <tr>
-                        <td>{{ odds_h_wins.get(match.h_team, 'N/A') }}%</td>
-                        <td class="home-team">
-                            {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
-                        </td>
-                        <td>
-                            <div class="match-time">{{ match.time }}</div>
-                            <div class="match-date">{{ match.date }}</div>
-                        </td>
-                        <td class="away-team">
-                            <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
-                        </td>
-                        <!-- Display odds of each team winning -->
-
-                        <td>{{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
-                    </tr>
-                {% endif %}
-            {% endfor %}
-        </tbody>
+                    {% for match in matchday %}
+                        {% if match.league == "Ligue 1" %}
+                            <tr>
+                               <td class="home-odds" style="{% if odds_h_wins.get(match.h_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_h_wins.get(match.h_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_h_wins.get(match.h_team, 0) < 50 %}background-color: #f08078;{% elif odds_h_wins.get(match.h_team, 0) < 40 %}background-color: red;{% endif %}">
+                                    {{ odds_h_wins.get(match.h_team, 'N/A') }}%
+                                </td>
+                                <td class="home-team">
+                                    {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
+                                </td>
+                                <td>
+                                    <div class="match-time">{{ match.time }}</div>
+                                    <div class="match-date">{{ match.date }}</div>
+                                </td>
+                                <td class="away-team">
+                                    <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
+                                </td>
+                                <!-- Display odds of each team winning -->
+                                <td class="away-odds" style="{% if odds_a_wins.get(match.a_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_a_wins.get(match.a_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_a_wins.get(match.a_team, 0) < 50 %}background-color: #f08078;{% elif odds_a_wins.get(match.a_team, 0) < 40 %}background-color: red;{% endif %}">
+                                {{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
     </table>
 </div>
             <div id="ligue1-menu2" class="tab-pane fade">
@@ -630,35 +636,37 @@
                 <table class="coach-table">
                     <thead>
                         <tr>
-                            <th>Home Team Odds of Winning</th>
+                           <th>W Odds</th>
                             <th>Home Team</th>
                             <th>{{ matchday[33].matchweek }}</th>
                             <th>Away Team</th>
-                            <th>Away Team Odds of Winning</th>
+                            <th>W Odds</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for match in matchday %}
-                            {% if match.league == "Serie A" %}
-                                <tr>
-                                    <td>{{ odds_h_wins.get(match.h_team, 'N/A') }}%</td>
-                                    <td class="home-team">
-                                        {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
-                                    </td>
-                                    <td>
-                                        <div class="match-time">{{ match.time }}</div>
-                                        <div class="match-date">{{ match.date }}</div>
-                                    </td>
-                                    <td class="away-team">
-                                        <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
-                                    </td>
-                                    <!-- Display odds of each team winning -->
-
-                                    <td>{{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </tbody>
+                    {% for match in matchday %}
+                        {% if match.league == "Serie A" %}
+                            <tr>
+                               <td class="home-odds" style="{% if odds_h_wins.get(match.h_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_h_wins.get(match.h_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_h_wins.get(match.h_team, 0) < 50 %}background-color: #f08078;{% elif odds_h_wins.get(match.h_team, 0) < 40 %}background-color: red;{% endif %}">
+                                    {{ odds_h_wins.get(match.h_team, 'N/A') }}%
+                                </td>
+                                <td class="home-team">
+                                    {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
+                                </td>
+                                <td>
+                                    <div class="match-time">{{ match.time }}</div>
+                                    <div class="match-date">{{ match.date }}</div>
+                                </td>
+                                <td class="away-team">
+                                    <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
+                                </td>
+                                <!-- Display odds of each team winning -->
+                                <td class="away-odds" style="{% if odds_a_wins.get(match.a_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_a_wins.get(match.a_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_a_wins.get(match.a_team, 0) < 50 %}background-color: #f08078;{% elif odds_a_wins.get(match.a_team, 0) < 40 %}background-color: red;{% endif %}">
+                                {{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
                 </table>
             </div>
             <div id="seriea-menu2" class="tab-pane fade">
@@ -812,28 +820,30 @@
                             <th>W Odds</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {% for match in matchday %}
-                            {% if match.league == "Premier League" %}
-                                <tr>
-                                    <td class="home-odds">{{ odds_h_wins.get(match.h_team, 'N/A') }}%</td>
-                                    <td class="home-team">
-                                        {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
-                                    </td>
-                                    <td>
-                                        <div class="match-time">{{ match.time }}</div>
-                                        <div class="match-date">{{ match.date }}</div>
-                                    </td>
-                                    <td class="away-team">
-                                        <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
-                                    </td>
-                                    <!-- Display odds of each team winning -->
-
-                                    <td class="away-odds">{{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </tbody>
+                   <tbody>
+                    {% for match in matchday %}
+                        {% if match.league == "Premier League" %}
+                            <tr>
+                               <td class="home-odds" style="{% if odds_h_wins.get(match.h_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_h_wins.get(match.h_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_h_wins.get(match.h_team, 0) < 50 %}background-color: #f08078;{% elif odds_h_wins.get(match.h_team, 0) < 40 %}background-color: red;{% endif %}">
+                                    {{ odds_h_wins.get(match.h_team, 'N/A') }}%
+                                </td>
+                                <td class="home-team">
+                                    {{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo">
+                                </td>
+                                <td>
+                                    <div class="match-time">{{ match.time }}</div>
+                                    <div class="match-date">{{ match.date }}</div>
+                                </td>
+                                <td class="away-team">
+                                    <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}
+                                </td>
+                                <!-- Display odds of each team winning -->
+                                <td class="away-odds" style="{% if odds_a_wins.get(match.a_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_a_wins.get(match.a_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_a_wins.get(match.a_team, 0) < 50 %}background-color: #f08078;{% elif odds_a_wins.get(match.a_team, 0) < 40 %}background-color: red;{% endif %}">
+                                {{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
                 </table>
             </div>
             <div id="premierleague-menu2" class="tab-pane fade">
@@ -1168,9 +1178,11 @@
                 <table class="coach-table">
                     <thead>
                         <tr>
+<!--                            <th>W Odds</th>-->
                             <th>Home Team</th>
-                            <th>{{ matchday[55].matchweek}}</th>
+                            <th>{{ matchday[55].matchweek }}</th>
                             <th>Away Team</th>
+<!--                            <th>W Odds</th>-->
 
                         </tr>
                     </thead>
@@ -1178,13 +1190,17 @@
                         {% for match in matchday %}
                             {% if match.league == "Champions League" %}
                                 <tr>
+<!--                                     <td class="home-odds" style="{% if odds_h_wins.get(match.h_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_h_wins.get(match.h_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_h_wins.get(match.h_team, 0) < 50 %}background-color: #f08078;{% elif odds_h_wins.get(match.h_team, 0) < 40 %}background-color: red;{% endif %}">-->
+<!--                                    {{ odds_h_wins.get(match.h_team, 'N/A') }}%-->
+                                </td>
                                     <td class="home-team">{{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo"></td>
                                     <td><div class="match-time">{{ match.time }}</div>
                                         <div class="match-date">{{ match.date }}</div>
                                     </td>
 
                                     <td class="away-team"> <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}</td>
-
+<!--                                    <td class="away-odds" style="{% if odds_a_wins.get(match.a_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_a_wins.get(match.a_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_a_wins.get(match.a_team, 0) < 50 %}background-color: #f08078;{% elif odds_a_wins.get(match.a_team, 0) < 40 %}background-color: red;{% endif %}">-->
+<!--                                {{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>-->
                                 </tr>
                             {% endif %}
                         {% endfor %}
@@ -1497,9 +1513,11 @@
                 <table class="coach-table">
                     <thead>
                         <tr>
+<!--                            <th>W Odds</th>-->
                             <th>Home Team</th>
-                            <th>{{ matchday[71].matchweek}}</th>
+                            <th>{{ matchday[71].matchweek }}</th>
                             <th>Away Team</th>
+<!--                            <th>W Odds</th>-->
 
                         </tr>
                     </thead>
@@ -1507,13 +1525,16 @@
                         {% for match in matchday %}
                             {% if match.league == "Europa League" %}
                                 <tr>
+<!--                                     <td class="home-odds" style="{% if odds_h_wins.get(match.h_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_h_wins.get(match.h_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_h_wins.get(match.h_team, 0) < 50 %}background-color: #f08078;{% elif odds_h_wins.get(match.h_team, 0) < 40 %}background-color: red;{% endif %}">-->
+<!--                                    {{ odds_h_wins.get(match.h_team, 'N/A') }}%-->
                                     <td class="home-team">{{ match.h_team }} <img src="{{ match.h_image }}" alt="{{ match.h_name }} Image" class="team-logo"></td>
                                     <td><div class="match-time">{{ match.time }}</div>
                                         <div class="match-date">{{ match.date }}</div>
                                     </td>
 
                                     <td class="away-team"> <img src="{{ match.a_image }}" alt="{{ match.a_name }} Image" class="team-logo">{{ match.a_team }}</td>
-
+<!--                                    <td class="away-odds" style="{% if odds_a_wins.get(match.a_team, 0) > 60 %}background-color: #1ad63f;{% elif 50 <= odds_a_wins.get(match.a_team, 0) < 60 %}background-color: lightgreen;{% elif 40 <= odds_a_wins.get(match.a_team, 0) < 50 %}background-color: #f08078;{% elif odds_a_wins.get(match.a_team, 0) < 40 %}background-color: red;{% endif %}">-->
+<!--                                {{ odds_a_wins.get(match.a_team, 'N/A') }}%</td>-->
                                 </tr>
                             {% endif %}
                         {% endfor %}

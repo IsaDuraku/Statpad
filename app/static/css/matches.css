@@ -266,3 +266,21 @@ a {
 .tablehead {
     background: #338766;
 }
+
+.hg-border-1{
+margin-top: 14px;
+    background: #222831;
+    text-align: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    height: 43px;
+    width: 205px;
+}
+
+.col-mdff-6{
+    width: 25%;
+    margin-left: -205px;
+}

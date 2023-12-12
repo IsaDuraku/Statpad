@@ -530,9 +530,10 @@ p{
 
 .home-odds {
   border: 1px solid #000; /* Add a black border around the element */
+    width: 35px;
 
 }
 .away-odds {
   border: 1px solid #000; /* Add a black border around the element */
-
+    width: 35px;
 }
