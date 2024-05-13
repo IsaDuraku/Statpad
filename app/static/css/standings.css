@@ -6,7 +6,17 @@
     background-color: #3a0b58;
 
 }
-
+#toggleTables,#toggleTablesBundesliga,#toggleTablesLaLiga,#toggleTablesLigue1,#toggleTablesSerieA{
+    background-color: #161c4b;
+    padding: 5px 8px;
+    color: white;
+    font-size: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+#simulFoto{
+    width: 38px;
+}
 .subbanner {
   background-image: url('https://www.prodirectsport.com/-/media/prodirect/project/en/soccer/list-page-banners---fredhopper/equipment/footballs/puma/fh-d-puma-efl-ball-020523.jpg'); /* Replace 'your-image-url.jpg' with the URL of your image */
   background-size: cover;

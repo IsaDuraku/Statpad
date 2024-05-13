@@ -60,6 +60,6 @@ def scrape_and_save_match_data(years):
     # Check for existing data and append only new data
     if os.path.exists(file_path):
         match_df = pd.concat([existing_data, match_df])
-        match_df = match_df.drop_duplicates(subset=match_df.columns.difference(['season', 'team', 'comp']))
+        match_df = match_df.drop_duplicates(subset=match_df.columns.difference(['season', 'comp']))
 
     match_df.to_csv(file_path, index=False)

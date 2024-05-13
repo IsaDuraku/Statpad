@@ -1,5 +1,9 @@
+import difflib
+
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
+
+from app.models.League_Simulation import LeagueSimulation
 from app.models.matchday import Matchday
 from app.models.coaches import CoachesDB
 from app.models.media import MediaDB
@@ -19,6 +23,32 @@ router = APIRouter(
     tags=['league_table']
 )
 templates=Jinja2Templates(directory='templates')
+
+
+def get_logo_url(team_name):
+    db = SessionLocal()
+    league_table = db.query(LeagueTable).all()
+
+    # Check for exact matches
+    for team in league_table:
+        if team.club.lower() == team_name.lower():
+            return team.imageurl  # Assuming imageurl is the field containing image URLs
+
+    # Check for partial matches using similarity ratio
+    for team in league_table:
+        ratio = difflib.SequenceMatcher(None, team.club.lower(), team_name.lower()).ratio()
+        if ratio >= 0.5:
+            return team.imageurl  # Assuming imageurl is the field containing image URLs
+    for team in league_table:
+        club_name_parts = team.club.lower().split()
+        team_name_parts = team_name.lower().split()
+        if len(club_name_parts) > 1 and club_name_parts[0] == team_name_parts[0]:
+            return team.imageurl  # Assuming imageurl is the field containing image URLs
+
+        # Check for partial matches with reverse comparison (team_name within team.club)
+
+    return ""
+
 @router.get("/scrape")
 async def scrape_and_save_to_db():
     db = SessionLocal()
@@ -42,10 +72,12 @@ def league_standings():
     db.close()
     return leaguetable
 
+
 @router.get('/view')
 def view_league_tables(request: Request):
     db = SessionLocal()
     try:
+        league_data = db.query(LeagueSimulation).all()
         league_table = db.query(LeagueTable).all()
         coaches = db.query(CoachesDB).all()
         media = db.query(MediaDB).all()
@@ -79,6 +111,7 @@ def view_league_tables(request: Request):
             odds_h_wins[H_Team] = round(odds_team1_wins, 2)
             odds_a_wins[A_Team] = round(odds_team2_wins, 2)
 
+
         return templates.TemplateResponse('standings.html', {
             'request': request,
             'league_table': league_table,
@@ -92,7 +125,10 @@ def view_league_tables(request: Request):
             'team_evaluations': team_evaluations,
             'odds_h_wins': odds_h_wins,
             'odds_a_wins': odds_a_wins,
+            'league_data': league_data,
+            'get_logo_url': get_logo_url
         })
+
     finally:
         db.close()
 

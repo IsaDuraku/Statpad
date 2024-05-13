@@ -29,10 +29,13 @@ from app.routers.players_new import players_new
 from app.routers.Predictions import Predictions
 from app.routers.contact import contact
 from app.routers.Match_data import match_data_router
+git
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
 
 app.include_router(Predictions.router)
 app.include_router(user_routes.router, prefix="/api")
@@ -60,6 +63,7 @@ app.include_router(stadiums_info.router)
 app.include_router(players_new.router)
 app.include_router(contact.router)
 app.include_router(match_data_router.router)
+
 @app.on_event("startup")
 async def startup():
     scheduler.start()

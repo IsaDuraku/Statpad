@@ -1,17 +1,24 @@
 import csv
 
-from fastapi import FastAPI, APIRouter, HTTPException
+import json
+
+from sqlalchemy.orm import Session
+from starlette.responses import HTMLResponse
+
+from app.database import SessionLocal
+from fastapi import FastAPI, APIRouter, HTTPException, Depends
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, confusion_matrix
 from fastapi.templating import Jinja2Templates
 from starlette.requests import Request
+from app.models.League_Simulation import LeagueSimulation
 
 router = APIRouter(
     prefix='/predictions',  # Set the prefix to 'matches'
     tags=['predictions']
 )
-templates = Jinja2Templates(directory='templates')
+templates = Jinja2Templates(directory="templates")
 # Load the model and required data
 matches = pd.read_csv("utils/all_matches.csv", index_col=0)
 matches["date"] = pd.to_datetime(matches["date"])
@@ -48,6 +55,7 @@ def replace_opponent(text):
     text = text.replace('Leverkusen', 'Bayer Leverkusen') if 'Bayer' not in text else text
     text = text.replace("M'Gladbach", "Monchengladbach")
     text = text.replace('Köln', 'Koln')
+    text = text.replace('Paris S-G', 'PSG')
     return text
 
 
@@ -58,6 +66,7 @@ def replace_teams(text):
     text = text.replace('Brighton and Hove Albion', 'Brighton')
     text = text.replace('West Ham United', 'West Ham')
     text = text.replace('Internazionale', 'Inter')
+    text = text.replace('Paris Saint Germain', 'PSG')
     return text
 
 
@@ -69,12 +78,16 @@ column_name2 = 'team'
 df[column_name2] = df[column_name2].apply(replace_teams)
 # Save the modified DataFrame back to a new CSV file or the same file if needed
 output_file_path = 'utils/all_matches.csv'  # Replace 'modified_file.csv' with your desired output file path
+# Remove duplicate rows from the DataFrame
+df.drop_duplicates(inplace=True)
+
+# Save the modified DataFrame back to the same file
 df.to_csv(output_file_path, index=False)
 
 # Define a function for calculating rolling averages
 def rolling_averages(group, cols, new_cols):
     group = group.sort_values("date")
-    rolling_stats = group[cols].rolling(3, closed="left").mean()
+    rolling_stats = group[cols].rolling(5, closed="left").mean()
     group[new_cols] = rolling_stats
     group = group.dropna(subset=new_cols)
     return group
@@ -93,7 +106,7 @@ rolling_matches.index = range(rolling_matches.shape[0])
 # Function to make predictions
 def make_predictions(data, predictors):
     train = data[(data["date"] < '2024-08-08')]
-    test = data[data["date"] > '2020-01-01']
+    test = data[data["date"] > '2018-01-01']
     rf.fit(train[predictors], train["target"])
     preds = rf.predict(test[predictors])
     combined = pd.DataFrame(dict(actual=test["target"], prediction=preds), index=test.index)
@@ -137,14 +150,30 @@ def predict_winner(team1, team2):
     threshold = 0.10
 
     if abs(team1_wins - team2_wins) <= threshold * (team1_wins +team1_draw + team2_wins + team2_draw):
-        return f"It's predicted to be a draw{team1_wins}, {team2_wins}"
+        return f"It's predicted to be a draw {team1}:{team1_wins} to the {team2_wins}:{team2}"
 
     elif team1_wins > team2_wins:
-        return f"{team1} is predicted to win {team1_wins} to {team2_wins}"
+        return f"{team1} is predicted to win {team1_wins} to the {team2_wins} {team2}"
 
     else:
-        return f"{team2} is predicted to win {team2_wins} to {team1_wins}"
+        return f"{team2} is predicted to win {team2_wins} to the {team1_wins} {team1}"
 
+
+def save_league_simulation_results(league_name: str, league_winner: str, team_positions: dict):
+    db = SessionLocal()
+
+    # Loop through the team positions and save them individually
+    for team_name, team_position in team_positions.items():
+        result = LeagueSimulation(
+            league_name=league_name,
+            league_winner=league_winner,
+            team_name=team_name,
+            team_position=team_position
+        )
+        db.add(result)
+
+    db.commit()
+    db.close()
 
 @router.get("/predict_winner")
 async def predict_winner_view(request: Request, team1: str, team2: str):
@@ -155,9 +184,9 @@ async def predict_winner_view(request: Request, team1: str, team2: str):
     winner = predict_winner(team1, team2)
     return winner
 
-
 @router.get("/simulate_Premier_league")
 async def simulate_matches_view():
+    league_name = "Premier League"
     league_results = {}
     teams = set()  # Using a set to store unique team names
 
@@ -172,6 +201,8 @@ async def simulate_matches_view():
 
     # Simulate matches between teams
     teams_list = list(teams)  # Convert set back to a list for iteration
+    league_results = {}  # Reset league_results to store new results
+
     for i in range(len(teams_list)):
         team1 = teams_list[i]
         for j in range(i + 1, len(teams_list)):
@@ -204,17 +235,23 @@ async def simulate_matches_view():
     # Determine the league winner
     league_winner = sorted_teams[0][0]
 
-    # Generate positions for all teams
-    positions = {team: pos + 1 for pos, (team, _) in enumerate(sorted_teams)}
+    # Save individual team positions in the database
+    team_positions = {team: pos + 1 for pos, (team, _) in enumerate(sorted_teams)}
+    save_league_simulation_results(league_name=league_name, league_winner=league_winner, team_positions=team_positions)
 
-    return {
-        "league_winner": league_winner,
-        "team_positions": positions
+    # Return only the league winner as league_results is no longer used
+    simulation_result = {
+        "league_name": league_name,
+        "league_winner": league_winner
     }
+
+    return simulation_result
+
 
 
 @router.get("/simulate_SerieA")
 async def simulate_matches_view():
+    league_name = "Serie A"
     league_results = {}
     teams = set()  # Using a set to store unique team names
 
@@ -264,13 +301,17 @@ async def simulate_matches_view():
     # Generate positions for all teams
     positions = {team: pos + 1 for pos, (team, _) in enumerate(sorted_teams)}
 
-    return {
+    simulation_result = {
+        "league_name": league_name,
         "league_winner": league_winner,
         "team_positions": positions
     }
+    save_league_simulation_results(league_name=league_name, league_winner=league_winner, team_positions=positions)
+    return simulation_result
 
 @router.get("/simulate_BundesLiga")
 async def simulate_matches_view():
+    league_name= "Bundesliga"
     league_results = {}
     teams = set()  # Using a set to store unique team names
 
@@ -320,13 +361,17 @@ async def simulate_matches_view():
     # Generate positions for all teams
     positions = {team: pos + 1 for pos, (team, _) in enumerate(sorted_teams)}
 
-    return {
+    simulation_result = {
+        "league_name": league_name,
         "league_winner": league_winner,
         "team_positions": positions
     }
+    save_league_simulation_results(league_name=league_name, league_winner=league_winner, team_positions=positions)
+    return simulation_result
 
 @router.get("/simulate_LaLiga")
 async def simulate_matches_view():
+    league_name="La Liga"
     league_results = {}
     teams = set()  # Using a set to store unique team names
 
@@ -376,13 +421,17 @@ async def simulate_matches_view():
     # Generate positions for all teams
     positions = {team: pos + 1 for pos, (team, _) in enumerate(sorted_teams)}
 
-    return {
+    simulation_result = {
+        "league_name": league_name,
         "league_winner": league_winner,
         "team_positions": positions
     }
+    save_league_simulation_results(league_name=league_name, league_winner=league_winner, team_positions=positions)
+    return simulation_result
 
 @router.get("/simulate_Ligue1")
 async def simulate_matches_view():
+    league_name="Ligue 1"
     league_results = {}
     teams = set()  # Using a set to store unique team names
 
@@ -432,7 +481,10 @@ async def simulate_matches_view():
     # Generate positions for all teams
     positions = {team: pos + 1 for pos, (team, _) in enumerate(sorted_teams)}
 
-    return {
+    simulation_result = {
+        "league_name": league_name,
         "league_winner": league_winner,
         "team_positions": positions
     }
+    save_league_simulation_results(league_name=league_name, league_winner=league_winner, team_positions=positions)
+    return simulation_result

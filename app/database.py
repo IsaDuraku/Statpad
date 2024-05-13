@@ -20,7 +20,10 @@ from app.models.team_next_clash import Base as NextMatchesBase
 from app.models.live_game_href import Base as href_Base
 from app.models.stadiums_info import Stadiumsinfo
 from app.models.players_new import Base as PlayersNewBase
+from app.models.League_Simulation import Base as LeagueSimulateBase
 from fastapi import FastAPI
+from app.models.publisher import Base as MagazineBase
+from app.models.publisher import Base as PublisherBase
 
 
 from decouple import config
@@ -30,10 +33,12 @@ app = FastAPI()
 
 # Configure the database connection
 DATABASE_URL = config("DATABASE_URL")
-engine = create_engine(DATABASE_URL)
+engine = create_engine(DATABASE_URL, pool_size=20, max_overflow=30)
 
 # Create tables if they don't exist
-
+PublisherBase.metadata.create_all(bind=engine)
+# MagazineBase.metadata.create_all(bind=engine)
+LeagueSimulateBase.metadata.create_all(bind=engine)
 TeamBase.metadata.create_all(bind=engine)
 NewsBase.metadata.create_all(bind=engine)
 MatchesBase.metadata.create_all(bind=engine)
